@@ -26,7 +26,6 @@ import {Actions} from 'react-native-router-flux'
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../components/Header'
 
 /**
  * The components needed from React
@@ -107,19 +106,23 @@ class Main extends Component {
       // you can add additional props to be passed to Subview here...
     })
   }
+  takePicture () {
+    Actions.TakePicture({
+      title: 'TakePicture'
+      // you can add additional props to be passed to Subview here...
+    })
+  }
 
   render () {
     return (
       <View style={styles.container}>
         <View>
-          <Header isFetching={this.props.auth.form.isFetching}
-            showState={this.props.global.showState}
-            currentState={this.props.global.currentState}
-            onGetState={this.props.actions.getState}
-            onSetState={this.props.actions.setState} />
 
           <Button style={styles.button} onPress={this.handlePress.bind(this)}>
             {I18n.t('Main.navigate')}
+          </Button>
+          <Button style={styles.button} onPress={this.takePicture.bind(this)}>
+            사진찍기 버튼
           </Button>
         </View>
       </View>

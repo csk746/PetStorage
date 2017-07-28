@@ -32,6 +32,7 @@
     "react-dom": "15.4.2",
     "react-mixin": "3.0.5",
     "react-native": "0.41.2",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-i18n": "1.0.0",
     "react-native-navbar": "1.6.0",
     "react-native-router-flux": "3.37.0",

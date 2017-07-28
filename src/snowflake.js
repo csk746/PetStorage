@@ -63,13 +63,10 @@ I18n.translations = Translations
  *
  */
 import App from './containers/App'
-import Login from './containers/Login'
-import Logout from './containers/Logout'
-import Register from './containers/Register'
-import ForgotPassword from './containers/ForgotPassword'
-import Profile from './containers/Profile'
+import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Subview from './containers/Subview'
+
 
 /**
  * ### icons
@@ -94,7 +91,6 @@ import {setStore} from './reducers/global/globalActions'
 import AuthInitialState from './reducers/auth/authInitialState'
 import DeviceInitialState from './reducers/device/deviceInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
-import ProfileInitialState from './reducers/profile/profileInitialState'
 
 /**
  *  The version of the app but not  displayed yet
@@ -113,7 +109,6 @@ function getInitialState () {
     auth: new AuthInitialState(),
     device: (new DeviceInitialState()).set('isMobile', true),
     global: (new GlobalInitialState()),
-    profile: new ProfileInitialState()
   }
   return _initState
 }
@@ -168,58 +163,22 @@ export default function native (platform) {
         <Provider store={store}>
           <Router sceneStyle={{ backgroundColor: 'white' }}>
             <Scene key='root' hideNavBar>
-              <Scene key='App'
-                component={App}
+              <Scene key='Main'
+                component={Main}
                 type='replace'
                 initial />
-
-              <Scene key='InitialLoginForm'
-                component={Register}
-                type='replace' />
-
-              <Scene key='Login'
-                component={Login}
-                type='replace' />
-
-              <Scene key='Register'
-                component={Register}
-                type='replace' />
-
-              <Scene key='ForgotPassword'
-                component={ForgotPassword}
-                type='replace' />
 
               <Scene key='Subview'
                 component={Subview} />
 
-              <Scene key='Tabbar'
-                tabs
-                hideNavBar
-                tabBarStyle={styles.tabBar}
-                default='Main'>
-
-                <Scene key='Logout'
-                  title={I18n.t('Snowflake.logout')}
-                  icon={TabIcon}
-                  iconName={'sign-out'}
-                  hideNavBar
-                  component={Logout} />
-
-                <Scene key='Main'
-                  title={I18n.t('Snowflake.main')}
-                  iconName={'home'}
-                  icon={TabIcon}
-                  hideNavBar
-                  component={Main}
-                  initial />
-
-                <Scene key='Profile'
-                  title={I18n.t('Snowflake.profile')}
+              <Scene key='TakePicture'
+                  title={'TakePicture'}
                   icon={TabIcon}
                   iconName={'gear'}
                   hideNavBar
-                  component={Profile} />
-              </Scene>
+                  component={TakePicture} />
+                  
+              
             </Scene>
           </Router>
         </Provider>
