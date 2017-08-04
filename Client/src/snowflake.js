@@ -65,6 +65,7 @@ I18n.translations = Translations
 import App from './containers/App'
 import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
+import Login from './containers/Login'
 import Subview from './containers/Subview'
 
 
@@ -163,10 +164,15 @@ export default function native (platform) {
         <Provider store={store}>
           <Router sceneStyle={{ backgroundColor: 'white' }}>
             <Scene key='root' hideNavBar>
-              <Scene key='Main'
-                component={Main}
+
+              <Scene key='Login'
+                component={Login}
                 type='replace'
                 initial />
+
+              <Scene key='Main'
+                component={Main}
+                type='replace'/>
 
               <Scene key='Subview'
                 component={Subview} />

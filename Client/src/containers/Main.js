@@ -22,7 +22,7 @@ import * as globalActions from '../reducers/global/globalActions'
  * Router
  */
 import {Actions} from 'react-native-router-flux'
-
+import NavigationBar from 'react-native-navbar'
 /**
  * The Header will display a Image and support Hot Loading
  */
@@ -34,7 +34,8 @@ import React, {Component} from 'react'
 import
 {
   StyleSheet,
-  View
+  View,
+  TouchableOpacity
 }
 from 'react-native'
 
@@ -86,6 +87,16 @@ var styles = StyleSheet.create({
     borderColor: '#FF3366',
     marginLeft: 10,
     marginRight: 10
+    // marginTop:520
+  },
+  picture: {
+    backgroundColor: '#FF3366',
+    borderColor: '#FF3366',
+    marginLeft: 40,
+    marginRight: 40,
+    // position:'absolute',
+    marginTop:520
+    // marginBottom:10
   }
 })
 /**
@@ -114,14 +125,26 @@ class Main extends Component {
   }
 
   render () {
+    var titleConfig = {
+      title: I18n.t('Subview.subview')
+    }
+
+    var leftButtonConfig = {
+      title: I18n.t('Subview.back'),
+      handler: Actions.pop
+    }
     return (
       <View style={styles.container}>
         <View>
-
+          <NavigationBar
+          title={titleConfig}
+          leftButton={
+            <TouchableOpacity onPress = {()=>{Actions.pop()}}/>
+          } />
           <Button style={styles.button} onPress={this.handlePress.bind(this)}>
             {I18n.t('Main.navigate')}
           </Button>
-          <Button style={styles.button} onPress={this.takePicture.bind(this)}>
+          <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
             사진찍기 버튼
           </Button>
         </View>
