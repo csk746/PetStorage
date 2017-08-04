@@ -35,7 +35,8 @@ import
 {
   StyleSheet,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Text
 }
 from 'react-native'
 
@@ -139,14 +140,17 @@ class Main extends Component {
           <NavigationBar
           title={titleConfig}
           leftButton={
-            <TouchableOpacity onPress = {()=>{Actions.pop()}}/>
+            <TouchableOpacity onPress = {()=>{Actions.pop()}}>
+              <Text>뒤로가기</Text>
+            </TouchableOpacity>
           } />
-          <Button style={styles.button} onPress={this.handlePress.bind(this)}>
+          <Text>마이페이지 영역</Text>
+          {/* <Button style={styles.button} onPress={this.handlePress.bind(this)}>
             {I18n.t('Main.navigate')}
-          </Button>
-          <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
+          </Button> */}
+          {/* <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
             사진찍기 버튼
-          </Button>
+          </Button> */}
         </View>
       </View>
     )

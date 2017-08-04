@@ -126,7 +126,7 @@ takePicture () {
   }
 goToMain () {
     Actions.Main({
-      title: 'Main'
+      // title: 'Main'
       // you can add additional props to be passed to Subview here...
     })
   }

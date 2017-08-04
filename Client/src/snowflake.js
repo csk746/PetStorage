@@ -172,7 +172,7 @@ export default function native (platform) {
 
               <Scene key='Main'
                 component={Main}
-                type='replace'/>
+                />
 
               <Scene key='Subview'
                 component={Subview} />
@@ -181,9 +181,7 @@ export default function native (platform) {
                   title={'TakePicture'}
                   icon={TabIcon}
                   iconName={'gear'}
-                  hideNavBar
                   component={TakePicture} />
-                  
               
             </Scene>
           </Router>
