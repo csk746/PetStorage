@@ -13,6 +13,9 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import com.projectseptember.RNGL.RNGLPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RCTCameraPackage(),
             new RNSimpleAlertDialogPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new RNGLPackage()
       );
     }
   };

@@ -24,8 +24,12 @@
     "docs": "./node_modules/docker/docker -w -i src/ -o ../snowflake-pages "
   },
   "dependencies": {
+    "@shoutem/ui": "^0.20.0",
     "apsl-react-native-button": "3.0.2",
+    "gl-react": "^2.2.10",
+    "gl-react-native": "^2.43.0",
     "immutable": "3.8.1",
+    "invariant": "2.2.0",
     "key-mirror": "1.0.1",
     "parse": "1.8.5",
     "react": "15.4.2",
@@ -38,6 +42,7 @@
     "react-native-router-flux": "3.37.0",
     "react-native-simple-store": "1.1.0",
     "react-native-simpledialog-android": "1.0.8",
+    "react-native-swipe-gestures": "^1.0.2",
     "react-native-vector-icons": "4.0.0",
     "react-redux": "5.0.2",
     "react-timer-mixin": "0.13.3",

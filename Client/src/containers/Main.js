@@ -141,11 +141,12 @@ class Main extends Component {
           leftButton={
             <TouchableOpacity onPress = {()=>{Actions.pop()}}/>
           } />
-          <Button style={styles.button} onPress={this.handlePress.bind(this)}>
-            {I18n.t('Main.navigate')}
-          </Button>
+
           <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
             사진찍기 버튼
+          </Button>
+          <Button style={styles.button} onPress={this.handlePress.bind(this)}>
+            {I18n.t('Main.navigate')}
           </Button>
         </View>
       </View>

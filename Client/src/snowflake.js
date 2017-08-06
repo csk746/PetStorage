@@ -168,7 +168,7 @@ export default function native (platform) {
               <Scene key='Login'
                 component={Login}
                 type='replace'
-                initial />
+                  initial />
 
               <Scene key='Main'
                 component={Main}
@@ -178,11 +178,8 @@ export default function native (platform) {
                 component={Subview} />
 
               <Scene key='TakePicture'
-                  title={'TakePicture'}
-                  icon={TabIcon}
-                  iconName={'gear'}
-                  hideNavBar
-                  component={TakePicture} />
+                  component={TakePicture}
+                />
                   
               
             </Scene>

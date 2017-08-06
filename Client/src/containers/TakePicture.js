@@ -1,37 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import {
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Screen } from '@shoutem/ui';
 import Camera from 'react-native-camera';
-import { bindActionCreators } from 'redux'
-import * as photoActions from '../reducers/photo/photoActions'
+import { Surface } from "gl-react-native";
 
-import {Actions} from 'react-native-router-flux'
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Main.js will depend on.
- *
- */
-function mapStateToProps (state) {
-  return {
-    photo: {
-      photoList:state.photo.photoList
-    }
-  }
-}
+import Saturate from '../components/Saturate';
 
-/*
- * Bind all the actions
- */
-function mapDispatchToProps (dispatch) {
-  return {
-    actions: bindActionCreators({ ...photoActions }, dispatch)
-  }
-}
+import { Shaders, Node, GLSL } from "gl-react";
+
+import {
+  StyleSheet,
+} from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -78,112 +56,89 @@ const styles = StyleSheet.create({
   buttonsSpace: {
     width: 10,
   },
+  hidden: {
+    width: 0,
+    height: 0
+  }
 });
 
-export class TakePicture extends React.Component{
 
+export default class TakePicture extends Component {
 
-   constructor(props) {
-    super(props);
-
-    this.state = {
-      camera: {
-        aspect: Camera.constants.Aspect.fill,
-        captureTarget: Camera.constants.CaptureTarget.temp,
-        captureQuality:'photo',
-        type: Camera.constants.Type.back,
-        orientation: Camera.constants.Orientation.auto,
-        flashMode: Camera.constants.FlashMode.auto,
-      },
-      isRecording: false
-    };
-
-
-    this.takePicture = this.takePicture.bind(this)
-    this.savePhoto = this.savePhoto.bind(this)
+  state = {
+    width: null,
+    height: null,
+    path: null
   }
- get typeIcon() {
-    let icon;
-    const { back, front } = Camera.constants.Type;
 
-    if (this.state.camera.type === back) {
-      icon = require('../../assets/ic_camera_rear_white.png');
-    } else if (this.state.camera.type === front) {
-      icon = require('../../assets/ic_camera_front_white.png');
-    }
 
-    return icon;
-  }
-  
-  switchType = () => {
-    let newType;
-    const { back, front } = Camera.constants.Type;
+  onLayout = (event) => {
+    const { width, height } = event.nativeEvent.layout;
+    this.camera = null;
 
-    if (this.state.camera.type === back) {
-      newType = front;
-    } else if (this.state.camera.type === front) {
-      newType = back;
-    }
+    this.start();
 
     this.setState({
-      camera: {
-        ...this.state.camera,
-        type: newType,
-      },
+      width, height
     });
   }
 
-  savePhoto(data) {
-    this.props.actions.setPhoto(data);
-  }
-  takePicture() {
- 
-    console.log("camera : " + this.camera)
+  refreshPicture = () => {
     if (this.camera) {
+      console.log("camera : " + this.camera)
       this.camera.capture()
         .then((data) => {
           console.log(data)
           console.log(data.path)
-          this.savePhoto(data.path)
+          this.setState({ path: data.path })
         }
         )
         .catch(err => console.error(err));
     }
+
+  }
+
+  start() {
+    this.timer = setInterval(() => this.refreshPicture(), 5000)
+  }
+
+  onComponentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Camera
-          ref={(cam) => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={this.state.camera.aspect}
-          captureTarget={this.state.camera.captureTarget}
-          type={this.state.camera.type}
-          flashMode={this.state.camera.flashMode}
-          captureQuality={this.state.camera.captureQuality}
-          onFocusChanged={() => {}}
-          onZoomChanged={() => {}}
-          defaultTouchToFocus
-          mirrorImage={false}
+    const { width, height } = this.state;
 
-        />
+    console.log(" width : " + width + " height  : " + height)
 
-          <View style={[styles.overlay, styles.bottomOverlay]}>
-            <TouchableOpacity
-                style={styles.captureButton}
-                onPress={this.takePicture}
-            >
-              <Image
-                  source={require('../../assets/ic_photo_camera_36pt.png')}
-              />
-            </TouchableOpacity>
-          </View>
-      </View>
-    );
+    const filter = {
+      contrast: 1,
+      saturation: 1,
+      brightness: 1
+    }
+
+    if (width && height) {
+      return (
+        <Screen onLayout={this.onLayout} >
+          <Camera style={{ flex: 1 }}
+            ref={cam => this.camera = cam}
+            captureQuality={Camera.constants.CaptureQuality["720p"]}
+            captureTarget={Camera.constants.captureTarget.temp}
+            aspect={Camera.constants.Aspect.fill}>
+
+            <Surface style={{ width, height }}>
+              <Saturate { ...filter }>
+                {{ uri: "https://i.imgur.com/uTP9Xfr.jpg" }}
+              </Saturate>
+            </Surface>
+          </Camera>
+        </Screen>
+      );
+    }
+    else {
+      return (
+        <Screen onLayout={this.onLayout} />
+      );
+    }
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(TakePicture)

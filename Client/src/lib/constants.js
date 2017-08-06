@@ -52,6 +52,9 @@ export default keyMirror({
 
   FORGOT_PASSWORD: null,
   LOGIN: null,
-  REGISTER: null
+  REGISTER: null,
+  
+  SAVE_PHOTO : null, 
+  UPLOAD_PHOTO : null ,
 
 })
