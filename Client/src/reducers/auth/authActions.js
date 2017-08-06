@@ -15,7 +15,6 @@
  * The actions supported
  */
 
-import keyMirror from 'key-mirror'
 
 const {
   SESSION_TOKEN_REQUEST,
