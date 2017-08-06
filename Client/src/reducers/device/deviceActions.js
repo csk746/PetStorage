@@ -22,7 +22,7 @@ const {
  * ## Set the platformState
  *
  */
-export function setPlatform (platform) {
+export function setPlatform(platform) {
   return {
     type: SET_PLATFORM,
     payload: platform
@@ -32,7 +32,7 @@ export function setPlatform (platform) {
  * ## set the version
  *
  */
-export function setVersion (version) {
+export function setVersion(version) {
   return {
     type: SET_VERSION,
     payload: version
