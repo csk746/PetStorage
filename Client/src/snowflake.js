@@ -177,9 +177,8 @@ export default function native(platform) {
 
               <Scene key='Main'
                 component={Main}
-                type={ActionConst.RESET}
-              />
-
+              >
+              </Scene>
               <Scene key='Subview'
                 component={Subview} />
 
