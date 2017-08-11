@@ -1,4 +1,4 @@
-git_url "https://github.com/bartonhammond/snowflake-certs"
+git_url "https://github.com/bartonhammond/petstorage-certs"
 
 type "development" # The default type, can be: appstore, adhoc or development
 

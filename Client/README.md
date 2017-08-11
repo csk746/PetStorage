@@ -1,13 +1,13 @@
-Snowflake ![snowflake](https://cloud.githubusercontent.com/assets/1282364/19871941/447b11ea-9f85-11e6-81d6-cb4b70faea6f.png)
+Snowflake ![petstorage](https://cloud.githubusercontent.com/assets/1282364/19871941/447b11ea-9f85-11e6-81d6-cb4b70faea6f.png)
 ==================================
 A React-Native starter mobile app, or maybe just an example, or maybe a boilerplate (you decide) for iOS and Android with a single code base, with 2 backends to chose from: a Hapi or Parse Server solution- [Demo](#screens)
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c072e4c80b2e477591170553b149772b)](https://www.codacy.com/app/bartonhammond/snowflake?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bartonhammond/snowflake&amp;utm_campaign=Badge_Grade)
-[![Join the chat at https://gitter.im/bartonhammond/snowflake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bartonhammond/snowflake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c072e4c80b2e477591170553b149772b)](https://www.codacy.com/app/bartonhammond/petstorage?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bartonhammond/petstorage&amp;utm_campaign=Badge_Grade)
+[![Join the chat at https://gitter.im/bartonhammond/petstorage](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bartonhammond/petstorage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![iOS](https://img.shields.io/badge/IOS--blue.svg) [![Build Status](https://www.bitrise.io/app/348ae0a97c5e147a.svg?token=RmDwzjeIGuo7i9MeazE1fg)](https://www.bitrise.io/app/348ae0a97c5e147a)
 ![Android](https://img.shields.io/badge/Android--blue.svg) [![Build Status](https://www.bitrise.io/app/1e0425744dcc7ce3.svg?token=uvZDZvo89BLXvjrArJJreQ)](https://www.bitrise.io/app/1e0425744dcc7ce3)
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/bartonhammond/snowflake/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/bartonhammond/petstorage/blob/master/LICENSE)
 [![React Native](https://img.shields.io/badge/react%20native-0.41.2-brightgreen.svg)](https://github.com/facebook/react-native)
 
 ## Installation
@@ -15,12 +15,12 @@ A React-Native starter mobile app, or maybe just an example, or maybe a boilerpl
 * [Install React-Native](https://facebook.github.io/react-native/docs/getting-started.html#content)
 
 ### Install Snowflake
-* Clone snowflake: `git clone https://github.com/bartonhammond/snowflake.git`
+* Clone petstorage: `git clone https://github.com/bartonhammond/petstorage.git`
 
 * install dependencies
 
 ```
-cd snowflake
+cd petstorage
 
 npm install
 ```
@@ -30,9 +30,9 @@ npm install
 #### Use the local or remote Snowflake Hapi Server
 To make things easy for you, the `config.example.js` has been initialized to use the remote **Snowflake Hapi Server** which is running on **Redhat OpenShift**.
 
-This **Snowflake Hapi Server** is Open Source.  It can run either locally or on **RedHat OpenShift**.  For your convince a server is running at: [https://snowflakeserver-bartonhammond.rhcloud.com](https://snowflakeserver-bartonhammond.rhcloud.com/)
+This **Snowflake Hapi Server** is Open Source.  It can run either locally or on **RedHat OpenShift**.  For your convince a server is running at: [https://petstorageserver-bartonhammond.rhcloud.com](https://petstorageserver-bartonhammond.rhcloud.com/)
 
-Please refer to [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift) for more information about the code and instructions for installation and setup of the server.
+Please refer to [https://github.com/bartonhammond/petstorage-hapi-openshift](https://github.com/bartonhammond/petstorage-hapi-openshift) for more information about the code and instructions for installation and setup of the server.
 
 #### The following commands are for the client
 
@@ -48,7 +48,7 @@ Please refer to [https://github.com/bartonhammond/snowflake-hapi-openshift](http
     parseRemote: false
   },
 ```
-* To run Hapi locally, follow the instructions at [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift).  You will have to install **MongoDB** and **Redis**.
+* To run Hapi locally, follow the instructions at [https://github.com/bartonhammond/petstorage-hapi-openshift](https://github.com/bartonhammond/petstorage-hapi-openshift).  You will have to install **MongoDB** and **Redis**.
 * **Note**: The default is to run remotely on the **RedHat OpenShift Snowflake Server** so there is nothing more to do if you want to use it! In that case, just use the `config.js` as is.
 * If you want to install and run  the **Snowflake Hapi Server** locally, then update the ```src/lib/config.js``` file as shown below.  
 * **Note**: use the ip from the `ifconfig` command for the `local`. This ip matches the **Snowflake Hapi Server** setup.
@@ -61,16 +61,16 @@ Please refer to [https://github.com/bartonhammond/snowflake-hapi-openshift](http
       url: 'http://192.168.0.5:5000'
     },
     remote: {
-      url: 'https://snowflakeserver-bartonhammond.rhcloud.com/'
+      url: 'https://petstorageserver-bartonhammond.rhcloud.com/'
     }
   }
 
 ```
 
 ### Using Parse Server
-This **Snowflake Parse Heroku Server** is Open Source.  It can run either locally or on **Heroku**.  For your convince a server is running at: [https://snowflake-parse.herokuapp.com/parse](https://snowflake-parse.herokuapp.com/parse)
+This **Snowflake Parse Heroku Server** is Open Source.  It can run either locally or on **Heroku**.  For your convince a server is running at: [https://petstorage-parse.herokuapp.com/parse](https://petstorage-parse.herokuapp.com/parse)
 
-Please refer to [https://github.com/bartonhammond/snowflake-parse-heroku](https://github.com/bartonhammond/snowflake-parse-heroku) for more information about the code and instructions for installation and setup of the server.
+Please refer to [https://github.com/bartonhammond/petstorage-parse-heroku](https://github.com/bartonhammond/petstorage-parse-heroku) for more information about the code and instructions for installation and setup of the server.
 
 #### The following instructions are for the client
 * Copy the ```src/lib/config.example.js``` to ```src/lib/config.js```.  
@@ -93,12 +93,12 @@ Please refer to [https://github.com/bartonhammond/snowflake-parse-heroku](https:
 
 ```
   PARSE: {
-    appId: 'snowflake',                              // match APP_ID in parse-server's index.js
+    appId: 'petstorage',                              // match APP_ID in parse-server's index.js
     local: {
     	url: 'http://localhost:1337/parse'             // match SERVER_URL in parse-server's index.js
     },
     remote: {
-    	url: 'https://enter_your_snowflake_host.com'   // match SERVER_URL in parse-server's index.js
+    	url: 'https://enter_your_petstorage_host.com'   // match SERVER_URL in parse-server's index.js
     }
   }
 
@@ -146,7 +146,7 @@ Snowflake has a **choice of servers**, either
 
 * **Hapi Server** that runs on **RedHat Openshift** and **locally**.
 
-    See [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift) for more information about the OpenShift Hapi server.  The setup instructions below describe how to select the server you desire.  
+    See [https://github.com/bartonhammond/petstorage-hapi-openshift](https://github.com/bartonhammond/petstorage-hapi-openshift) for more information about the OpenShift Hapi server.  The setup instructions below describe how to select the server you desire.  
 
 * **Parse Server** that runs **remotely** or **locally**
 
@@ -164,7 +164,7 @@ Snowflake has a **choice of servers**, either
 - [Redux State Management](#redux-state-management)
 - [Hot Reloading](#hot-reloading)
 - [FAQ](#faq)
-- [Source documentation](http://bartonhammond.github.io/snowflake/snowflake.js.html)
+- [Source documentation](http://bartonhammond.github.io/petstorage/petstorage.js.html)
 
 ----------
 
@@ -224,7 +224,7 @@ We have listed some of our favorite starter kits and boilerplates to get started
 [https://www.icicletech.com/blog/react-native-starter-kits](https://www.icicletech.com/blog/react-native-starter-kits)
 
 **Infinite.Red: Ignite Your Mobile Development:**
-> awesome releases as Barton Hammond’s snowflake.
+> awesome releases as Barton Hammond’s petstorage.
 
 [https://shift.infinite.red/ignite-your-mobile-development-32417590ed3e#.pz7u3djtm](https://shift.infinite.red/ignite-your-mobile-development-32417590ed3e#.pz7u3djtm)
 
@@ -241,7 +241,7 @@ We have listed some of our favorite starter kits and boilerplates to get started
 >project is awesome, thank you for providing it!
 
 **Eric**:
-> I've been going through snowflake and love what you have done!
+> I've been going through petstorage and love what you have done!
 
 **Nikos**:
 > wow new videos, nice
@@ -250,7 +250,7 @@ We have listed some of our favorite starter kits and boilerplates to get started
 >thanks for the thorough videos!
 
 **Patrick**
-> just wanna snowflake is awesome
+> just wanna petstorage is awesome
 
 **Justin**
 >Congrats - the project is super helpful
@@ -296,7 +296,7 @@ As an alternative to Hapi, Snowflake also supports Parse Server.  Parse Server i
 Parse Server works with the Express web application framework.  You can test it locally and push changes to your parse remote server when you are ready.
 
 ### [OpenShift](https://www.openshift.com/)
-I chose OpenShift because I could get a reasonable performing application for free.  The Snowflake server ([https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift) uses 3 gears with MongoDB and Redis.  
+I chose OpenShift because I could get a reasonable performing application for free.  The Snowflake server ([https://github.com/bartonhammond/petstorage-hapi-openshift](https://github.com/bartonhammond/petstorage-hapi-openshift) uses 3 gears with MongoDB and Redis.  
 
 ### [TComb](https://github.com/gcanti/tcomb-form-native)
 *A structured model based approach to declarative forms*
@@ -472,7 +472,7 @@ This section explains a little about what I've learned with Redux and the manage
 
 ### Without Redux
 
-![Alt text](https://g.gravizo.com/source/custom_mark10?https%3A%2F%2Fraw.githubusercontent.com%2Fbartonhammond%2Fsnowflake%2Fmaster%2FREADME.md)
+![Alt text](https://g.gravizo.com/source/custom_mark10?https%3A%2F%2Fraw.githubusercontent.com%2Fbartonhammond%2Fpetstorage%2Fmaster%2FREADME.md)
 
 <details> 
 <summary></summary>
@@ -498,7 +498,7 @@ This makes testing hard as the logic is partially contained in the Login compone
 
 ### With Redux
 
-![Alt text](https://g.gravizo.com/source/custom_mark11?https%3A%2F%2Fraw.githubusercontent.com%2Fbartonhammond%2Fsnowflake%2Fmaster%2FREADME.md)
+![Alt text](https://g.gravizo.com/source/custom_mark11?https%3A%2F%2Fraw.githubusercontent.com%2Fbartonhammond%2Fpetstorage%2Fmaster%2FREADME.md)
 
 <details> 
 <summary></summary>

@@ -1,5 +1,5 @@
 {
-  "name": "snowflake",
+  "name": "petstorage",
   "version": "0.2.1",
   "private": true,
   "jest": {
@@ -21,7 +21,7 @@
     "start": "react-native start",
     "test:watch": "npm run test -- --watch",
     "test-chrome": "node-debug --preload false --nodejs --harmony jest --runInBand",
-    "docs": "./node_modules/docker/docker -w -i src/ -o ../snowflake-pages "
+    "docs": "./node_modules/docker/docker -w -i src/ -o ../petstorage-pages "
   },
   "dependencies": {
     "apsl-react-native-button": "3.0.2",

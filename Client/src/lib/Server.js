@@ -2,7 +2,6 @@
 
 import CONFIG from './config'
 import _ from 'underscore'
-const QS = require('querystringify')
 
 export class Server {
   initialize() {
@@ -12,27 +11,12 @@ export class Server {
           CONFIG.prod.url
   }
 
-  // CDN_POLITICIANS(picture_key) {
-  //   return 'http://polipan-politicians.s3-website.ap-northeast-2.amazonaws.com/' + picture_key + '.jpg'
-  // }
-
-  // CDN_USERS(user_id, picture_key) {
-  //   return 'http://polipan-users.s3-website.ap-northeast-2.amazonaws.com/' + user_id + '-' + picture_key + '.jpg'
-  // }
-
-  // async uploadPicture(authToken, data) {
-  //   return await this._fetch({
-  //     method: 'POST',
-  //     url: '/my/picture/upload',
-  //     headers: {
-  //       'Authorization': 'Bearer ' + authToken,
-  //     },
-  //     body: {
-  //       data
-  //     }
-  //   })
-
-  // }
+  async test() {
+    return await this._fetch({
+      method: 'GET',
+      url: '/test',
+    })
+  }
 
   async register(email, password) {
     return await this._fetch({

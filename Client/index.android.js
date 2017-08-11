@@ -1,6 +1,6 @@
 'use strict'
 
-import snowflake from './src/snowflake'
+import petstorage from './src/petstorage'
 
-snowflake('android')
+petstorage('android')
 

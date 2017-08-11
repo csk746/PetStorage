@@ -11,7 +11,6 @@
  */
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
 /**
  * The actions we need
  */
@@ -21,7 +20,7 @@ import * as globalActions from '../reducers/global/globalActions'
 /**
  * Router
  */
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
 /**
  * The Header will display a Image and support Hot Loading
@@ -30,27 +29,26 @@ import {Actions} from 'react-native-router-flux'
 /**
  * The components needed from React
  */
-import React, {Component} from 'react'
-import
-{
+import React, { Component } from 'react'
+import {
   StyleSheet,
   View,
   Text,
   TextInput
 }
-from 'react-native'
+  from 'react-native'
 
 /**
  * The platform neutral button
  */
 const Button = require('apsl-react-native-button')
-
+const BackendFactory = require('../lib/BackendFactory').default
 /**
  *  Instead of including all app states via ...state
  *  One could explicitly enumerate only those which Main.js will depend on.
  *
  */
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     auth: {
       form: {
@@ -67,7 +65,7 @@ function mapStateToProps (state) {
 /*
  * Bind all the actions
  */
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
   }
@@ -96,7 +94,7 @@ var styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
     // position:'absolute',
-    marginTop:520
+    marginTop: 520
     // marginBottom:10
   }
 })
@@ -112,36 +110,40 @@ I18n.translations = Translations
  */
 class Login extends Component {
 
-handlePress () {
+  componentWillMount() {
+    BackendFactory().test()
+  }
+
+  handlePress() {
     Actions.Subview({
       title: 'Subview'
       // you can add additional props to be passed to Subview here...
     })
   }
-takePicture () {
+  takePicture() {
     Actions.TakePicture({
       title: 'TakePicture'
       // you can add additional props to be passed to Subview here...
     })
   }
-goToMain () {
+  goToMain() {
     Actions.Main({
       // title: 'Main'
       // you can add additional props to be passed to Subview here...
     })
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
-        <Text>로그인화면</Text> 
+        <Text>로그인화면</Text>
         {/* <Button></Button> */}
         <Text>ID</Text><TextInput></TextInput>
         <Text>PW</Text><TextInput></TextInput>
-        <Button onPress = {this.goToMain}>로그인</Button>
+        <Button onPress={this.goToMain}>로그인</Button>
 
         <View>
-        
+
           {/* <Button style={styles.button} onPress={this.handlePress.bind(this)}>
             {I18n.t('Main.navigate')}
           </Button> */}

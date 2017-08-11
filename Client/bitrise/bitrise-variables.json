@@ -1,13 +1,13 @@
-appEnvVars = {
+appEnvVars ={
   android: {
     none: 'none are needed for android...'
   },  
   ios: {
-    BITRISE_PROJECT_PATH: 'ios/snowflake.xcodeproj or what ever yours is named',
-    BITRISE_SCHEME: 'snowflake or whatever your scheme is named'
+    BITRISE_PROJECT_PATH: 'ios/petstorage.xcodeproj or what ever yours is named',
+    BITRISE_SCHEME: 'petstorage or whatever your scheme is named'
   }
 },
-secretEnvVars = {
+secretEnvVars ={
   android: {
     SNOWFLAKE_RELEASE_STORE_FILE: 'file name',
     SNOWFLAKE_RELEASE_KEY_ALIAS: 'alias name',
@@ -20,7 +20,6 @@ secretEnvVars = {
     FASTLANE_USER: 'Apple ID',
     FASTLANE_PASSWORD: 'Apple ID password',    
     PARSE_APP_ID: 'Parse.com App ID',
-    PARSE_REST_API_KEY: 'Parse.com Rest API'    
+    PARSE_REST_API_KEY: 'Parse.com Rest API'
   }
-}   
-
+}

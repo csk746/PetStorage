@@ -1185,13 +1185,13 @@ return Array.from(arr);}};})(
 
 
 typeof global!=='undefined'?global:typeof self!=='undefined'?self:this);
-__d('snowflake/index.ios.js',function(global, require, module, exports) {  'use strict';var _snowflake=require('snowflake/src/snowflake.js');var _snowflake2=babelHelpers.interopRequireDefault(_snowflake);
+__d('petstorage/index.ios.js',function(global, require, module, exports) {  'use strict';var _petstorage=require('petstorage/src/petstorage.js');var _petstorage2=babelHelpers.interopRequireDefault(_petstorage);
 
 
 
-(0,_snowflake2.default)('ios');
+(0,_petstorage2.default)('ios');
 });
-__d('snowflake/src/snowflake.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/petstorage.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -1256,7 +1256,7 @@ __d('snowflake/src/snowflake.js',function(global, require, module, exports) {  '
 
 
 
-native;var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _native=require('react-redux/native.js');var _App=require('snowflake/src/containers/App.js');var _App2=babelHelpers.interopRequireDefault(_App);var _configureStore=require('snowflake/src/lib/configureStore.js');var _configureStore2=babelHelpers.interopRequireDefault(_configureStore);var _deviceActions=require('snowflake/src/reducers/device/deviceActions.js');var _globalActions=require('snowflake/src/reducers/global/globalActions.js');var _authInitialState=require('snowflake/src/reducers/auth/authInitialState.js');var _authInitialState2=babelHelpers.interopRequireDefault(_authInitialState);var _deviceInitialState=require('snowflake/src/reducers/device/deviceInitialState.js');var _deviceInitialState2=babelHelpers.interopRequireDefault(_deviceInitialState);var _globalInitialState=require('snowflake/src/reducers/global/globalInitialState.js');var _globalInitialState2=babelHelpers.interopRequireDefault(_globalInitialState);var _profileInitialState=require('snowflake/src/reducers/profile/profileInitialState.js');var _profileInitialState2=babelHelpers.interopRequireDefault(_profileInitialState);var VERSION='0.0.6';function getInitialState(){var _initState={auth:new _authInitialState2.default(),device:new _deviceInitialState2.default().set('isMobile',true).set('version',VERSION),global:new _globalInitialState2.default(),profile:new _profileInitialState2.default()};return _initState;}function native(platform){
+native;var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _native=require('react-redux/native.js');var _App=require('petstorage/src/containers/App.js');var _App2=babelHelpers.interopRequireDefault(_App);var _configureStore=require('petstorage/src/lib/configureStore.js');var _configureStore2=babelHelpers.interopRequireDefault(_configureStore);var _deviceActions=require('petstorage/src/reducers/device/deviceActions.js');var _globalActions=require('petstorage/src/reducers/global/globalActions.js');var _authInitialState=require('petstorage/src/reducers/auth/authInitialState.js');var _authInitialState2=babelHelpers.interopRequireDefault(_authInitialState);var _deviceInitialState=require('petstorage/src/reducers/device/deviceInitialState.js');var _deviceInitialState2=babelHelpers.interopRequireDefault(_deviceInitialState);var _globalInitialState=require('petstorage/src/reducers/global/globalInitialState.js');var _globalInitialState2=babelHelpers.interopRequireDefault(_globalInitialState);var _profileInitialState=require('petstorage/src/reducers/profile/profileInitialState.js');var _profileInitialState2=babelHelpers.interopRequireDefault(_profileInitialState);var VERSION='0.0.6';function getInitialState(){var _initState={auth:new _authInitialState2.default(),device:new _deviceInitialState2.default().set('isMobile',true).set('version',VERSION),global:new _globalInitialState2.default(),profile:new _profileInitialState2.default()};return _initState;}function native(platform){
 
 var Snowflake=_reactNative2.default.createClass({displayName:'Snowflake',
 render:function render(){
@@ -1280,7 +1280,7 @@ function(){return _reactNative2.default.createElement(_App2.default,{store:store
 
 
 
-_reactNative.AppRegistry.registerComponent('snowflake',function(){return Snowflake;});}
+_reactNative.AppRegistry.registerComponent('petstorage',function(){return Snowflake;});}
 });
 __d('react-native/Libraries/react-native/react-native.js',function(global, require, module, exports) {  'use strict';
 
@@ -58532,7 +58532,7 @@ throw error;}};
 
 module.exports=invariant;
 });
-__d('snowflake/src/containers/App.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _immutable=require('immutable/dist/immutable.js');var _Login=require('snowflake/src/containers/Login.js');var _Login2=babelHelpers.interopRequireDefault(_Login);var _Tabbar=require('snowflake/src/components/Tabbar.js');var _Tabbar2=babelHelpers.interopRequireDefault(_Tabbar);var _authActions=require('snowflake/src/reducers/auth/authActions.js');var 
+__d('petstorage/src/containers/App.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _immutable=require('immutable/dist/immutable.js');var _Login=require('petstorage/src/containers/Login.js');var _Login2=babelHelpers.interopRequireDefault(_Login);var _Tabbar=require('petstorage/src/components/Tabbar.js');var _Tabbar2=babelHelpers.interopRequireDefault(_Tabbar);var _authActions=require('petstorage/src/reducers/auth/authActions.js');var 
 
 
 
@@ -58563,9 +58563,9 @@ __d('snowflake/src/containers/App.js',function(global, require, module, exports)
 
 
 
-authActions=babelHelpers.interopRequireWildcard(_authActions);var _deviceActions=require('snowflake/src/reducers/device/deviceActions.js');var 
-deviceActions=babelHelpers.interopRequireWildcard(_deviceActions);var _globalActions=require('snowflake/src/reducers/global/globalActions.js');var 
-globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _constants=require('snowflake/src/lib/constants.js');
+authActions=babelHelpers.interopRequireWildcard(_authActions);var _deviceActions=require('petstorage/src/reducers/device/deviceActions.js');var 
+deviceActions=babelHelpers.interopRequireWildcard(_deviceActions);var _globalActions=require('petstorage/src/reducers/global/globalActions.js');var 
+globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _constants=require('petstorage/src/lib/constants.js');
 
 
 
@@ -58668,7 +58668,7 @@ component);}});exports.default=
 
 (0,_native.connect)(mapStateToProps,mapDispatchToProps)(App);
 });
-__d('snowflake/src/containers/Login.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _authActions=require('snowflake/src/reducers/auth/authActions.js');var 
+__d('petstorage/src/containers/Login.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _authActions=require('petstorage/src/reducers/auth/authActions.js');var 
 
 
 
@@ -58686,8 +58686,8 @@ __d('snowflake/src/containers/Login.js',function(global, require, module, export
 
 
 
-authActions=babelHelpers.interopRequireWildcard(_authActions);var _globalActions=require('snowflake/src/reducers/global/globalActions.js');var 
-globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _immutable=require('immutable/dist/immutable.js');var _Header=require('snowflake/src/components/Header.js');var _Header2=babelHelpers.interopRequireDefault(_Header);var _ErrorAlert=require('snowflake/src/components/ErrorAlert.js');var _ErrorAlert2=babelHelpers.interopRequireDefault(_ErrorAlert);var _FormButton=require('snowflake/src/components/FormButton.js');var _FormButton2=babelHelpers.interopRequireDefault(_FormButton);var _LoginForm=require('snowflake/src/components/LoginForm.js');var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);var _ItemCheckbox=require('snowflake/src/components/ItemCheckbox.js');var _ItemCheckbox2=babelHelpers.interopRequireDefault(_ItemCheckbox);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _constants=require('snowflake/src/lib/constants.js');
+authActions=babelHelpers.interopRequireWildcard(_authActions);var _globalActions=require('petstorage/src/reducers/global/globalActions.js');var 
+globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _immutable=require('immutable/dist/immutable.js');var _Header=require('petstorage/src/components/Header.js');var _Header2=babelHelpers.interopRequireDefault(_Header);var _ErrorAlert=require('petstorage/src/components/ErrorAlert.js');var _ErrorAlert2=babelHelpers.interopRequireDefault(_ErrorAlert);var _FormButton=require('petstorage/src/components/FormButton.js');var _FormButton2=babelHelpers.interopRequireDefault(_FormButton);var _LoginForm=require('petstorage/src/components/LoginForm.js');var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);var _ItemCheckbox=require('petstorage/src/components/ItemCheckbox.js');var _ItemCheckbox2=babelHelpers.interopRequireDefault(_ItemCheckbox);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _constants=require('petstorage/src/lib/constants.js');
 
 
 
@@ -59020,7 +59020,7 @@ rightMessage)))));}}}]);return Login;})(_reactNative.Component);exports.default=
 
 (0,_native.connect)(mapStateToProps,mapDispatchToProps)(Login);
 });
-__d('snowflake/src/reducers/auth/authActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
+__d('petstorage/src/reducers/auth/authActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
 
@@ -59414,7 +59414,7 @@ resetPasswordFailure=resetPasswordFailure;exports.
 
 
 
-resetPassword=resetPassword;var _require$default=require('snowflake/src/lib/constants.js').default;var SESSION_TOKEN_REQUEST=_require$default.SESSION_TOKEN_REQUEST;var SESSION_TOKEN_SUCCESS=_require$default.SESSION_TOKEN_SUCCESS;var SESSION_TOKEN_FAILURE=_require$default.SESSION_TOKEN_FAILURE;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;var LOGOUT_REQUEST=_require$default.LOGOUT_REQUEST;var LOGOUT_SUCCESS=_require$default.LOGOUT_SUCCESS;var LOGOUT_FAILURE=_require$default.LOGOUT_FAILURE;var LOGIN_REQUEST=_require$default.LOGIN_REQUEST;var LOGIN_SUCCESS=_require$default.LOGIN_SUCCESS;var LOGIN_FAILURE=_require$default.LOGIN_FAILURE;var ON_AUTH_FORM_FIELD_CHANGE=_require$default.ON_AUTH_FORM_FIELD_CHANGE;var SIGNUP_REQUEST=_require$default.SIGNUP_REQUEST;var SIGNUP_SUCCESS=_require$default.SIGNUP_SUCCESS;var SIGNUP_FAILURE=_require$default.SIGNUP_FAILURE;var RESET_PASSWORD_REQUEST=_require$default.RESET_PASSWORD_REQUEST;var RESET_PASSWORD_SUCCESS=_require$default.RESET_PASSWORD_SUCCESS;var RESET_PASSWORD_FAILURE=_require$default.RESET_PASSWORD_FAILURE;var Parse=require('snowflake/src/lib/Parse.js').default;var AppAuthToken=require('snowflake/src/lib/AppAuthToken.js').default;var _=require('underscore/underscore.js');function logoutState(){return {type:LOGIN_STATE_LOGOUT};}function registerState(){return {type:LOGIN_STATE_REGISTER};}function loginState(){return {type:LOGIN_STATE_LOGIN};}function forgotPasswordState(){return {type:LOGIN_STATE_FORGOT_PASSWORD};}function logoutRequest(){return {type:LOGOUT_REQUEST};}function logoutSuccess(){return {type:LOGOUT_SUCCESS};}function logoutFailure(error){return {type:LOGOUT_FAILURE,payload:error};}function logout(){return function(dispatch){dispatch(logoutRequest());return new AppAuthToken().getSessionToken().then(function(token){if(!_.isUndefined(token.sessionToken)){return new Parse(token.sessionToken.sessionToken).logout();}else {dispatch(loginState());dispatch(logoutSuccess());throw 'TokenMissing';}}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201||response.status===400&&res.code===209){dispatch(registerState());dispatch(logoutSuccess());return response;}else {dispatch(logoutFailure(JSON.parse(response._bodyInit)));return response;}}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201||response.status===400&&res.code===209){dispatch(deleteSessionToken());}}).catch(function(error){dispatch(logoutFailure(error));});};}function onAuthFormFieldChange(field,value){return {type:ON_AUTH_FORM_FIELD_CHANGE,payload:{field:field,value:value}};}function signupRequest(){return {type:SIGNUP_REQUEST};}function signupSuccess(){return {type:SIGNUP_SUCCESS};}function signupFailure(error){return {type:SIGNUP_FAILURE,payload:error};}function sessionTokenRequest(){return {type:SESSION_TOKEN_REQUEST};}function sessionTokenRequestSuccess(token){return {type:SESSION_TOKEN_SUCCESS,payload:token};}function sessionTokenRequestFailure(error){return {type:SESSION_TOKEN_FAILURE,payload:_.isUndefined(error)?null:error};}function deleteSessionToken(){return function(dispatch){dispatch(sessionTokenRequest());return new AppAuthToken().deleteSessionToken().then(function(){dispatch(sessionTokenRequestSuccess());});};}function getSessionToken(){return function(dispatch){dispatch(sessionTokenRequest());return new AppAuthToken().getSessionToken().then(function(token){if(token){dispatch(logoutState());dispatch(sessionTokenRequestSuccess(token));}else {dispatch(sessionTokenRequestFailure());}}).catch(function(error){dispatch(sessionTokenRequestFailure(error));});};}function saveSessionToken(response,json){return new AppAuthToken().storeSessionToken(json).then(function(){return response;});}function signup(username,email,password){return function(dispatch){dispatch(signupRequest());return new Parse().signup({username:username,email:email,password:password}).then(function(response){if(response.status===200||response.status===201){var json=JSON.parse(response._bodyInit);return saveSessionToken(response,json);}return response;}).then(function(response){if(response.status===200||response.status===201){dispatch(logoutState());dispatch(signupSuccess());}else {dispatch(signupFailure(JSON.parse(response._bodyInit)));}return response;}).catch(function(error){dispatch(signupFailure(error));});};}function loginRequest(){return {type:LOGIN_REQUEST};}function loginSuccess(){return {type:LOGIN_SUCCESS};}function loginFailure(error){return {type:LOGIN_FAILURE,payload:error};}function login(username,password){return function(dispatch){dispatch(loginRequest());return new Parse().login({username:username,password:password}).then(function(response){if(response.status===200||response.status===201){var json=JSON.parse(response._bodyInit);return saveSessionToken(response,json);}return response;}).then(function(response){if(response.status===200||response.status===201){dispatch(logoutState());dispatch(loginSuccess());}else {dispatch(loginFailure(JSON.parse(response._bodyInit)));}return response;}).catch(function(error){dispatch(loginFailure(error));});};}function resetPasswordRequest(){return {type:RESET_PASSWORD_REQUEST};}function resetPasswordSuccess(){return {type:RESET_PASSWORD_SUCCESS};}function resetPasswordFailure(error){return {type:RESET_PASSWORD_FAILURE,payload:error};}function resetPassword(email){
+resetPassword=resetPassword;var _require$default=require('petstorage/src/lib/constants.js').default;var SESSION_TOKEN_REQUEST=_require$default.SESSION_TOKEN_REQUEST;var SESSION_TOKEN_SUCCESS=_require$default.SESSION_TOKEN_SUCCESS;var SESSION_TOKEN_FAILURE=_require$default.SESSION_TOKEN_FAILURE;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;var LOGOUT_REQUEST=_require$default.LOGOUT_REQUEST;var LOGOUT_SUCCESS=_require$default.LOGOUT_SUCCESS;var LOGOUT_FAILURE=_require$default.LOGOUT_FAILURE;var LOGIN_REQUEST=_require$default.LOGIN_REQUEST;var LOGIN_SUCCESS=_require$default.LOGIN_SUCCESS;var LOGIN_FAILURE=_require$default.LOGIN_FAILURE;var ON_AUTH_FORM_FIELD_CHANGE=_require$default.ON_AUTH_FORM_FIELD_CHANGE;var SIGNUP_REQUEST=_require$default.SIGNUP_REQUEST;var SIGNUP_SUCCESS=_require$default.SIGNUP_SUCCESS;var SIGNUP_FAILURE=_require$default.SIGNUP_FAILURE;var RESET_PASSWORD_REQUEST=_require$default.RESET_PASSWORD_REQUEST;var RESET_PASSWORD_SUCCESS=_require$default.RESET_PASSWORD_SUCCESS;var RESET_PASSWORD_FAILURE=_require$default.RESET_PASSWORD_FAILURE;var Parse=require('petstorage/src/lib/Parse.js').default;var AppAuthToken=require('petstorage/src/lib/AppAuthToken.js').default;var _=require('underscore/underscore.js');function logoutState(){return {type:LOGIN_STATE_LOGOUT};}function registerState(){return {type:LOGIN_STATE_REGISTER};}function loginState(){return {type:LOGIN_STATE_LOGIN};}function forgotPasswordState(){return {type:LOGIN_STATE_FORGOT_PASSWORD};}function logoutRequest(){return {type:LOGOUT_REQUEST};}function logoutSuccess(){return {type:LOGOUT_SUCCESS};}function logoutFailure(error){return {type:LOGOUT_FAILURE,payload:error};}function logout(){return function(dispatch){dispatch(logoutRequest());return new AppAuthToken().getSessionToken().then(function(token){if(!_.isUndefined(token.sessionToken)){return new Parse(token.sessionToken.sessionToken).logout();}else {dispatch(loginState());dispatch(logoutSuccess());throw 'TokenMissing';}}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201||response.status===400&&res.code===209){dispatch(registerState());dispatch(logoutSuccess());return response;}else {dispatch(logoutFailure(JSON.parse(response._bodyInit)));return response;}}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201||response.status===400&&res.code===209){dispatch(deleteSessionToken());}}).catch(function(error){dispatch(logoutFailure(error));});};}function onAuthFormFieldChange(field,value){return {type:ON_AUTH_FORM_FIELD_CHANGE,payload:{field:field,value:value}};}function signupRequest(){return {type:SIGNUP_REQUEST};}function signupSuccess(){return {type:SIGNUP_SUCCESS};}function signupFailure(error){return {type:SIGNUP_FAILURE,payload:error};}function sessionTokenRequest(){return {type:SESSION_TOKEN_REQUEST};}function sessionTokenRequestSuccess(token){return {type:SESSION_TOKEN_SUCCESS,payload:token};}function sessionTokenRequestFailure(error){return {type:SESSION_TOKEN_FAILURE,payload:_.isUndefined(error)?null:error};}function deleteSessionToken(){return function(dispatch){dispatch(sessionTokenRequest());return new AppAuthToken().deleteSessionToken().then(function(){dispatch(sessionTokenRequestSuccess());});};}function getSessionToken(){return function(dispatch){dispatch(sessionTokenRequest());return new AppAuthToken().getSessionToken().then(function(token){if(token){dispatch(logoutState());dispatch(sessionTokenRequestSuccess(token));}else {dispatch(sessionTokenRequestFailure());}}).catch(function(error){dispatch(sessionTokenRequestFailure(error));});};}function saveSessionToken(response,json){return new AppAuthToken().storeSessionToken(json).then(function(){return response;});}function signup(username,email,password){return function(dispatch){dispatch(signupRequest());return new Parse().signup({username:username,email:email,password:password}).then(function(response){if(response.status===200||response.status===201){var json=JSON.parse(response._bodyInit);return saveSessionToken(response,json);}return response;}).then(function(response){if(response.status===200||response.status===201){dispatch(logoutState());dispatch(signupSuccess());}else {dispatch(signupFailure(JSON.parse(response._bodyInit)));}return response;}).catch(function(error){dispatch(signupFailure(error));});};}function loginRequest(){return {type:LOGIN_REQUEST};}function loginSuccess(){return {type:LOGIN_SUCCESS};}function loginFailure(error){return {type:LOGIN_FAILURE,payload:error};}function login(username,password){return function(dispatch){dispatch(loginRequest());return new Parse().login({username:username,password:password}).then(function(response){if(response.status===200||response.status===201){var json=JSON.parse(response._bodyInit);return saveSessionToken(response,json);}return response;}).then(function(response){if(response.status===200||response.status===201){dispatch(logoutState());dispatch(loginSuccess());}else {dispatch(loginFailure(JSON.parse(response._bodyInit)));}return response;}).catch(function(error){dispatch(loginFailure(error));});};}function resetPasswordRequest(){return {type:RESET_PASSWORD_REQUEST};}function resetPasswordSuccess(){return {type:RESET_PASSWORD_SUCCESS};}function resetPasswordFailure(error){return {type:RESET_PASSWORD_FAILURE,payload:error};}function resetPassword(email){
 return function(dispatch){
 dispatch(resetPasswordRequest());
 return new Parse().resetPassword({
@@ -59436,7 +59436,7 @@ if(response.status===200||response.status===201){}}).
 catch(function(error){
 dispatch(resetPasswordFailure(error));});};}
 });
-__d('snowflake/src/lib/constants.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _keyMirror=require('key-mirror/index.js');var _keyMirror2=babelHelpers.interopRequireDefault(_keyMirror);exports.default=
+__d('petstorage/src/lib/constants.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _keyMirror=require('key-mirror/index.js');var _keyMirror2=babelHelpers.interopRequireDefault(_keyMirror);exports.default=
 
 (0,_keyMirror2.default)({
 SET_PLATFORM:null,
@@ -59511,14 +59511,14 @@ mirrored[key]=key;}}}
 
 return mirrored;};
 });
-__d('snowflake/src/lib/Parse.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/lib/Parse.js',function(global, require, module, exports) {  'use strict';
 
 
 
 
 
 
-'use string';Object.defineProperty(exports,"__esModule",{value:true});var _config=require('snowflake/src/lib/config.js');var _config2=babelHelpers.interopRequireDefault(_config);var _underscore=require('underscore/underscore.js');var _underscore2=babelHelpers.interopRequireDefault(_underscore);
+'use string';Object.defineProperty(exports,"__esModule",{value:true});var _config=require('petstorage/src/lib/config.js');var _config2=babelHelpers.interopRequireDefault(_config);var _underscore=require('underscore/underscore.js');var _underscore2=babelHelpers.interopRequireDefault(_underscore);
 
 
 
@@ -59687,7 +59687,7 @@ fetch(this.API_BASE_URL+opts.url,reqOpts));case 8:return _context7.abrupt('retur
 
 ;
 });
-__d('snowflake/src/lib/config.js',function(global, require, module, exports) {  'use strict';module.exports={
+__d('petstorage/src/lib/config.js',function(global, require, module, exports) {  'use strict';module.exports={
 PARSE:{
 APP_ID:'lh1EL9XYYQHSjBqS8GTR6W65QvLpSUzHErBZE7N1',
 REST_API_KEY:'49cmZDEiNaveHk0foEjbhxplltgPIaOwkSBmFECL',
@@ -61242,13 +61242,13 @@ return _;});}}).
 
 call(undefined);
 });
-__d('snowflake/src/lib/AppAuthToken.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/lib/AppAuthToken.js',function(global, require, module, exports) {  'use strict';
 
 
 
 
 
-'use string';Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeSimpleStore=require('react-native-simple-store/index.js');var _reactNativeSimpleStore2=babelHelpers.interopRequireDefault(_reactNativeSimpleStore);var _config=require('snowflake/src/lib/config.js');var _config2=babelHelpers.interopRequireDefault(_config);var 
+'use string';Object.defineProperty(exports,"__esModule",{value:true});var _reactNativeSimpleStore=require('react-native-simple-store/index.js');var _reactNativeSimpleStore2=babelHelpers.interopRequireDefault(_reactNativeSimpleStore);var _config=require('petstorage/src/lib/config.js');var _config2=babelHelpers.interopRequireDefault(_config);var 
 
 
 
@@ -61334,7 +61334,7 @@ return AsyncStorage.removeItem(key);}};
 
 module.exports=deviceStorage;
 });
-__d('snowflake/src/reducers/global/globalActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
+__d('petstorage/src/reducers/global/globalActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
 
@@ -61391,12 +61391,12 @@ setState=setState;exports.
 
 
 
-getState=getState;var _constants=require('snowflake/src/lib/constants.js');function setSessionToken(sessionToken){return {type:_constants.SET_SESSION_TOKEN,payload:sessionToken};}function setStore(store){return {type:_constants.SET_STORE,payload:store};}function setState(newState){return {type:_constants.SET_STATE,payload:newState};}function getState(toggle){
+getState=getState;var _constants=require('petstorage/src/lib/constants.js');function setSessionToken(sessionToken){return {type:_constants.SET_SESSION_TOKEN,payload:sessionToken};}function setStore(store){return {type:_constants.SET_STORE,payload:store};}function setState(newState){return {type:_constants.SET_STATE,payload:newState};}function getState(toggle){
 return {
 type:_constants.GET_STATE,
 payload:toggle};}
 });
-__d('snowflake/src/components/Header.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/components/Header.js',function(global, require, module, exports) {  'use strict';
 
 
 
@@ -61440,7 +61440,7 @@ var GiftedSpinner=require('react-native-gifted-spinner/GiftedSpinner.js');
 
 
 
-var FormButton=require('snowflake/src/components/FormButton.js');
+var FormButton=require('petstorage/src/components/FormButton.js');
 
 
 
@@ -61628,7 +61628,7 @@ this._getSpinner()));}});
 
 module.exports=GiftedSpinner;
 });
-__d('snowflake/src/components/FormButton.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/components/FormButton.js',function(global, require, module, exports) {  'use strict';
 
 
 
@@ -61704,7 +61704,7 @@ React.createElement(Text,null));}});
 
 module.exports=Button;
 });
-__d('snowflake/src/components/ErrorAlert.js',function(global, require, module, exports) {  'use strict';var _reactNativeSimpledialogAndroid=require('SimpleAlert');var _reactNativeSimpledialogAndroid2=babelHelpers.interopRequireDefault(_reactNativeSimpledialogAndroid);var _underscore=require('underscore/underscore.js');var _underscore2=babelHelpers.interopRequireDefault(_underscore);
+__d('petstorage/src/components/ErrorAlert.js',function(global, require, module, exports) {  'use strict';var _reactNativeSimpledialogAndroid=require('SimpleAlert');var _reactNativeSimpledialogAndroid2=babelHelpers.interopRequireDefault(_reactNativeSimpledialogAndroid);var _underscore=require('underscore/underscore.js');var _underscore2=babelHelpers.interopRequireDefault(_underscore);
 
 
 
@@ -61815,7 +61815,7 @@ SimpleAlertAndroid.alert(title||null,text||null,_buttonConfig,_masterCallback);}
 
 module.exports=SimpleAlert;
 });
-__d('snowflake/src/components/LoginForm.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/components/LoginForm.js',function(global, require, module, exports) {  'use strict';
 
 
 
@@ -61841,7 +61841,7 @@ React.PropTypes;var _require$default=
 
 
 
-require('snowflake/src/lib/constants.js').default;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;
+require('petstorage/src/lib/constants.js').default;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;
 
 
 
@@ -64323,7 +64323,7 @@ marginBottom:4}}});
 
 module.exports=stylesheet;
 });
-__d('snowflake/src/components/ItemCheckbox.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/components/ItemCheckbox.js',function(global, require, module, exports) {  'use strict';
 
 
 
@@ -67107,7 +67107,7 @@ return React.createElement(RNTypefaceTextView,this.props);}});
 
 module.exports=TypefaceTextView;
 });
-__d('snowflake/src/components/Tabbar.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _reactNativeTabNavigator=require('react-native-tab-navigator/TabNavigator.js');var _reactNativeTabNavigator2=babelHelpers.interopRequireDefault(_reactNativeTabNavigator);var _FontAwesome=require('FontAwesome');var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);var _Login=require('snowflake/src/containers/Login.js');var _Login2=babelHelpers.interopRequireDefault(_Login);var _Profile=require('snowflake/src/containers/Profile.js');var _Profile2=babelHelpers.interopRequireDefault(_Profile);
+__d('petstorage/src/components/Tabbar.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _reactNativeTabNavigator=require('react-native-tab-navigator/TabNavigator.js');var _reactNativeTabNavigator2=babelHelpers.interopRequireDefault(_reactNativeTabNavigator);var _FontAwesome=require('FontAwesome');var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);var _Login=require('petstorage/src/containers/Login.js');var _Login2=babelHelpers.interopRequireDefault(_Login);var _Profile=require('petstorage/src/containers/Profile.js');var _Profile2=babelHelpers.interopRequireDefault(_Profile);
 
 
 
@@ -67654,7 +67654,7 @@ var child=_reactNative2.default.Children.only(this.props.children);
 return _reactNative2.default.cloneElement(child,{
 style:[child.props.style,this.props.style]});}}]);return TabNavigatorItem;})(_reactNative2.default.Component);TabNavigatorItem.propTypes={renderIcon:_reactNative.PropTypes.func.isRequired,renderSelectedIcon:_reactNative.PropTypes.func,badgeText:_reactNative.PropTypes.oneOfType([_reactNative.PropTypes.string,_reactNative.PropTypes.number]),renderBadge:_reactNative.PropTypes.func,title:_reactNative.PropTypes.string,titleStyle:_reactNative.Text.propTypes.style,selectedTitleStyle:_reactNative.Text.propTypes.style,selected:_reactNative.PropTypes.bool,onPress:_reactNative.PropTypes.func};TabNavigatorItem.defaultProps={renderIcon:function renderIcon(){return _reactNative2.default.createElement(_reactNative.View,null);}};exports.default=TabNavigatorItem;
 });
-__d('snowflake/src/containers/Profile.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _profileActions=require('snowflake/src/reducers/profile/profileActions.js');var 
+__d('petstorage/src/containers/Profile.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _redux=require('redux/lib/index.js');var _native=require('react-redux/native.js');var _profileActions=require('petstorage/src/reducers/profile/profileActions.js');var 
 
 
 
@@ -67674,8 +67674,8 @@ __d('snowflake/src/containers/Profile.js',function(global, require, module, expo
 
 
 
-profileActions=babelHelpers.interopRequireWildcard(_profileActions);var _globalActions=require('snowflake/src/reducers/global/globalActions.js');var 
-globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _immutable=require('immutable/dist/immutable.js');var _ErrorAlert=require('snowflake/src/components/ErrorAlert.js');var _ErrorAlert2=babelHelpers.interopRequireDefault(_ErrorAlert);var _FormButton=require('snowflake/src/components/FormButton.js');var _FormButton2=babelHelpers.interopRequireDefault(_FormButton);var _Header=require('snowflake/src/components/Header.js');var _Header2=babelHelpers.interopRequireDefault(_Header);var _ItemCheckbox=require('snowflake/src/components/ItemCheckbox.js');var _ItemCheckbox2=babelHelpers.interopRequireDefault(_ItemCheckbox);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _tcombFormNative=require('tcomb-form-native/index.js');var _tcombFormNative2=babelHelpers.interopRequireDefault(_tcombFormNative);
+profileActions=babelHelpers.interopRequireWildcard(_profileActions);var _globalActions=require('petstorage/src/reducers/global/globalActions.js');var 
+globalActions=babelHelpers.interopRequireWildcard(_globalActions);var _immutable=require('immutable/dist/immutable.js');var _ErrorAlert=require('petstorage/src/components/ErrorAlert.js');var _ErrorAlert2=babelHelpers.interopRequireDefault(_ErrorAlert);var _FormButton=require('petstorage/src/components/FormButton.js');var _FormButton2=babelHelpers.interopRequireDefault(_FormButton);var _Header=require('petstorage/src/components/Header.js');var _Header2=babelHelpers.interopRequireDefault(_Header);var _ItemCheckbox=require('petstorage/src/components/ItemCheckbox.js');var _ItemCheckbox2=babelHelpers.interopRequireDefault(_ItemCheckbox);var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _tcombFormNative=require('tcomb-form-native/index.js');var _tcombFormNative2=babelHelpers.interopRequireDefault(_tcombFormNative);
 
 
 
@@ -67911,7 +67911,7 @@ buttonText:profileButtonText})));}}]);return Profile;})(_reactNative.Component);
 
 (0,_native.connect)(mapStateToProps,mapDispatchToProps)(Profile);
 });
-__d('snowflake/src/reducers/profile/profileActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
+__d('petstorage/src/reducers/profile/profileActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
 
@@ -68052,12 +68052,12 @@ updateProfile=updateProfile;exports.
 
 
 
-onProfileFormFieldChange=onProfileFormFieldChange;var _require$default=require('snowflake/src/lib/constants.js').default;var GET_PROFILE_REQUEST=_require$default.GET_PROFILE_REQUEST;var GET_PROFILE_SUCCESS=_require$default.GET_PROFILE_SUCCESS;var GET_PROFILE_FAILURE=_require$default.GET_PROFILE_FAILURE;var PROFILE_UPDATE_REQUEST=_require$default.PROFILE_UPDATE_REQUEST;var PROFILE_UPDATE_SUCCESS=_require$default.PROFILE_UPDATE_SUCCESS;var PROFILE_UPDATE_FAILURE=_require$default.PROFILE_UPDATE_FAILURE;var ON_PROFILE_FORM_FIELD_CHANGE=_require$default.ON_PROFILE_FORM_FIELD_CHANGE;var Parse=require('snowflake/src/lib/Parse.js').default;var AppAuthToken=require('snowflake/src/lib/AppAuthToken.js').default;function getProfileRequest(){return {type:GET_PROFILE_REQUEST};}function getProfileSuccess(json){return {type:GET_PROFILE_SUCCESS,payload:json};}function getProfileFailure(json){return {type:GET_PROFILE_FAILURE,payload:json};}function getProfile(sessionToken){return function(dispatch){dispatch(getProfileRequest());return new AppAuthToken().getSessionToken(sessionToken).then(function(token){return new Parse(token.sessionToken.sessionToken).getProfile();}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201){dispatch(getProfileSuccess(res));}else {dispatch(getProfileFailure(res));}}).catch(function(error){dispatch(getProfileFailure(error));});};}function profileUpdateRequest(){return {type:PROFILE_UPDATE_REQUEST};}function profileUpdateSuccess(){return {type:PROFILE_UPDATE_SUCCESS};}function profileUpdateFailure(json){return {type:PROFILE_UPDATE_FAILURE,payload:json};}function updateProfile(userId,username,email,sessionToken){return function(dispatch){dispatch(profileUpdateRequest());return new AppAuthToken().getSessionToken(sessionToken).then(function(token){return new Parse(token.sessionToken.sessionToken).updateProfile(userId,{username:username,email:email});}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201){dispatch(profileUpdateSuccess());dispatch(getProfile());}else {dispatch(profileUpdateFailure(res));}}).catch(function(error){dispatch(profileUpdateFailure(error));});};}function onProfileFormFieldChange(field,value){
+onProfileFormFieldChange=onProfileFormFieldChange;var _require$default=require('petstorage/src/lib/constants.js').default;var GET_PROFILE_REQUEST=_require$default.GET_PROFILE_REQUEST;var GET_PROFILE_SUCCESS=_require$default.GET_PROFILE_SUCCESS;var GET_PROFILE_FAILURE=_require$default.GET_PROFILE_FAILURE;var PROFILE_UPDATE_REQUEST=_require$default.PROFILE_UPDATE_REQUEST;var PROFILE_UPDATE_SUCCESS=_require$default.PROFILE_UPDATE_SUCCESS;var PROFILE_UPDATE_FAILURE=_require$default.PROFILE_UPDATE_FAILURE;var ON_PROFILE_FORM_FIELD_CHANGE=_require$default.ON_PROFILE_FORM_FIELD_CHANGE;var Parse=require('petstorage/src/lib/Parse.js').default;var AppAuthToken=require('petstorage/src/lib/AppAuthToken.js').default;function getProfileRequest(){return {type:GET_PROFILE_REQUEST};}function getProfileSuccess(json){return {type:GET_PROFILE_SUCCESS,payload:json};}function getProfileFailure(json){return {type:GET_PROFILE_FAILURE,payload:json};}function getProfile(sessionToken){return function(dispatch){dispatch(getProfileRequest());return new AppAuthToken().getSessionToken(sessionToken).then(function(token){return new Parse(token.sessionToken.sessionToken).getProfile();}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201){dispatch(getProfileSuccess(res));}else {dispatch(getProfileFailure(res));}}).catch(function(error){dispatch(getProfileFailure(error));});};}function profileUpdateRequest(){return {type:PROFILE_UPDATE_REQUEST};}function profileUpdateSuccess(){return {type:PROFILE_UPDATE_SUCCESS};}function profileUpdateFailure(json){return {type:PROFILE_UPDATE_FAILURE,payload:json};}function updateProfile(userId,username,email,sessionToken){return function(dispatch){dispatch(profileUpdateRequest());return new AppAuthToken().getSessionToken(sessionToken).then(function(token){return new Parse(token.sessionToken.sessionToken).updateProfile(userId,{username:username,email:email});}).then(function(response){var res=JSON.parse(response._bodyInit);if(response.status===200||response.status===201){dispatch(profileUpdateSuccess());dispatch(getProfile());}else {dispatch(profileUpdateFailure(res));}}).catch(function(error){dispatch(profileUpdateFailure(error));});};}function onProfileFormFieldChange(field,value){
 return {
 type:ON_PROFILE_FORM_FIELD_CHANGE,
 payload:{field:field,value:value}};}
 });
-__d('snowflake/src/reducers/device/deviceActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
+__d('petstorage/src/reducers/device/deviceActions.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
 
@@ -68091,12 +68091,12 @@ setPlatform=setPlatform;exports.
 
 
 
-setVersion=setVersion;var _constants=require('snowflake/src/lib/constants.js');function setPlatform(platform){return {type:_constants.SET_PLATFORM,payload:platform};}function setVersion(version){
+setVersion=setVersion;var _constants=require('petstorage/src/lib/constants.js');function setPlatform(platform){return {type:_constants.SET_PLATFORM,payload:platform};}function setVersion(version){
 return {
 type:_constants.SET_VERSION,
 payload:version};}
 });
-__d('snowflake/src/lib/configureStore.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/lib/configureStore.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -68133,7 +68133,7 @@ __d('snowflake/src/lib/configureStore.js',function(global, require, module, expo
 
 
 
-configureStore;var _redux=require('redux/lib/index.js');var _reduxThunk=require('redux-thunk/lib/index.js');var _reduxThunk2=babelHelpers.interopRequireDefault(_reduxThunk);var _reducers=require('snowflake/src/reducers/index.js');var _reducers2=babelHelpers.interopRequireDefault(_reducers);var createStoreWithMiddleware=(0,_redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);function configureStore(initialState){
+configureStore;var _redux=require('redux/lib/index.js');var _reduxThunk=require('redux-thunk/lib/index.js');var _reduxThunk2=babelHelpers.interopRequireDefault(_reduxThunk);var _reducers=require('petstorage/src/reducers/index.js');var _reducers2=babelHelpers.interopRequireDefault(_reducers);var createStoreWithMiddleware=(0,_redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);function configureStore(initialState){
 return createStoreWithMiddleware(_reducers2.default,initialState);}
 ;
 });
@@ -68155,13 +68155,13 @@ return typeof action==='function'?action(dispatch,getState):next(action);};};}
 
 module.exports=exports['default'];
 });
-__d('snowflake/src/reducers/index.js',function(global, require, module, exports) {  'use strict';
+__d('petstorage/src/reducers/index.js',function(global, require, module, exports) {  'use strict';
 
 
 
 
 
-'use string';Object.defineProperty(exports,"__esModule",{value:true});var _authReducer=require('snowflake/src/reducers/auth/authReducer.js');var _authReducer2=babelHelpers.interopRequireDefault(_authReducer);var _deviceReducer=require('snowflake/src/reducers/device/deviceReducer.js');var _deviceReducer2=babelHelpers.interopRequireDefault(_deviceReducer);var _globalReducer=require('snowflake/src/reducers/global/globalReducer.js');var _globalReducer2=babelHelpers.interopRequireDefault(_globalReducer);var _profileReducer=require('snowflake/src/reducers/profile/profileReducer.js');var _profileReducer2=babelHelpers.interopRequireDefault(_profileReducer);var _redux=require('redux/lib/index.js');
+'use string';Object.defineProperty(exports,"__esModule",{value:true});var _authReducer=require('petstorage/src/reducers/auth/authReducer.js');var _authReducer2=babelHelpers.interopRequireDefault(_authReducer);var _deviceReducer=require('petstorage/src/reducers/device/deviceReducer.js');var _deviceReducer2=babelHelpers.interopRequireDefault(_deviceReducer);var _globalReducer=require('petstorage/src/reducers/global/globalReducer.js');var _globalReducer2=babelHelpers.interopRequireDefault(_globalReducer);var _profileReducer=require('petstorage/src/reducers/profile/profileReducer.js');var _profileReducer2=babelHelpers.interopRequireDefault(_profileReducer);var _redux=require('redux/lib/index.js');
 
 
 
@@ -68189,7 +68189,7 @@ profile:_profileReducer2.default});exports.default=
 
 rootReducer;
 });
-__d('snowflake/src/reducers/auth/authReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/auth/authReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -68244,7 +68244,7 @@ __d('snowflake/src/reducers/auth/authReducer.js',function(global, require, modul
 
 
 
-authReducer;var InitialState=require('snowflake/src/reducers/auth/authInitialState.js').default;var fieldValidation=require('snowflake/src/lib/fieldValidation.js').default;var formValidation=require('snowflake/src/reducers/auth/authFormValidation.js').default;var _require$default=require('snowflake/src/lib/constants.js').default;var SESSION_TOKEN_REQUEST=_require$default.SESSION_TOKEN_REQUEST;var SESSION_TOKEN_SUCCESS=_require$default.SESSION_TOKEN_SUCCESS;var SESSION_TOKEN_FAILURE=_require$default.SESSION_TOKEN_FAILURE;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;var LOGOUT_REQUEST=_require$default.LOGOUT_REQUEST;var LOGOUT_SUCCESS=_require$default.LOGOUT_SUCCESS;var LOGOUT_FAILURE=_require$default.LOGOUT_FAILURE;var LOGIN_REQUEST=_require$default.LOGIN_REQUEST;var LOGIN_SUCCESS=_require$default.LOGIN_SUCCESS;var LOGIN_FAILURE=_require$default.LOGIN_FAILURE;var ON_AUTH_FORM_FIELD_CHANGE=_require$default.ON_AUTH_FORM_FIELD_CHANGE;var SIGNUP_REQUEST=_require$default.SIGNUP_REQUEST;var SIGNUP_SUCCESS=_require$default.SIGNUP_SUCCESS;var SIGNUP_FAILURE=_require$default.SIGNUP_FAILURE;var RESET_PASSWORD_REQUEST=_require$default.RESET_PASSWORD_REQUEST;var RESET_PASSWORD_SUCCESS=_require$default.RESET_PASSWORD_SUCCESS;var RESET_PASSWORD_FAILURE=_require$default.RESET_PASSWORD_FAILURE;var SET_STATE=_require$default.SET_STATE;var initialState=new InitialState();function authReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
+authReducer;var InitialState=require('petstorage/src/reducers/auth/authInitialState.js').default;var fieldValidation=require('petstorage/src/lib/fieldValidation.js').default;var formValidation=require('petstorage/src/reducers/auth/authFormValidation.js').default;var _require$default=require('petstorage/src/lib/constants.js').default;var SESSION_TOKEN_REQUEST=_require$default.SESSION_TOKEN_REQUEST;var SESSION_TOKEN_SUCCESS=_require$default.SESSION_TOKEN_SUCCESS;var SESSION_TOKEN_FAILURE=_require$default.SESSION_TOKEN_FAILURE;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;var LOGOUT_REQUEST=_require$default.LOGOUT_REQUEST;var LOGOUT_SUCCESS=_require$default.LOGOUT_SUCCESS;var LOGOUT_FAILURE=_require$default.LOGOUT_FAILURE;var LOGIN_REQUEST=_require$default.LOGIN_REQUEST;var LOGIN_SUCCESS=_require$default.LOGIN_SUCCESS;var LOGIN_FAILURE=_require$default.LOGIN_FAILURE;var ON_AUTH_FORM_FIELD_CHANGE=_require$default.ON_AUTH_FORM_FIELD_CHANGE;var SIGNUP_REQUEST=_require$default.SIGNUP_REQUEST;var SIGNUP_SUCCESS=_require$default.SIGNUP_SUCCESS;var SIGNUP_FAILURE=_require$default.SIGNUP_FAILURE;var RESET_PASSWORD_REQUEST=_require$default.RESET_PASSWORD_REQUEST;var RESET_PASSWORD_SUCCESS=_require$default.RESET_PASSWORD_SUCCESS;var RESET_PASSWORD_FAILURE=_require$default.RESET_PASSWORD_FAILURE;var SET_STATE=_require$default.SET_STATE;var initialState=new InitialState();function authReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
 if(!(state instanceof InitialState))return initialState.mergeDeep(state);
 switch(action.type){
 
@@ -68364,7 +68364,7 @@ return next;}
 
 return state;}
 });
-__d('snowflake/src/reducers/auth/authInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _require=
+__d('petstorage/src/reducers/auth/authInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _require=
 
 
 
@@ -68381,7 +68381,7 @@ __d('snowflake/src/reducers/auth/authInitialState.js',function(global, require, 
 require('immutable/dist/immutable.js');var Record=_require.Record;var 
 
 LOGIN_STATE_REGISTER=
-require('snowflake/src/lib/constants.js').default.LOGIN_STATE_REGISTER;
+require('petstorage/src/lib/constants.js').default.LOGIN_STATE_REGISTER;
 
 
 
@@ -68416,7 +68416,7 @@ form:new Form()});exports.default=
 
 InitialState;
 });
-__d('snowflake/src/lib/fieldValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/lib/fieldValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -69644,7 +69644,7 @@ typeof exports!=='undefined'?exports:null,
 typeof module!=='undefined'?module:null,
 typeof define!=='undefined'?define:null);
 });
-__d('snowflake/src/reducers/auth/authFormValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/auth/authFormValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -69669,7 +69669,7 @@ __d('snowflake/src/reducers/auth/authFormValidation.js',function(global, require
 
 
 
-formValidation;var _require$default=require('snowflake/src/lib/constants.js').default;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;function formValidation(state){
+formValidation;var _require$default=require('petstorage/src/lib/constants.js').default;var LOGIN_STATE_LOGOUT=_require$default.LOGIN_STATE_LOGOUT;var LOGIN_STATE_REGISTER=_require$default.LOGIN_STATE_REGISTER;var LOGIN_STATE_LOGIN=_require$default.LOGIN_STATE_LOGIN;var LOGIN_STATE_FORGOT_PASSWORD=_require$default.LOGIN_STATE_FORGOT_PASSWORD;function formValidation(state){
 
 switch(state.form.state){
 
@@ -69733,7 +69733,7 @@ return state.setIn(['form','isValid'],false);}}
 
 return state;}
 });
-__d('snowflake/src/reducers/device/deviceReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/device/deviceReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -69762,7 +69762,7 @@ __d('snowflake/src/reducers/device/deviceReducer.js',function(global, require, m
 
 
 
-deviceReducer;var _deviceInitialState=require('snowflake/src/reducers/device/deviceInitialState.js');var _deviceInitialState2=babelHelpers.interopRequireDefault(_deviceInitialState);var _constants=require('snowflake/src/lib/constants.js');var initialState=new _deviceInitialState2.default();function deviceReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
+deviceReducer;var _deviceInitialState=require('petstorage/src/reducers/device/deviceInitialState.js');var _deviceInitialState2=babelHelpers.interopRequireDefault(_deviceInitialState);var _constants=require('petstorage/src/lib/constants.js');var initialState=new _deviceInitialState2.default();function deviceReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
 if(!(state instanceof _deviceInitialState2.default))return initialState.merge(state);
 
 switch(action.type){
@@ -69798,7 +69798,7 @@ return next;}
 
 return state;}
 });
-__d('snowflake/src/reducers/device/deviceInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _immutable=require('immutable/dist/immutable.js');
+__d('petstorage/src/reducers/device/deviceInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _immutable=require('immutable/dist/immutable.js');
 
 
 
@@ -69827,7 +69827,7 @@ version:null});exports.default=
 
 InitialState;
 });
-__d('snowflake/src/reducers/global/globalReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/global/globalReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -69859,7 +69859,7 @@ __d('snowflake/src/reducers/global/globalReducer.js',function(global, require, m
 
 
 
-globalReducer;var _constants=require('snowflake/src/lib/constants.js');var _globalInitialState=require('snowflake/src/reducers/global/globalInitialState.js');var _globalInitialState2=babelHelpers.interopRequireDefault(_globalInitialState);var initialState=new _globalInitialState2.default();function globalReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
+globalReducer;var _constants=require('petstorage/src/lib/constants.js');var _globalInitialState=require('petstorage/src/reducers/global/globalInitialState.js');var _globalInitialState2=babelHelpers.interopRequireDefault(_globalInitialState);var initialState=new _globalInitialState2.default();function globalReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
 if(!(state instanceof _globalInitialState2.default))return initialState.merge(state);
 
 switch(action.type){
@@ -69932,7 +69932,7 @@ return next;}
 
 return state;}
 });
-__d('snowflake/src/reducers/global/globalInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _immutable=require('immutable/dist/immutable.js');
+__d('petstorage/src/reducers/global/globalInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _immutable=require('immutable/dist/immutable.js');
 
 
 
@@ -69968,7 +69968,7 @@ store:null});exports.default=
 
 InitialState;
 });
-__d('snowflake/src/reducers/profile/profileReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/profile/profileReducer.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -70013,7 +70013,7 @@ __d('snowflake/src/reducers/profile/profileReducer.js',function(global, require,
 
 
 
-profileReducer;var fieldValidation=require('snowflake/src/lib/fieldValidation.js').default;var formValidation=require('snowflake/src/reducers/profile/profileFormValidation.js').default;var _require$default=require('snowflake/src/lib/constants.js').default;var ON_PROFILE_FORM_FIELD_CHANGE=_require$default.ON_PROFILE_FORM_FIELD_CHANGE;var GET_PROFILE_REQUEST=_require$default.GET_PROFILE_REQUEST;var GET_PROFILE_SUCCESS=_require$default.GET_PROFILE_SUCCESS;var GET_PROFILE_FAILURE=_require$default.GET_PROFILE_FAILURE;var PROFILE_UPDATE_REQUEST=_require$default.PROFILE_UPDATE_REQUEST;var PROFILE_UPDATE_SUCCESS=_require$default.PROFILE_UPDATE_SUCCESS;var PROFILE_UPDATE_FAILURE=_require$default.PROFILE_UPDATE_FAILURE;var SET_STATE=_require$default.SET_STATE;var InitialState=require('snowflake/src/reducers/profile/profileInitialState.js').default;var initialState=new InitialState();function profileReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
+profileReducer;var fieldValidation=require('petstorage/src/lib/fieldValidation.js').default;var formValidation=require('petstorage/src/reducers/profile/profileFormValidation.js').default;var _require$default=require('petstorage/src/lib/constants.js').default;var ON_PROFILE_FORM_FIELD_CHANGE=_require$default.ON_PROFILE_FORM_FIELD_CHANGE;var GET_PROFILE_REQUEST=_require$default.GET_PROFILE_REQUEST;var GET_PROFILE_SUCCESS=_require$default.GET_PROFILE_SUCCESS;var GET_PROFILE_FAILURE=_require$default.GET_PROFILE_FAILURE;var PROFILE_UPDATE_REQUEST=_require$default.PROFILE_UPDATE_REQUEST;var PROFILE_UPDATE_SUCCESS=_require$default.PROFILE_UPDATE_SUCCESS;var PROFILE_UPDATE_FAILURE=_require$default.PROFILE_UPDATE_FAILURE;var SET_STATE=_require$default.SET_STATE;var InitialState=require('petstorage/src/reducers/profile/profileInitialState.js').default;var initialState=new InitialState();function profileReducer(){var state=arguments.length<=0||arguments[0]===undefined?initialState:arguments[0];var action=arguments[1];
 if(!(state instanceof InitialState))return initialState.mergeDeep(state);
 
 switch(action.type){
@@ -70122,7 +70122,7 @@ return next;}
 
 return state;}
 });
-__d('snowflake/src/reducers/profile/profileFormValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
+__d('petstorage/src/reducers/profile/profileFormValidation.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
@@ -70158,7 +70158,7 @@ return state.setIn(['form','isValid'],false);}
 
 return state;}
 });
-__d('snowflake/src/reducers/profile/profileInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _require=
+__d('petstorage/src/reducers/profile/profileInitialState.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _require=
 
 
 
@@ -70208,5 +70208,5 @@ form:new Form()});exports.default=
 InitialState;
 });
 ;require("InitializeJavaScriptAppEngine");
-;require("snowflake/index.ios.js");
+;require("petstorage/index.ios.js");
 __SSTOKENSTRING = "@generated SignedSource<<548de58e1a049b64878c670b44ceaba5>>";

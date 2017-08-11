@@ -55,7 +55,7 @@ const BackendFactory = require('../../lib/BackendFactory').default
 
 import { Actions } from 'react-native-router-flux'
 
-import { appAuthToken } from '../../lib/AppAuthToken'
+// import { appAuthToken } from '../../lib/AppAuthToken'
 
 const _ = require('underscore')
 
