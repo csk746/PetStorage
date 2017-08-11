@@ -10,13 +10,12 @@
  *
  * The actions supported
  */
-import keyMirror from 'key-mirror'
-
-var actions = keyMirror({
-  SET_STORE: null,
-  SET_STATE: null,
-  GET_STATE: null,
-})
+const {
+  SET_SESSION_TOKEN,
+  SET_STORE,
+  SET_STATE,
+  GET_STATE
+} = require('../../lib/constants').default
 
 /**
  * ## set the sessionToken

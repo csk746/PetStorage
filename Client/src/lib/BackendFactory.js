@@ -1,3 +1,4 @@
+
 /**
  * # BackendFactory
  *
@@ -7,9 +8,15 @@
 'use strict'
 
 import CONFIG from './config'
-import { server } from './Server'
+import { parse } from './Parse'
+import { hapi } from './Hapi'
 
 export default function BackendFactory(token = null) {
-  server.initialize()
-  return server
+  if (CONFIG.backend.hapiLocal || CONFIG.backend.hapiRemote) {
+    hapi.initialize(token)
+    return hapi
+  } else if (CONFIG.backend.parseLocal || CONFIG.backend.parseRemote) {
+    parse.initialize(token)
+    return parse
+  }
 }
