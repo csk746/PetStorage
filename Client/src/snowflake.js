@@ -64,6 +64,7 @@ I18n.translations = Translations
  */
 import App from './containers/App'
 import TakePicture from './containers/TakePicture'
+import PhotoViewer from './containers/PhotoViewer'
 import Main from './containers/Main'
 import Login from './containers/Login'
 import Subview from './containers/Subview'
@@ -83,6 +84,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
  */
 import {setPlatform, setVersion} from './reducers/device/deviceActions'
 import {setStore} from './reducers/global/globalActions'
+import {setPhoto} from './reducers/photo/photoActions'
 
 /**
  * ## States
@@ -92,6 +94,7 @@ import {setStore} from './reducers/global/globalActions'
 import AuthInitialState from './reducers/auth/authInitialState'
 import DeviceInitialState from './reducers/device/deviceInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
+import PhotoInitialState from './reducers/photo/photoInitialState'
 
 /**
  *  The version of the app but not  displayed yet
@@ -110,6 +113,7 @@ function getInitialState () {
     auth: new AuthInitialState(),
     device: (new DeviceInitialState()).set('isMobile', true),
     global: (new GlobalInitialState()),
+    photo : (new PhotoInitialState()),
   }
   return _initState
 }
@@ -180,6 +184,11 @@ export default function native (platform) {
               <Scene key='TakePicture'
                   component={TakePicture}
                 />
+
+              <Scene key='PhotoViewer'
+                  component={PhotoViewer}
+                />
+                  
                   
               
             </Scene>

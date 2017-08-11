@@ -1,16 +1,40 @@
 import React, { Component } from 'react';
-import { Screen } from '@shoutem/ui';
-import Camera from 'react-native-camera';
-import { Surface } from "gl-react-native";
-
-import Saturate from '../components/Saturate';
-
-import { Shaders, Node, GLSL } from "gl-react";
-
+import { connect } from 'react-redux'
 import {
+  Image,
+  TouchableOpacity,
   StyleSheet,
+  View,
 } from 'react-native';
+import Camera from 'react-native-camera';
+import { bindActionCreators } from 'redux'
+import * as photoActions from '../reducers/photo/photoActions'
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
+
+import {Actions} from 'react-native-router-flux'
+
+/**
+ *  Instead of including all app states via ...state
+ *  One could explicitly enumerate only those which Main.js will depend on.
+ *
+ */
+function mapStateToProps (state) {
+  return {
+    photo: {
+      photoList:state.photo.photoList
+    }
+  }
+}
+
+/*
+ * Bind all the actions
+ */
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators({ ...photoActions }, dispatch)
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -63,82 +87,131 @@ const styles = StyleSheet.create({
 });
 
 
-export default class TakePicture extends Component {
+export class TakePicture extends Component {
 
-  state = {
-    width: null,
-    height: null,
-    path: null
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      photoList:props.photo.photoList,
+      camera: {
+        aspect: Camera.constants.Aspect.fill,
+        captureTarget: Camera.constants.CaptureTarget.temp,
+        //captureQuality: Camera.constants.CaptureQuality["720p"],
+        captureQuality: 'photo',
+        type: Camera.constants.Type.back,
+        orientation: Camera.constants.Orientation.auto,
+        flashMode: Camera.constants.FlashMode.auto,
+        AndroidplaySoundOnCapture:false,
+      },
+      gestureName:'none',
+      isRecording: false
+    };
+
+    this.takePicture = this.takePicture.bind(this)
+    this.savePhoto = this.savePhoto.bind(this)
+    this.switchType = this.switchType.bind(this)
+    this.onSwipe = this.onSwipe.bind(this)
+    this.photoViewer = this.photoViewer.bind(this);
+  }
+
+  photoViewer() {
+    Actions.PhotoViewer({
+    })
   }
 
 
-  onLayout = (event) => {
-    const { width, height } = event.nativeEvent.layout;
-    this.camera = null;
 
-    this.start();
-
-    this.setState({
-      width, height
-    });
+  savePhoto(data) {
+    this.props.actions.setPhoto(data);
+    console.log ( "prop Photo List: " + this.state.photoList);
   }
 
-  refreshPicture = () => {
+  switchType(){
+    console.log ( " this type : " + this.state.camera.type)
+    if ( this.state.camera.type == Camera.constants.Type.back ) {
+      console.log ( " camera type is back ")
+      this.setState( { camera: { ...this.state.camera, type:Camera.constants.Type.front}});
+    } 
+    else{
+      console.log ( " camera type is front")
+      this.setState( { camera: { ...this.state.camera, type:Camera.constants.Type.back}});
+    }
+  }
+
+  takePicture() {
+    console.log("camera : " + this.camera)
     if (this.camera) {
-      console.log("camera : " + this.camera)
       this.camera.capture()
         .then((data) => {
           console.log(data)
           console.log(data.path)
-          this.setState({ path: data.path })
+          this.savePhoto(data.path)
         }
         )
         .catch(err => console.error(err));
     }
-
   }
 
-  start() {
-    this.timer = setInterval(() => this.refreshPicture(), 5000)
-  }
-
-  onComponentWillUnmount() {
-    clearInterval(this.timer);
+   onSwipe(gestureName, gestureState) {
+     console.log ( "gesutueName " + gestureName)
+    const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+    this.setState({gestureName: gestureName});
+    switch (gestureName) {
+      case SWIPE_UP:
+      case SWIPE_DOWN:
+      this.switchType();
+        break;
+      case SWIPE_LEFT:
+      case SWIPE_RIGHT:
+        this.photoViewer();
+        break;
+    }
   }
 
   render() {
-    const { width, height } = this.state;
+    
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
 
-    console.log(" width : " + width + " height  : " + height)
+    return (
+       <GestureRecognizer style = {styles.container}
+         onSwipe={(direction, state) => this.onSwipe(direction, state)}
+        config={config}>
+      <View style={styles.container}>
+        <Camera
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+          aspect={this.state.camera.aspect}
+          captureTarget={this.state.camera.captureTarget}
+          type={this.state.camera.type}
+          flashMode={this.state.camera.flashMode}
+          captureQuality={this.state.camera.captureQuality}
+          onFocusChanged={() => { }}
+          onZoomChanged={() => { }}
+          defaultTouchToFocus
+          mirrorImage={false}
 
-    const filter = {
-      contrast: 1,
-      saturation: 1,
-      brightness: 1
-    }
+        />
 
-    if (width && height) {
-      return (
-        <Screen onLayout={this.onLayout} >
-          <Camera style={{ flex: 1 }}
-            ref={cam => this.camera = cam}
-            captureQuality={Camera.constants.CaptureQuality["720p"]}
-            captureTarget={Camera.constants.captureTarget.temp}
-            aspect={Camera.constants.Aspect.fill}>
-
-            <Surface style={{ width, height }}>
-              <Saturate { ...filter }>
-                {{ uri: "https://i.imgur.com/uTP9Xfr.jpg" }}
-              </Saturate>
-            </Surface>
-          </Camera>
-        </Screen>
-      );
-    }
-    else {
-      return (
-        <Screen onLayout={this.onLayout} />
-      );
-    }
+        <View style={[styles.overlay, styles.bottomOverlay]}>
+          <TouchableOpacity
+            style={styles.captureButton}
+            onPress={this.takePicture}
+          >
+            <Image
+              source={require('../../assets/ic_photo_camera_36pt.png')}
+            />
+          </TouchableOpacity>
+        </View> 
+      </View>
+      </GestureRecognizer>
+    );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TakePicture)
