@@ -1,35 +1,11 @@
-/**
- * # Main.js
- *  This is the main app screen
- *
- */
 'use strict'
-/*
- * ## Imports
- *
- * Imports from redux
- */
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import GridView from 'react-native-gridview';
-/**
- * The actions we need
- */
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
-
-/**
- * Router
- */
 import { Actions } from 'react-native-router-flux'
-import NavigationBar from 'react-native-navbar'
-/**
- * The Header will display a Image and support Hot Loading
- */
-
-/**
- * The components needed from React
- */
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -41,38 +17,11 @@ import {
 }
   from 'react-native'
 
-/**
- * The platform neutral button
- */
+import NavBar from './common/NavBar'
+import BottomBar from './common/BottomBar'
+
+
 const Button = require('apsl-react-native-button')
-
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Main.js will depend on.
- *
- */
-function mapStateToProps(state) {
-  return {
-    auth: {
-      form: {
-        isFetching: state.auth.form.isFetching
-      }
-    },
-    global: {
-      currentState: state.global.currentState,
-      showState: state.global.showState
-    }
-  }
-}
-
-/*
- * Bind all the actions
- */
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
-  }
-}
 
 var styles = StyleSheet.create({
   container: {
@@ -90,15 +39,6 @@ var styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
     // marginTop:520
-  },
-  picture: {
-    backgroundColor: '#FF3366',
-    borderColor: '#FF3366',
-    marginLeft: 40,
-    marginRight: 40,
-    // position:'absolute',
-    marginTop: 520
-    // marginBottom:10
   },
   camera: {
     marginTop: 20,
@@ -180,15 +120,7 @@ class Main extends Component {
     }
     return (
       <View style={styles.container}>
-        <View>
-          {/* <NavigationBar
-          title={titleConfig}
-          leftButton={
-            <TouchableOpacity onPress = {()=>{Actions.pop()}}>
-              <Text>뒤로가기</Text>
-            </TouchableOpacity>
-          } /> */}
-          <Text>마이페이지 영역</Text>
+          <NavBar />
           <GridView
             data={data}
             dataSource={null}
@@ -205,18 +137,33 @@ class Main extends Component {
               );
             }}
           />
-          {/* <Button style={styles.button} onPress={this.handlePress.bind(this)}>
-            {I18n.t('Main.navigate')}
-          </Button> */}
-          {/* <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
-            사진찍기 버튼
-          </Button> */}
-          <Button style={styles.camera}>카메라버튼</Button>
-        </View>
+          <BottomBar/>
       </View>
     )
   }
 }
+
+
+function mapStateToProps(state) {
+    return {
+        auth: {
+            form: {
+                isFetching: state.auth.form.isFetching
+            }
+        },
+        global: {
+            currentState: state.global.currentState,
+            showState: state.global.showState
+        }
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
+    }
+}
+
 
 /**
  * Connect the properties
