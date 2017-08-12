@@ -49,7 +49,6 @@ import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
 import Subview from './containers/Subview'
-import DetailView from './containers/DetailView'
 import Reducers from './reducers'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { setPlatform, setVersion } from './reducers/device/deviceActions'
@@ -84,9 +83,6 @@ export default function (platform) {
 
       <Scene key='Subview'
         component={Subview} />
-
-      <Scene key='DetailView'
-        component={DetailView} />
 
       <Scene key='TakePicture'
         title={'TakePicture'}
