@@ -28,13 +28,14 @@ public class BlobConverter {
 	@Autowired
 	private EntityManager entityManager; 
 	
+	private Session getSession(){
+		return entityManager.unwrap(Session.class);
+	}
 	
 	public Blob multiPartFileToBlob(MultipartFile mFile){
 		
-		Session hSession = ((EntityManagerImpl)entityManager.getDelegate()).getSession();
-		
 		try {
-			return Hibernate.getLobCreator(hSession).createBlob(mFile.getInputStream(), mFile.getSize());
+			return Hibernate.getLobCreator(this.getSession()).createBlob(mFile.getInputStream(), mFile.getSize());
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -44,19 +45,16 @@ public class BlobConverter {
 	}
 	
 	public Blob inputStreamToBlob(InputStream is, long length){
-		Session hSession = ((EntityManagerImpl)entityManager.getDelegate()).getSession();
-		return Hibernate.getLobCreator(hSession).createBlob(is, length);
+		return Hibernate.getLobCreator(this.getSession()).createBlob(is, length);
 	}
 		
 	public Blob fileToBlob(File f ){
 		if ( f == null || !f.exists() ) return null ; 
 		
-		Session hSession = ((EntityManagerImpl)entityManager.getDelegate()).getSession();
-		
 		InputStream is;
 		try {
 			is = new FileInputStream(f);
-		return Hibernate.getLobCreator(hSession).createBlob(is, f.length());
+		return Hibernate.getLobCreator(this.getSession()).createBlob(is, f.length());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

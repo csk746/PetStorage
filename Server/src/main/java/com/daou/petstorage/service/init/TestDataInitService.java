@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daou.petstorage.Pet.domain.Pet;
+import com.daou.petstorage.Pet.service.PetService;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
 
@@ -16,11 +18,12 @@ import com.daou.petstorage.User.domain.User;
  * Created by hsim on 2017. 8. 13...
  */
 @Service
-public class TestUserInitService {
+public class TestDataInitService {
 
-	private static final Logger log = LoggerFactory.getLogger(TestUserInitService.class);
+	private static final Logger log = LoggerFactory.getLogger(TestDataInitService.class);
 	
 	@Autowired private UserService userService ; 
+	@Autowired private PetService petService ;
 	
 	
 	private int getRandomNumber(){
@@ -40,6 +43,16 @@ public class TestUserInitService {
 		return user ; 
 	}
 	
+	private Pet getDefaultPet(String name, String birthDay, String kind){
+		
+		Pet pet = new Pet();
+		pet.setName(name);
+		pet.setBirthDay(birthDay);
+		pet.setKind(kind);
+		
+		return pet ; 
+	}
+	
 	@Autowired
 	public void setUserInit(){
 		
@@ -49,6 +62,11 @@ public class TestUserInitService {
 		saveUserList.add(this.getDefaultUser("hsim", "¿”»Òº∑", "1234"));
 		
 		this.userService.saveUser(saveUserList, true);
+		
+		User hsim = this.userService.getUser("hsim");
+		Pet miho = getDefaultPet("πÃ»£", "2014-09-14", "Ω∫««√˜");
+		
+		this.petService.save(miho, hsim);
 		
 	}
 

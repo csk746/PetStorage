@@ -20,6 +20,7 @@ import {Record} from 'immutable'
  * The fields we're concerned with
  */
 var InitialState = Record({
+  petId:1,
   photoList:[]
 })
 

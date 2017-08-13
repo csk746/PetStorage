@@ -7,9 +7,11 @@ import java.sql.SQLException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.core.domain.BaseEntity;
 
@@ -23,10 +25,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 public class Storage extends BaseEntity{
+	
+	public Storage(Pet pet){
+		this.pet = pet ; 
+	}
 
+	@ManyToOne
+	private Pet pet ;
+	
 	@Column
 	private Blob image ; 
 	

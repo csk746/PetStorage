@@ -1,16 +1,12 @@
 package com.daou.petstorage.Pet.domain;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.ManyToAny;
 
 
-import com.daou.petstorage.Storage.domain.Storage;
+import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
@@ -35,9 +31,9 @@ public class Pet extends BaseEntity{
 	private String kind; 
 	
 	@Column
-	private Date  birthDay ; 
+	private String birthDay ; 
 	
 	@ManyToOne
-	private Storage storage ;
+	private User master;
 	
 }

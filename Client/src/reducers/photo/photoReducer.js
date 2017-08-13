@@ -11,6 +11,8 @@
  */
 import InitialState from './photoInitialState'
 
+import { getHost } from '../../lib/utils';
+
 /**
  * Device actions to test
  */
@@ -38,16 +40,32 @@ export default function photoReducer(state = initialState, action) {
     case UPLOAD_PHOTO: {
     }
     case SAVE_PHOTO: {
-      console.log("savePhoto")
-      console.log(state.photoList)
-      console.log(action.payload)
       let photoList = state.photoList;
       photoList.push(action.payload)
-
       state.set('photoList', photoList)
-    }
 
-  }
+      let petId = state.petId;
+
+      let requestUrl = getHost() + '/storage/image/' + petId;
+      let formData = new FormData();
+      let imageUrl = action.payload  ;
+
+      formData.append('image', {uri: imageUrl, type:'image/jpg', name:'1.jpg'})
+
+      fetch(requestUrl, {
+        method: "POST",
+        headers: { "Accept": "multipart/form-data", "Content-Type": "multipart/form-data" },
+        body: formData
+      }).then((response) => response).
+        then(responseData => {
+          console.log(responseData)
+        })
+        .catch(err => {
+          console.log(err)
+        })  
+      }
+
+    }
 
   return state
 }

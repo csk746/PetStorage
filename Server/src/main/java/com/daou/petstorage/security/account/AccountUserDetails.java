@@ -29,8 +29,8 @@ public class AccountUserDetails implements UserDetails {
 		return Arrays.asList(new SimpleGrantedAuthority("USER" + user));
 	}
 	
-	public User getUser(){
-		return this.user ; 
+	public String getUserId(){
+		return this.user.getLoginId() ; 
 	}
 	
 	public Long getId() {

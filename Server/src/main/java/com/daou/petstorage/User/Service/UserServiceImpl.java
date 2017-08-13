@@ -77,6 +77,15 @@ public class UserServiceImpl implements UserService{
 		return this.userRepository.save(user);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.User.Service.UserService#save(com.daou.petstorage.User.domain.User)
+	 */
+	@Override
+	public User save(User user) {
+		// TODO Auto-generated method stub
+		return this.userRepository.save(user);
+	}
+
 }
 
 
