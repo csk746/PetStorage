@@ -55,6 +55,8 @@ export function loginRequest() {
 }
 
 export function loginSuccess(json) {
+
+  console.log ( json);
   return {
     type: LOGIN_SUCCESS,
     payload: json
@@ -87,18 +89,22 @@ export function login(id, password) {
     console.log('actions..')
     dispatch(loginRequest())
     console.log('api host 주소 : ', getHost());
-     return $.ajax({
-         contentType: 'application/json',
-         type: 'POST',
-         url: getHost() + '/user/login',
-         data: JSON.stringify({
+
+    fetch(getHost() + '/user/login', {
+      method :"POST", 
+      headers:{'Asscept':'application/json','Content-Type':'application/json'},
+      body : JSON.stringify({
              loginId : id,
              password : password
-         }),
-         success: function() {
-         }
-     });
-
+         })
+    }).then((response)=>response.json()).then(responseDate =>{
+      console.log ( responseDate)
+      if ( responseDate.token != null){
+      Actions.Main();
+      }
+    })
+        
+ 
     return saveSessionToken({ id: id, password: password }).then(function () {
       dispatch(loginSuccess({ success: true }));
       Actions.Main();
