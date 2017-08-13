@@ -55,6 +55,7 @@ import { setPlatform, setVersion } from './reducers/device/deviceActions'
 import { setStore } from './reducers/global/globalActions'
 import AuthInitialState from './reducers/auth/authInitialState'
 import DeviceInitialState from './reducers/device/deviceInitialState'
+import PhotoInitialState from './reducers/photo/photoInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
 import pack from '../package'
 var VERSION = pack.version
@@ -63,6 +64,7 @@ export default function (platform) {
 
   const states = {
     auth: new AuthInitialState(),
+    photo : new PhotoInitialState(),
     device: new DeviceInitialState().set('platform', platform).set('version', pack.version),
   }
 
@@ -74,11 +76,12 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
-        initial />
+         />
 
       <Scene key='Main'
         component={Main}
         type={ActionConst.RESET}
+        initial
       />
 
       <Scene key='Subview'

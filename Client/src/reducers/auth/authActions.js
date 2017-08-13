@@ -87,17 +87,17 @@ export function login(id, password) {
     console.log('actions..')
     dispatch(loginRequest())
     console.log('api host 주소 : ', getHost());
-    // return $.ajax({
-    //     contentType: 'application/json',
-    //     type: 'GET',
-    //     url: getHost() + 'queryString',
-    //     data: JSON.stringify({
-    //         id : id,
-    //         password : password
-    //     }),
-    //     success: function() {
-    //     }
-    // });
+     return $.ajax({
+         contentType: 'application/json',
+         type: 'POST',
+         url: getHost() + '/user/login',
+         data: JSON.stringify({
+             loginId : id,
+             password : password
+         }),
+         success: function() {
+         }
+     });
 
     return saveSessionToken({ id: id, password: password }).then(function () {
       dispatch(loginSuccess({ success: true }));
