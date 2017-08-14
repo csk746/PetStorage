@@ -58,13 +58,13 @@ public class TestDataInitService {
 		
 		List<User> saveUserList = new ArrayList<>();
 		
-		saveUserList.add(this.getDefaultUser("admin", "°ü¸®ÀÚ", "admin"));
-		saveUserList.add(this.getDefaultUser("hsim", "ÀÓÈñ¼·", "1234"));
+		saveUserList.add(this.getDefaultUser("admin", "ê´€ë¦¬ì", "admin"));
+		saveUserList.add(this.getDefaultUser("hsim", "ì„í¬ì„­", "1234"));
 		
 		this.userService.saveUser(saveUserList, true);
 		
 		User hsim = this.userService.getUser("hsim");
-		Pet miho = getDefaultPet("¹ÌÈ£", "2014-09-14", "½ºÇÇÃ÷");
+		Pet miho = getDefaultPet("ë¯¸í˜¸", "2014-09-14", "ìŠ¤í”¼ì¸ ");
 		
 		this.petService.save(miho, hsim);
 		
