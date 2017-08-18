@@ -8,6 +8,7 @@ import com.daou.petstorage.User.domain.User;
  */
 public interface PetService {
 	
+	public boolean petExistCheck(Pet pet, User user);
 	public Pet save(Pet pet, User user);
 	public Pet save(Pet pet );
 	

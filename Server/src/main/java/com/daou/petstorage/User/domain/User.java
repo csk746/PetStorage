@@ -41,7 +41,4 @@ public class User extends BaseEntity {
 	@Column 
 	String email ; 
 	
-	@ManyToOne
-	Pet defaultPet ; 
-	
 }

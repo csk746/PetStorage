@@ -59,14 +59,7 @@ public class StorageServiceImpl implements StorageService{
 	public Storage save(Storage storage) {
 		// TODO Auto-generated method stub
 		Pet pet = storage.getPet();
-		
-		if ( pet.getMaster().getLoginId().equals(this.securityContext.getUser().getLoginId())){
-			//save
-			return this.storageRepository.save(storage);
-		}
-		else{
-			return null; 
-		}
+		return this.storageRepository.save(storage);
 	}
 
 }

@@ -16,7 +16,6 @@ import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -48,6 +47,11 @@ public class Storage extends BaseEntity{
 			return null ;
 		}
 	}
+	
+	public void setImage(Blob image){
+		this.image = image ; 
+	}
+	
 	public void setImage(BlobConverter converter, File f ){
 		if ( converter == null || f == null ) return ; 
 		this.image = converter.fileToBlob(f);
