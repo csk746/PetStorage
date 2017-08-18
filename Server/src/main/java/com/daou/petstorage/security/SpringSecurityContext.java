@@ -30,7 +30,7 @@ public class SpringSecurityContext extends SecurityContextHolder {
     	}
     	
     	if ( accountUser != null) {
-    		this.userService.getUser(accountUser.getUserId());
+    		return this.userService.getUser(accountUser.getId());
     		
     	}
     	

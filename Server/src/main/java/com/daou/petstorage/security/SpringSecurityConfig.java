@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 import com.daou.petstorage.security.account.AccountUserDetailsService;
 
@@ -30,10 +30,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
         .authorizeRequests()
-        .antMatchers("/pet/**").authenticated()
-        .antMatchers("/storage/**").authenticated()
-        .anyRequest().permitAll();
+        .antMatchers("/user/login").permitAll()
+        .anyRequest().authenticated()
+		.and().logout().logoutSuccessUrl("/");
+
         
     }
     

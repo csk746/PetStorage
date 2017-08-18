@@ -10,6 +10,7 @@ import com.daou.petstorage.User.domain.User;
 public interface UserService {
 	
 	public boolean isExistUser(String loginId, String password);
+	public User getUser(Long id);
 	public User getUser(String loginId);
 	public User getUser(String loginId, String password);
 	public User save(User user);

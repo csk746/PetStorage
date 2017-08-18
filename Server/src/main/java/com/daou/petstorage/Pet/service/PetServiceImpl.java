@@ -1,5 +1,7 @@
 package com.daou.petstorage.Pet.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -41,8 +43,6 @@ public class PetServiceImpl implements PetService {
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Pet.service.PetService#save(com.daou.petstorage.Pet.domain.Pet, com.daou.petstorage.User.domain.User)
 	 */
-	
-	
 	
 	@Override
 	public Pet save(Pet pet, User user) {
@@ -93,6 +93,7 @@ public class PetServiceImpl implements PetService {
 	@Override
 	public Pet getPet(long petId) {
 		// TODO Auto-generated method stub
+		
 		Pet pet = this.petRepository.findOne(petId);
 		if ( pet == null){
 			User user = this.userService.getUser(this.securityContext.getUser().getLoginId());
@@ -116,6 +117,41 @@ public class PetServiceImpl implements PetService {
 		Pet dbPet = this.petRepository.findByNameAndUser(pet.getName(), user);
 		log.info("pet Exist check pet Name : " + pet.getName() + " user id : " + user.getLoginId() + " exist : "  + dbPet==null ? "false": "true");
 		return dbPet == null ? false : true ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#isHavingPermission(com.daou.petstorage.User.domain.User, com.daou.petstorage.Pet.domain.Pet, com.daou.petstorage.PetMap.model.AccessControl)
+	 */
+	@Override
+	public boolean isHavingPermission(User user, Pet pet, AccessControl ac) {
+		// TODO Auto-generated method stub
+		PetUserMap puMap = this.petUserMapRepository.findByPetAndUser(pet, user);
+		if ( puMap == null) return false ; 
+		
+		log.info(user.getLoginId() + " user request access pet" +  pet.getName()  + " accessControl " + ac + " permission is " + ac.isAccess(puMap.getAccessControl()));
+		
+		return ac.isAccess(puMap.getAccessControl());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#getMyPets(com.daou.petstorage.User.domain.User)
+	 */
+	@Override
+	public List<Pet> getMyPets(User user) {
+		// TODO Auto-generated method stub
+		if ( user == null  ) { user = this.securityContext.getUser(); }
+		if ( user == null) return null ; 
+		
+		return this.petRepository.findByUser(user);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#getMyPets()
+	 */
+	@Override
+	public List<Pet> getMyPets() {
+		// TODO Auto-generated method stub
+		return this.getMyPets(null);
 	}
 
 }
