@@ -39,8 +39,6 @@ const BackendFactory = require('../../lib/BackendFactory').default
 import { appAuthToken } from '../../lib/AppAuthToken'
 import { Actions } from 'react-native-router-flux'
 
-import $ from 'jquery';
-
 import { getHost } from '../../lib/utils';
 
 const _ = require('underscore')
@@ -90,7 +88,7 @@ export function login(id, password) {
     dispatch(loginRequest())
     console.log('api host 주소 : ', getHost());
 
-    fetch(getHost() + '/user/login', {
+    _fetch(getHost() + '/user/login', {
       method: "POST",
       headers: { 'Asscept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
