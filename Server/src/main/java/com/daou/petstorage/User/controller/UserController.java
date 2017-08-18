@@ -31,7 +31,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST) 
 	public AccountUserDetails login( @RequestBody User user,  HttpSession session ) {
 		
-		log.info("login request user " + user.getLoginId());
+		log.info("login request user " + user.getLoginId() + "/" + user.getPassword());
 		
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getLoginId(), user.getPassword()); 
 		Authentication authentication = authenticationManager.authenticate(token); 
