@@ -69,8 +69,8 @@ public class StorageServiceImpl implements StorageService{
 		assertNotNull(securityContext.getUser());
 		
 		String fakePlanText = pet.getId() + ":" + securityContext.getUser().getLoginId() + System.currentTimeMillis();
-		String fakeUrl = this.encoder.encodePassword(fakePlanText, null) + ".jpg";
-		storage.setFakeUrl(fakeUrl);
+		String fakeName = this.encoder.encodePassword(fakePlanText, null) + ".jpg";
+		storage.setFakeName(fakeName);
 		
 		return this.storageRepository.save(storage);
 	}

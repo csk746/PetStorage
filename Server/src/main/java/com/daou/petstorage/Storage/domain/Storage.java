@@ -27,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(indexes = {@Index(columnList="fakeUrl")})
+@Table(indexes = {@Index(columnList="fakeName")})
 public class Storage extends BaseEntity{
 	
 	public Storage(Pet pet){
@@ -41,7 +41,7 @@ public class Storage extends BaseEntity{
 	private Blob image ; 
 	
 	@Column
-	private String fakeUrl; 
+	private String fakeName; 
 	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
