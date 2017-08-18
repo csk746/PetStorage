@@ -51,6 +51,17 @@ export class Server {
   }
 
 
+  async login(params){
+    return this._fetch({
+        method : 'POST',
+        url : '/user/login',
+        body : {
+          loginId : params.loginId,
+          password : params.password
+        }
+    })
+  }
+
   async _fetch(opts) {
     opts = _.extend({
       method: 'GET',
