@@ -36,6 +36,14 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return this.userRepository.findByLoginIdAndPassword(loginId, password) != null ;
 	}
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.User.Service.UserService#getUser(java.lang.Long)
+	 */
+	@Override
+	public User getUser(Long id) {
+		// TODO Auto-generated method stub
+		return this.userRepository.findOne(id);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.User.Service.UserService#getUser(java.lang.String)
@@ -112,6 +120,7 @@ public class UserServiceImpl implements UserService{
 		if ( this.isExistUser(user.getLoginId() )) return null;
 		return this.userRepository.save(user);
 	}
+
 
 }
 
