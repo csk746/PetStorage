@@ -7,7 +7,9 @@ import java.sql.SQLException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(indexes = {@Index(columnList="fakeUrl")})
 public class Storage extends BaseEntity{
 	
 	public Storage(Pet pet){
@@ -36,6 +39,9 @@ public class Storage extends BaseEntity{
 	
 	@Column
 	private Blob image ; 
+	
+	@Column
+	private String fakeUrl; 
 	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
