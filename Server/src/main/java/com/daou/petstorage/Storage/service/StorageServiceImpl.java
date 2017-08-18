@@ -18,6 +18,7 @@ import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.service.PetService;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.Storage.domain.Storage;
+import com.daou.petstorage.Storage.model.StorageListModel;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.security.SecurityPasswordEncoder;
@@ -99,8 +100,11 @@ public class StorageServiceImpl implements StorageService{
 	 * @see com.daou.petstorage.Storage.service.StorageService#getFileList(java.lang.Long, int, int, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<String> getFileList(Long petId, Pageable page) {
+	public StorageListModel getFileList(Long petId, Pageable page) {
 		// TODO Auto-generated method stub
+		
+		StorageListModel model = new StorageListModel();
+		
 		List<String> urlList = new ArrayList<>();
 		Pet pet = this.petService.getPet(petId);
 		if ( pet == null) {
@@ -113,8 +117,9 @@ public class StorageServiceImpl implements StorageService{
 			for ( Storage st : stList)
 			urlList.add("/storage/image/" + st.getFakeName());
 		}
+		model.setUrlList(urlList);
 		
-		return urlList;
+		return model ; 
 	}
 
 }

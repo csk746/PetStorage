@@ -6,7 +6,7 @@ module.exports = {
   appId: 'polipan',
   local: {
     //url: 'http://127.0.0.1:9000'
-    url: 'http://192.168.55.197:9000'
+    url: 'http://172.21.26.48:9000'
   },
   dev: {
     // url: 'https://dev.polipankorea.com'
