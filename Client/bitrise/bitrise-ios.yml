@@ -3,10 +3,10 @@ format_version: 1.1.0
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
-  - BITRISE_PROJECT_PATH: ios/snowflake.xcodeproj
+  - BITRISE_PROJECT_PATH: ios/petstorage.xcodeproj
     opts:
       is_expand: false
-  - BITRISE_SCHEME: snowflake
+  - BITRISE_SCHEME: petstorage
     opts:
       is_expand: false
 trigger_map:
@@ -40,7 +40,7 @@ workflows:
     - install-react-native@0.1.0: {}
     - file-downloader@0.9.1:
         inputs:
-        - source: "$BITRISEIO_snowflakeserver_URL"
+        - source: "$BITRISEIO_petstorageserver_URL"
         - destination: src/lib/config.js
     - react-native-bundle@1.0.0:
         inputs:

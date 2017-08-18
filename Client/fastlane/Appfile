@@ -1,4 +1,4 @@
-app_identifier "mobi.snowflake.demo" # The bundle identifier of your app
+app_identifier "mobi.petstorage.demo" # The bundle identifier of your app
 apple_id "bartonhammond@gmail.com" # Your Apple email address
 
 team_id "BJW5E7FWWV"  # Developer Portal Team ID

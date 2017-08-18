@@ -1,76 +1,27 @@
-/**
- * # Main.js
- *  This is the main app screen
- *
- */
 'use strict'
-/*
- * ## Imports
- *
- * Imports from redux
- */
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-/**
- * The actions we need
- */
+import GridView from 'react-native-gridview';
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
-
-/**
- * Router
- */
-import {Actions} from 'react-native-router-flux'
-import NavigationBar from 'react-native-navbar'
-/**
- * The Header will display a Image and support Hot Loading
- */
-
-/**
- * The components needed from React
- */
-import React, {Component} from 'react'
-import
-{
+import { Actions } from 'react-native-router-flux'
+import React, { Component } from 'react'
+import {
   StyleSheet,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Text,
+  ListView,
+  Image
 }
-from 'react-native'
+  from 'react-native'
 
-/**
- * The platform neutral button
- */
+import NavBar from './common/NavBar'
+import BottomBar from './common/BottomBar'
+
+
 const Button = require('apsl-react-native-button')
-
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Main.js will depend on.
- *
- */
-function mapStateToProps (state) {
-  return {
-    auth: {
-      form: {
-        isFetching: state.auth.form.isFetching
-      }
-    },
-    global: {
-      currentState: state.global.currentState,
-      showState: state.global.showState
-    }
-  }
-}
-
-/*
- * Bind all the actions
- */
-function mapDispatchToProps (dispatch) {
-  return {
-    actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
-  }
-}
 
 var styles = StyleSheet.create({
   container: {
@@ -89,14 +40,14 @@ var styles = StyleSheet.create({
     marginRight: 10
     // marginTop:520
   },
-  picture: {
-    backgroundColor: '#FF3366',
-    borderColor: '#FF3366',
-    marginLeft: 40,
-    marginRight: 40,
-    // position:'absolute',
-    marginTop:520
-    // marginBottom:10
+  camera: {
+    marginTop: 20,
+    marginBottom: 20
+  },
+  dataRow: {
+    marginTop: 10,
+    marginBottom: 10
+
   }
 })
 /**
@@ -109,22 +60,56 @@ I18n.translations = Translations
 /**
  * ## App class
  */
-class Main extends Component {
+const itemsPerRow = 4;
 
-  handlePress () {
+// Use data from an array... 
+const data = Array(20)
+  .fill(null)
+  .map((item, index) => index + 1);
+
+// ...or create your own data source. 
+// This will randomly allocate 1-3 items per row, and will be used 
+// if the `randomizeRows` prop is `true`. 
+const randomData = [];
+const picture = []
+for (let i = 0; i < data.length; i) {
+  const endIndex = Math.max(Math.round(Math.random() * itemsPerRow), 1) + i;
+  randomData.push('사진');
+  i = endIndex;
+}
+const dataSource = new GridView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2,
+}).cloneWithRows(randomData);
+
+class Main extends Component {
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      dataSource: ds.cloneWithRows(['사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진']),
+    };
+  }
+
+  handlePress() {
     Actions.Subview({
       title: 'Subview'
       // you can add additional props to be passed to Subview here...
     })
   }
-  takePicture () {
+  takePicture() {
     Actions.TakePicture({
       title: 'TakePicture'
       // you can add additional props to be passed to Subview here...
     })
   }
+  goToDetailView() {
+    Actions.DetailView({
+      // title: 'Main'
+      // you can add additional props to be passed to Subview here...
+    })
+  }
 
-  render () {
+  render() {
     var titleConfig = {
       title: I18n.t('Subview.subview')
     }
@@ -135,23 +120,50 @@ class Main extends Component {
     }
     return (
       <View style={styles.container}>
-        <View>
-          <NavigationBar
-          title={titleConfig}
-          leftButton={
-            <TouchableOpacity onPress = {()=>{Actions.pop()}}/>
-          } />
-          <Button style={styles.button} onPress={this.handlePress.bind(this)}>
-            {I18n.t('Main.navigate')}
-          </Button>
-          <Button style={styles.picture} onPress={this.takePicture.bind(this)}>
-            사진찍기 버튼
-          </Button>
-        </View>
+          <NavBar />
+          <GridView
+            data={data}
+            dataSource={null}
+            itemsPerRow={itemsPerRow}
+            renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
+              return (
+                <View style={{ flex: 1, borderWidth: 1 }}>
+                  {/* <Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text> */}
+                  <Text>강아지 사진</Text>
+                  <TouchableOpacity onPress={() => this.goToDetailView()}>
+                    <Image style={{ height: 80, width: 80 }} source={require('../images/corgi.png')} />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+          <BottomBar/>
       </View>
     )
   }
 }
+
+
+function mapStateToProps(state) {
+    return {
+        auth: {
+            form: {
+                isFetching: state.auth.form.isFetching
+            }
+        },
+        global: {
+            currentState: state.global.currentState,
+            showState: state.global.showState
+        }
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
+    }
+}
+
 
 /**
  * Connect the properties

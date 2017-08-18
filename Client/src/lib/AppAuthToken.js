@@ -20,7 +20,7 @@ export class AppAuthToken {
    *
    * set the key from the config
    */
-  constructor () {
+  constructor() {
     this.SESSION_TOKEN_KEY = CONFIG.SESSION_TOKEN_KEY
   }
 
@@ -28,7 +28,7 @@ export class AppAuthToken {
    * ### storeSessionToken
    * Store the session key
    */
-  storeSessionToken (sessionToken) {
+  storeSessionToken(sessionToken) {
     return store.save(this.SESSION_TOKEN_KEY, {
       sessionToken: sessionToken
     })
@@ -41,7 +41,7 @@ export class AppAuthToken {
    * it needs to be stored on the device.  Remember, the store is a
    * promise so, have to be careful.
    */
-  getSessionToken (sessionToken) {
+  getSessionToken(sessionToken) {
     if (sessionToken) {
       return store.save(this.SESSION_TOKEN_KEY, {
         sessionToken: sessionToken
@@ -55,7 +55,7 @@ export class AppAuthToken {
    * ### deleteSessionToken
    * Deleted during log out
    */
-  deleteSessionToken () {
+  deleteSessionToken() {
     return store.delete(this.SESSION_TOKEN_KEY)
   }
 }
