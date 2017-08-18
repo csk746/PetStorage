@@ -77,7 +77,7 @@ public class StorageController {
 
 		try{
 			ServletOutputStream outs = res.getOutputStream();
-			outs.write(storage.getImage().getBytes(0, (int) storage.getImage().length()));
+			outs.write(storage.getImage().getBytes(1, (int) storage.getImage().length()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

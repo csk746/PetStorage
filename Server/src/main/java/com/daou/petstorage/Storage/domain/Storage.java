@@ -30,7 +30,11 @@ import lombok.Setter;
 @Table(indexes = {@Index(columnList="fakeName")})
 public class Storage extends BaseEntity{
 	
+	public Storage(){
+		super();
+	}
 	public Storage(Pet pet){
+		super();
 		this.pet = pet ; 
 	}
 
