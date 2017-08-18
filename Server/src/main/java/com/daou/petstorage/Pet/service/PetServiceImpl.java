@@ -119,6 +119,41 @@ public class PetServiceImpl implements PetService {
 		return dbPet == null ? false : true ;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#isHavingPermission(com.daou.petstorage.User.domain.User, com.daou.petstorage.Pet.domain.Pet, com.daou.petstorage.PetMap.model.AccessControl)
+	 */
+	@Override
+	public boolean isHavingPermission(User user, Pet pet, AccessControl ac) {
+		// TODO Auto-generated method stub
+		PetUserMap puMap = this.petUserMapRepository.findByPetAndUser(pet, user);
+		if ( puMap == null) return false ; 
+		
+		log.info(user.getLoginId() + " user request access pet" +  pet.getName()  + " accessControl " + ac + " permission is " + ac.isAccess(puMap.getAccessControl()));
+		
+		return ac.isAccess(puMap.getAccessControl());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#getMyPets(com.daou.petstorage.User.domain.User)
+	 */
+	@Override
+	public List<Pet> getMyPets(User user) {
+		// TODO Auto-generated method stub
+		if ( user == null  ) { user = this.securityContext.getUser(); }
+		if ( user == null) return null ; 
+		
+		return this.petRepository.findByUser(user);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#getMyPets()
+	 */
+	@Override
+	public List<Pet> getMyPets() {
+		// TODO Auto-generated method stub
+		return this.getMyPets(null);
+	}
+
 }
 
 
