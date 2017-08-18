@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import GridView from 'react-native-gridview';
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
+import * as photoActions from '../reducers/photo/photoActions'
+
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
 import {
@@ -88,6 +90,9 @@ class Main extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(['사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진']),
     };
+
+    this.getPhotoList= this.getPhotoList.bind(this)
+
   }
 
   handlePress() {
@@ -96,11 +101,14 @@ class Main extends Component {
       // you can add additional props to be passed to Subview here...
     })
   }
-  takePicture() {
-    Actions.TakePicture({
-      title: 'TakePicture'
-      // you can add additional props to be passed to Subview here...
-    })
+  getPhotoList() {
+
+    console.log ( "getPhotoList");
+
+    this.props.actions.getPhotoUrl();
+    let currentPage = this.props.photo.page + 1;
+    console.log ( "page : " + currentPage);
+
   }
   goToDetailView() {
     Actions.DetailView({
@@ -110,6 +118,7 @@ class Main extends Component {
   }
 
   render() {
+    this.getPhotoList();
     var titleConfig = {
       title: I18n.t('Subview.subview')
     }
@@ -154,13 +163,21 @@ function mapStateToProps(state) {
         global: {
             currentState: state.global.currentState,
             showState: state.global.showState
+        },
+        photo:{
+            maxSize:state.photo.maxSize,
+            order:state.photo.order,
+            field:state.photo.field,
+            page:state.photo.page,
+            urlList:state.photo.urlList,
+            photoList:state.photo.photoList
         }
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
+        actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions}, dispatch)
     }
 }
 

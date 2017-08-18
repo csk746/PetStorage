@@ -103,7 +103,7 @@ export class TakePicture extends Component {
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,
-        AndroidplaySoundOnCapture:false,
+        AndroidPlaySoundOnCapture:false,
       },
       gestureName:'none',
       isRecording: false
@@ -120,8 +120,6 @@ export class TakePicture extends Component {
     Actions.PhotoViewer({
     })
   }
-
-
 
   savePhoto(data) {
     this.props.actions.setPhoto(data);
