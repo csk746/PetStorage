@@ -17,6 +17,7 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
+  GET_PHOTOLIST,
   UPLOAD_PHOTO,
   SAVE_PHOTO
 } = require('../../lib/constants').default
@@ -37,14 +38,41 @@ export default function photoReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
+    case GET_PHOTOLIST:{
+
+      let host = getHost();
+      let requestUrl = host + '/storage/list/' +
+        state.petId + '?page=' + state.page + '&size=' + state.maxSize + '&field=' + state.field + '&order=' + state.order;
+
+      fetch(requestUrl, {
+        method: "GET",
+      }).then((response) => response.json()).
+        then(responseData => {
+          let urls = responseData.urlList;
+          if ( urls !=null ){
+            let urlList = state.urlList;
+            for ( let i = 0; i < urls.length; i ++){
+              urlList.push(host + urls[i]);
+            }
+            state.set('urlList', urlList);
+            console.log ( state.urlList)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })  
+      }
+
     case UPLOAD_PHOTO: {
     }
     case SAVE_PHOTO: {
+
       let photoList = state.photoList;
       photoList.push(action.payload)
       state.set('photoList', photoList)
 
       let petId = state.petId;
+      console.log ( "petId : " + petId);
 
       let requestUrl = getHost() + '/storage/image/' + petId;
       let formData = new FormData();

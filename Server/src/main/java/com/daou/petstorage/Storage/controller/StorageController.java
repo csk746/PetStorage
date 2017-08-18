@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.daou.petstorage.Storage.domain.Storage;
+import com.daou.petstorage.Storage.model.StorageListModel;
 import com.daou.petstorage.Storage.service.StorageService;
 import com.daou.petstorage.security.SpringSecurityContext;
 import com.daou.petstorage.util.SortUtil;
@@ -47,7 +49,7 @@ public class StorageController {
 	}
 	
 	@RequestMapping(value="/list/{petId}", method=RequestMethod.GET) 
-	public List<String> getImageList( @PathVariable long petId, HttpServletResponse res,
+	public @ResponseBody StorageListModel getImageList( @PathVariable long petId, HttpServletResponse res,
 			@RequestParam(defaultValue = "0",   value = "page") int page,
 			@RequestParam(defaultValue = "100",   value = "size") int size,
 			@RequestParam(defaultValue = "id",  value = "field") String field,

@@ -55,6 +55,7 @@ export default keyMirror({
   REGISTER: null,
 
   SAVE_PHOTO:null,
-  UPLOAD_PHOTO:null
+  UPLOAD_PHOTO:null,
+  GET_PHOTOLIST:null
 
 })
