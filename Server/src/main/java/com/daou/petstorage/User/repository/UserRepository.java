@@ -9,6 +9,7 @@ import com.daou.petstorage.User.domain.User;
  */
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	Long countByLoginId(String loginId);
 	User findByLoginId(String loginId);
 	User findByLoginIdAndPassword(String loginId, String password);
 }

@@ -2,10 +2,9 @@ package com.daou.petstorage.User.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
-import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
@@ -21,6 +20,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Table(indexes = {@Index(columnList="loginId")})
 public class User extends BaseEntity {
 	
 	@Column 
@@ -40,8 +40,5 @@ public class User extends BaseEntity {
 	
 	@Column 
 	String email ; 
-	
-	@ManyToOne
-	Pet defaultPet ; 
 	
 }

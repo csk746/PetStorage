@@ -15,6 +15,7 @@ public interface UserService {
 	public User save(User user);
 	public User saveUser(User user, boolean encode);
 	public List<User> saveUser(List<User> user, boolean encode);
+	public boolean isExistUser(String loginId);
 
 }
 

@@ -7,7 +7,9 @@ import java.sql.SQLException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +18,6 @@ import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -26,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(indexes = {@Index(columnList="fakeName")})
 public class Storage extends BaseEntity{
 	
 	public Storage(Pet pet){
@@ -38,6 +40,9 @@ public class Storage extends BaseEntity{
 	@Column
 	private Blob image ; 
 	
+	@Column
+	private String fakeName; 
+	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
 		try {
@@ -48,6 +53,11 @@ public class Storage extends BaseEntity{
 			return null ;
 		}
 	}
+	
+	public void setImage(Blob image){
+		this.image = image ; 
+	}
+	
 	public void setImage(BlobConverter converter, File f ){
 		if ( converter == null || f == null ) return ; 
 		this.image = converter.fileToBlob(f);
