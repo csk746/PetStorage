@@ -52,7 +52,7 @@ export default function photoReducer(state = initialState, action) {
           if ( urls !=null ){
             let urlList = state.urlList;
             for ( let i = 0; i < urls.length; i ++){
-              urlList.push(host + urls[i]);
+              urlList.push({ photo: host + urls[i] });
             }
             state.set('urlList', urlList);
             console.log ( state.urlList)
