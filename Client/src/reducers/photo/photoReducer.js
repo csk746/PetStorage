@@ -33,7 +33,6 @@ export default function photoReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
   switch (action.type) {
-
     /**
      * ### set the platform in the state
      *
@@ -54,16 +53,21 @@ export default function photoReducer(state = initialState, action) {
             for ( let i = 0; i < urls.length; i ++){
               urlList.push({ photo: host + urls[i] });
             }
-            state.set('urlList', urlList);
+            state = state.set('urlList',urlList);
+            console.log ( "urlList gettering success ")
             console.log ( state.urlList)
+            return state ; 
           }
         })
         .catch(err => {
           console.log(err)
+          return state ;
         })  
-      }
+
+     }
 
     case UPLOAD_PHOTO: {
+          return state ;
     }
     case SAVE_PHOTO: {
 
@@ -87,13 +91,13 @@ export default function photoReducer(state = initialState, action) {
       }).then((response) => response).
         then(responseData => {
           console.log(responseData)
+          return state ;
         })
         .catch(err => {
           console.log(err)
+          return state ;
         })  
       }
-
     }
-
-  return state
+  return state;
 }

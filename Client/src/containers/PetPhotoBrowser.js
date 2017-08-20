@@ -1,10 +1,18 @@
 
 'use strict'
 
-
-import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import * as authActions from '../reducers/auth/authActions'
+import * as globalActions from '../reducers/global/globalActions'
+import * as photoActions from '../reducers/photo/photoActions'
+
+import { Actions } from 'react-native-router-flux'
+
+import React, { Component } from 'react';
+
+import PhotoBrowser from 'react-native-photo-browser';
 import {
   ActionSheetIOS,
   CameraRoll,
@@ -17,46 +25,48 @@ import {
   Platform,
 } from 'react-native';
 
-import PhotoBrowser from 'react-native-photo-browser';
-
-import { Actions } from 'react-native-router-flux'
-import * as authActions from '../reducers/auth/authActions'
-import * as globalActions from '../reducers/global/globalActions'
-import * as photoActions from '../reducers/photo/photoActions'
-
-
 const PhotoList =
   {
     startOnGrid: true,
     displayActionButton: true,
   };
 
-export  class PetPhotoBrowser extends Component {
+class PetPhotoBrowser extends React.Component {
 
+  componentWillMount() {
+    console.log("componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("frstRendering ok");
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
+    return true;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!componentWillReceiveProps: " + JSON.stringify(nextProps));
+  }
   constructor(props) {
     super(props);
+
+    this.props = props ; 
+    console.log("constructor Excuete");
 
     this._onSelectionChanged = this._onSelectionChanged.bind(this);
     this._onActionButton = this._onActionButton.bind(this);
     this._getPhotoList= this._getPhotoList.bind(this);
-  
-
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    });
 
     this._getPhotoList();
-
-    this.state = {
-      dataSource: dataSource.cloneWithRows(PhotoList),
-      photoList: this.props.photo.urlList
-    };
   }
   
   _getPhotoList() {
 
     console.log ( "getPhotoList");
     this.props.actions.getPhotoUrl();
+    console.log ( "getPhotoListEnd");
   }
 
   _onSelectionChanged(media, index, selected) {
@@ -76,10 +86,12 @@ export  class PetPhotoBrowser extends Component {
     }
   }
 
+
   render() {
+    console.log ( " render!!!!!!!")
     return (
       <PhotoBrowser
-        mediaList={this.state.photoList}
+        mediaList={this.props.photo.urlList}
         initialIndex={0}
         useCircleProgress
         startOnGrid={PhotoList.startOnGrid}
@@ -92,28 +104,6 @@ export  class PetPhotoBrowser extends Component {
 
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  list: {
-    flex: 1,
-    paddingTop: 54,
-    paddingLeft: 16,
-  },
-  row: {
-    flex: 1,
-    padding: 8,
-    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-    borderBottomWidth: 1,
-  },
-  rowTitle: {
-    fontSize: 14,
-  },
-  rowDescription: {
-    fontSize: 12,
-  },
-});
 
 function mapStateToProps(state) {
     return {
