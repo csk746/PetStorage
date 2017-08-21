@@ -61,31 +61,15 @@ export function login(id, password) {
             password:password
         })
         .then(response => {
-            console.log(response)
-            dispatch({type : LOGIN_SUCCESS});
+            // var res = JSON.parse(response);
+            // console.log(res);
+            if(response.token){
+                dispatch({type : LOGIN_SUCCESS, userInfo : response});
+                // saveSessionToken({ authToken : response.token });
+            }else{
+                dispatch({type : LOGIN_FAILURE});
+            }
         });
-
-
-    // _fetch(getHost() + '/user/login', {
-    //   method: "POST",
-    //   headers: { 'Asscept': 'application/json', 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     loginId: id,
-    //     password: password
-    //   })
-    // }).then((response) => response.json()).then(responseData => {
-    //   console.log(responseData)
-    //   if (responseData.token != null) {
-    //     Actions.Main();
-    //   }
-    // })
-
-
-    // return saveSessionToken({ id: id, password: password }).then(function () {
-    //   dispatch(loginSuccess({ success: true }));
-    //   Actions.Main();
-    //
-    // })
   }
 }
 

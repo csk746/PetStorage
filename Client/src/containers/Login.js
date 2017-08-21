@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import React, { Component } from 'react'
+import { Actions } from 'react-native-router-flux'
 import {
   StyleSheet,
   View,
@@ -13,7 +14,7 @@ import {
   from 'react-native'
 
 const Button = require('apsl-react-native-button')
-const BackendFactory = require('../lib/BackendFactory').default
+
 
 var styles = StyleSheet.create({
   container: {
@@ -47,6 +48,20 @@ class Login extends Component {
   }
 
   componentWillMount() {
+
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+
+      if(this.props != nextProps){
+          console.log(nextProps);
+          console.log(this.props);
+
+          if(nextProps.auth.form.isFetching){
+              Actions.Main();
+          }
+      }
+      return true;
   }
 
   login() {
@@ -92,6 +107,7 @@ class Login extends Component {
     )
   }
 }
+
 function mapStateToProps(state) {
   return {
     auth: {

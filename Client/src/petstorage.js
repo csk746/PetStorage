@@ -77,13 +77,13 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
-      />
+         />
 
       <Scene key='Main'
         component={PetPhotoBrowser}
         type={ActionConst.RESET}
-         initial/>
-        
+        initial
+      />
 
       <Scene key='Subview'
         component={Subview} />
