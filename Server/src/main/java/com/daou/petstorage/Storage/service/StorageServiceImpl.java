@@ -91,8 +91,9 @@ public class StorageServiceImpl implements StorageService{
 		if ( storage == null ){ return null ; }
 		
 		boolean permission = this.petService.isHavingPermission(this.securityContext.getUser(), storage.getPet(), AccessControl.READ);
-		if ( permission ) return storage ; 
-		return null ; 
+		return storage ; 
+		//if ( permission ) return storage ; 
+		//return null ; 
 		
 	}
 

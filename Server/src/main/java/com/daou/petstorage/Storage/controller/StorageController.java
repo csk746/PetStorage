@@ -74,7 +74,7 @@ public class StorageController {
 		}
 		
 		res.setContentType("applicaiton/download;charset=utf-8");
-		res.setHeader("Content-Disposition", "attachment; filename=\""+ fileName + "\";");
+		res.setHeader("Content-Disposition", "attachment; filename=\""+ fileName + ".jpg\";");
 		res.setHeader("Content-Transfer-Encoding", "binary");
 
 		try{
