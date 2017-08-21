@@ -54,13 +54,13 @@ export default function photoReducer(state = initialState, action) {
             for ( let i = 0; i < urls.length; i ++){
               urlList.push(host + urls[i]);
             }
-            state.set('urlList', urlList);
+            state.set(urlList, urlList);
             console.log ( state.urlList)
           }
         })
         .catch(err => {
           console.log(err)
-        })  
+        })
       }
 
     case UPLOAD_PHOTO: {

@@ -95,6 +95,10 @@ class Main extends Component {
 
   }
 
+  componentWillMount(){
+      // if( !this.props.auth.form.isFetching ) Actions.Login();
+  }
+
   handlePress() {
     Actions.Subview({
       title: 'Subview'
@@ -105,7 +109,7 @@ class Main extends Component {
 
     console.log ( "getPhotoList");
 
-    this.props.actions.getPhotoUrl();
+    // this.props.actions.getPhotoUrl();
     let currentPage = this.props.photo.page + 1;
     console.log ( "page : " + currentPage);
 
@@ -118,7 +122,9 @@ class Main extends Component {
   }
 
   render() {
+      console.log(this.props);
     this.getPhotoList();
+
     var titleConfig = {
       title: I18n.t('Subview.subview')
     }
@@ -128,26 +134,26 @@ class Main extends Component {
       handler: Actions.pop
     }
     return (
-      <View style={styles.container}>
-          <NavBar />
-          <GridView
-            data={data}
-            dataSource={null}
-            itemsPerRow={itemsPerRow}
-            renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
-              return (
-                <View style={{ flex: 1, borderWidth: 1 }}>
-                  {/* <Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text> */}
-                  <Text>강아지 사진</Text>
-                  <TouchableOpacity onPress={() => this.goToDetailView()}>
-                    <Image style={{ height: 80, width: 80 }} source={require('../images/corgi.png')} />
-                  </TouchableOpacity>
-                </View>
-              );
-            }}
-          />
-          <BottomBar/>
-      </View>
+            <View style={styles.container}>
+                <NavBar/>
+                <GridView
+                    data={data}
+                    dataSource={null}
+                    itemsPerRow={itemsPerRow}
+                    renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
+                        return (
+                            <View style={{flex: 1, borderWidth: 1}}>
+                                {/* <Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text> */}
+                                <Text>강아지 사진</Text>
+                                <TouchableOpacity onPress={() => this.goToDetailView()}>
+                                    <Image style={{height: 80, width: 80}} source={require('../images/corgi.png')}/>
+                                </TouchableOpacity>
+                            </View>
+                        );
+                    }}
+                />
+                <BottomBar/>
+            </View>
     )
   }
 }
