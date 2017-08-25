@@ -25,6 +25,7 @@ var InitialState = Record({
   maxSize:20,
   order:'desc',
   field:'createdAt',
+  syncIdx:0,
   urlList:[],
   photoList:[]
 })

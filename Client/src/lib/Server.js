@@ -50,6 +50,12 @@ export class Server {
     })
   }
 
+  async getUrlList(params){
+    return this._fetch({
+        method : 'GET',
+        url : '/storage/list/' + params.petId + '?' + params.param,
+    })
+  }
 
   async login(params){
     return this._fetch({

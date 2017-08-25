@@ -39,33 +39,19 @@ export default function photoReducer(state = initialState, action) {
      */
     case GET_PHOTOLIST:{
 
-      let host = getHost();
-      let requestUrl = host + '/storage/list/' +
-        state.petId + '?page=' + state.page + '&size=' + state.maxSize + '&field=' + state.field + '&order=' + state.order;
+      let urlList = state.urlList;
+      if (urlList == null || urlList.length < 1) {
+        return state.setIn(['urlList'], action.urlList)
+      }
+      else {
+        let actionList = action.urlList;
+        for (let i = 0; i < actionList.length; i++) {
+          state.urlList.push(actionList[i]);
+        }
+        return state.setIn(['syncIdx'], state.syncIdx +1)
+      }
 
-      fetch(requestUrl, {
-        method: "GET",
-      }).then((response) => response.json()).
-        then(res=> {
-          console.log ( "urls: " + res.urlList)
-          let urls = res.urlList;
-          if ( urls !=null ){
-            let tmpUrlList = state.urlList;
-            for ( let i = 0; i < urls.length; i ++){
-              tmpUrlList.push({ photo: host + urls[i] });
-            }
-            state.set("urlList", tmpUrlList);
-            console.log ( "urlList gettering success ")
-            console.log ( state.urlList)
-            return state ; 
-          }
-        })
-        .catch(err => {
-          console.log(err)
-          return state ;
-        })  
-
-     }
+    }
 
     case UPLOAD_PHOTO: {
           return state ;
@@ -79,7 +65,7 @@ export default function photoReducer(state = initialState, action) {
       let petId = state.petId;
       console.log ( "petId : " + petId);
 
-      let requestUrl = getHost() + '/storage/image/' + petId;
+      let requestUrl =getHost() + '/storage/image/' + petId;
       let formData = new FormData();
       let imageUrl = action.payload  ;
 

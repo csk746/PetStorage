@@ -47,7 +47,7 @@ class PetPhotoBrowser extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!componentWillReceiveProps: " + JSON.stringify(nextProps));
+    //console.log("componentWillReceiveProps: " + JSON.stringify(nextProps));
   }
   constructor(props) {
     super(props);
@@ -59,13 +59,15 @@ class PetPhotoBrowser extends Component {
     this._onActionButton = this._onActionButton.bind(this);
     this._getPhotoList= this._getPhotoList.bind(this);
 
+
     this._getPhotoList();
   }
   
   _getPhotoList() {
 
     console.log ( "getPhotoList");
-    this.props.actions.getPhotoUrl();
+    console.log ( "petId : " + this.props.photo.petId);
+    this.props.actions.getPhotoUrl( this.props.photo.petId, this.props.photo.page, this.props.photo.maxSize, this.props.photo.field, this.props.photo.order);
     console.log ( "getPhotoListEnd");
   }
 
@@ -117,11 +119,13 @@ function mapStateToProps(state) {
             showState: state.global.showState
         },
         photo:{
+            petId :state.photo.petId,
             maxSize:state.photo.maxSize,
             order:state.photo.order,
             field:state.photo.field,
             page:state.photo.page,
             urlList:state.photo.urlList,
+            update:state.photo.update,
             photoList:state.photo.photoList
         }
     }
