@@ -110,6 +110,7 @@ public class StorageServiceImpl implements StorageService{
 		Pet pet = this.petService.getPet(petId);
 		if ( pet == null) {
 			log.error("petId is invalid : " + petId);
+			return model ; 
 		}
 		
 		List<Storage> stList = this.storageRepository.findByPet(pet, page);

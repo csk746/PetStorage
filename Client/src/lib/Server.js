@@ -56,7 +56,19 @@ export class Server {
         url : '/storage/list/' + params.petId + '?' + params.param,
     })
   }
+  async uploadPhoto(params) {
+    let formData = new FormData();
+    formData.append('image', { uri: params.url, type: 'image/jpg', name: '1.jpg' })
+    console.log ( "petId : " + params.petId)
+    console.log ( "url :" + params.url)
 
+    return this._fetch({
+      method: 'POST',
+      url: '/storage/image/' + params.petId,
+      headers: { "Accept": "multipart/form-data", "Content-Type": "multipart/form-data" },
+      body: formData
+    })
+  }
   async login(params){
     return this._fetch({
         method : 'POST',
@@ -78,9 +90,11 @@ export class Server {
     }, opts)
 
     if (opts.method === 'POST' || opts.method === 'PUT') {
-      opts.headers['Content-Type'] = 'application/json'
-      if (opts.body) {
-        opts.body = JSON.stringify(opts.body)
+      if (opts.headers['Content-Type'] == null) {
+        opts.headers['Content-Type'] = 'application/json'
+        if (opts.body) {
+          opts.body = JSON.stringify(opts.body)
+        }
       }
     }
 

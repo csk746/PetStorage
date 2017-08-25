@@ -23,6 +23,7 @@ import {Actions} from 'react-native-router-flux'
 function mapStateToProps (state) {
   return {
     photo: {
+      petId:state.photo.petId,
       photoList:state.photo.photoList
     }
   }
@@ -95,6 +96,8 @@ export class TakePicture extends Component {
 
     this.state = {
       photoList:props.photo.photoList,
+      petId:props.photo.petId,
+
       camera: {
         aspect: Camera.constants.Aspect.fill,
         captureTarget: Camera.constants.CaptureTarget.temp,
@@ -117,12 +120,13 @@ export class TakePicture extends Component {
   }
 
   photoViewer() {
-    Actions.PhotoViewer({
+    Actions.PetPhotoBrowser({
     })
   }
 
   savePhoto(data) {
-    this.props.actions.setPhoto(data);
+    this.props.actions.takePhoto(this.state.petId,data);
+    this.props.actions.savePhoto(this.state.petId,data);
     console.log ( "prop Photo List: " + this.state.photoList);
   }
 

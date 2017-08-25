@@ -16,6 +16,7 @@ const BackendFactory = require('../../lib/BackendFactory').default
  */
 const {
   GET_PHOTOLIST,
+  TAKE_PHOTO,
   SAVE_PHOTO,
   UPLOAD_PHOTO
 } = require('../../lib/constants').default
@@ -46,10 +47,25 @@ export function getPhotoUrl(petId, page, maxSize, field, order) {
  }
 }
 
-export function setPhoto(photo){
-  return {
-    type: SAVE_PHOTO,
-    payload:photo 
+export function takePhoto(petId, photo) {
+
+  return dispatch => {
+    console.log(" action takePhoto()")
+      dispatch({ type: TAKE_PHOTO, url: photo });
+  }
+}
+
+
+export function savePhoto(petId, photo) {
+
+  return dispatch => {
+    console.log(" action savePhoto()")
+    BackendFactory().uploadPhoto({
+      petId: petId,
+      url: photo
+    }).then(res => {
+      dispatch({ type: SAVE_PHOTO, url: photo });
+    });
   }
 }
 
