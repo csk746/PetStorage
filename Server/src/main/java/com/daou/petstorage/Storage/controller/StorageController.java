@@ -41,10 +41,10 @@ public class StorageController {
 	@Autowired private StorageService storageService ;
 	
 	@RequestMapping(value="/image/{petId}", method=RequestMethod.POST) 
-	public void imageUpload( MultipartHttpServletRequest multiPartReq ,  @PathVariable long petId,  HttpServletResponse res ) {
+	public @ResponseBody Storage imageUpload( MultipartHttpServletRequest multiPartReq ,  @PathVariable long petId,  HttpServletResponse res ) {
 		log.info("image upload request pet id : " + petId   + " and user = " + this.securityContext.getUser().getLoginId());
 		MultipartFile file = multiPartReq.getFile("image");
-		this.storageService.saveImageFile(file, petId);
+		return this.storageService.saveImageFile(file, petId);
 		
 	}
 	

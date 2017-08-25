@@ -11,7 +11,7 @@ import com.daou.petstorage.Storage.model.StorageListModel;
  */
 public interface StorageService {
 
-	public void saveImageFile(MultipartFile file, Long petId);
+	public Storage saveImageFile(MultipartFile file, Long petId);
 	public Storage save(Storage storage );
 	public Storage getStorageByFileName(String fileName);
 	public StorageListModel getFileList(Long petId, Pageable pageable);

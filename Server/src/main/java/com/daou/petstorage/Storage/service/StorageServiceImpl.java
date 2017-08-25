@@ -51,17 +51,17 @@ public class StorageServiceImpl implements StorageService{
 	 * @see com.daou.petstorage.Storage.service.StorageService#saveImageFile(org.springframework.web.multipart.MultipartFile, java.lang.Long)
 	 */
 	@Override
-	public void saveImageFile(MultipartFile file, Long petId) {
+	public Storage saveImageFile(MultipartFile file, Long petId) {
 		// TODO Auto-generated method stub
 		
 		Pet pet = this.petService.getPet(petId);
-		if ( pet == null ) return ; 
+		if ( pet == null ) return null; 
 		
 		Storage storage = new Storage(pet);
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
 		
-		this.save(storage);
+		return this.save(storage);
 	}
 
 	/* (non-Javadoc)
