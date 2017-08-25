@@ -31,7 +31,7 @@ const PhotoList =
     displayActionButton: true,
   };
 
-class PetPhotoBrowser extends React.Component {
+class PetPhotoBrowser extends Component {
 
   componentWillMount() {
     console.log("componentWillMount");

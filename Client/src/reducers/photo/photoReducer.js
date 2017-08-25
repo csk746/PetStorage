@@ -46,14 +46,15 @@ export default function photoReducer(state = initialState, action) {
       fetch(requestUrl, {
         method: "GET",
       }).then((response) => response.json()).
-        then(responseData => {
-          let urls = responseData.urlList;
+        then(res=> {
+          console.log ( "urls: " + res.urlList)
+          let urls = res.urlList;
           if ( urls !=null ){
-            let urlList = state.urlList;
+            let tmpUrlList = state.urlList;
             for ( let i = 0; i < urls.length; i ++){
-              urlList.push({ photo: host + urls[i] });
+              tmpUrlList.push({ photo: host + urls[i] });
             }
-            state.set(urlList, urlList);
+            state.set("urlList", tmpUrlList);
             console.log ( "urlList gettering success ")
             console.log ( state.urlList)
             return state ; 
