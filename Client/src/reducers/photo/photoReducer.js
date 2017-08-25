@@ -19,7 +19,8 @@ import { getHost } from '../../lib/utils';
 const {
   GET_PHOTOLIST,
   UPLOAD_PHOTO,
-  SAVE_PHOTO
+  SAVE_PHOTO,
+  TAKE_PHOTO
 } = require('../../lib/constants').default
 
 const initialState = new InitialState()
@@ -37,54 +38,27 @@ export default function photoReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
-    case GET_PHOTOLIST:{
+    case GET_PHOTOLIST: {
 
-      let urlList = state.urlList;
-      if (urlList == null || urlList.length < 1) {
-        return state.setIn(['urlList'], action.urlList)
+      let actionList = action.urlList;
+      for (let i = 0; i < actionList.length; i++) {
+        state.urlList.push(actionList[i]);
       }
-      else {
-        let actionList = action.urlList;
-        for (let i = 0; i < actionList.length; i++) {
-          state.urlList.push(actionList[i]);
-        }
-        return state.setIn(['syncIdx'], state.syncIdx +1)
-      }
+      return state.setIn(['syncIdx'], state.syncIdx + 1)
 
+    }
+    case TAKE_PHOTO: {
+      state.photoList.push(action.url);
+      return state;
     }
 
     case UPLOAD_PHOTO: {
-          return state ;
+      return state;
     }
     case SAVE_PHOTO: {
-
-      let photoList = state.photoList;
-      photoList.push(action.payload)
-      state.set('photoList', photoList)
-
-      let petId = state.petId;
-      console.log ( "petId : " + petId);
-
-      let requestUrl =getHost() + '/storage/image/' + petId;
-      let formData = new FormData();
-      let imageUrl = action.payload  ;
-
-      formData.append('image', {uri: imageUrl, type:'image/jpg', name:'1.jpg'})
-
-      fetch(requestUrl, {
-        method: "POST",
-        headers: { "Accept": "multipart/form-data", "Content-Type": "multipart/form-data" },
-        body: formData
-      }).then((response) => response).
-        then(responseData => {
-          console.log(responseData)
-          return state ;
-        })
-        .catch(err => {
-          console.log(err)
-          return state ;
-        })  
-      }
+      return state;
     }
+  }
   return state;
+
 }

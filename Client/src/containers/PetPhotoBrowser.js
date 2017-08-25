@@ -42,7 +42,7 @@ class PetPhotoBrowser extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState){
-    console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
+    //console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
     return true;
   }
 
@@ -90,7 +90,6 @@ class PetPhotoBrowser extends Component {
 
 
   render() {
-    console.log ( " render!!!!!!!")
     return (
       <PhotoBrowser
         mediaList={this.props.photo.urlList}

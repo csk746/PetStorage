@@ -81,7 +81,7 @@ export default function (platform) {
          />
 
       <Scene key='Main'
-        component={PetPhotoBrowser}
+        component={Main}
         type={ActionConst.RESET}
       />
 
@@ -90,8 +90,12 @@ export default function (platform) {
 
       <Scene key='TakePicture'
         title={'TakePicture'}
-        iconName={'gear'}
         component={TakePicture} />
+
+
+      <Scene key='PetPhotoBrowser'
+        title={'PetPhotoBrowser'}
+        component={PetPhotoBrowser} />
 
     </Scene>
   )
