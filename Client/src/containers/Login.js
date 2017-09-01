@@ -9,7 +9,8 @@ import { Actions } from 'react-native-router-flux'
 import {
   StyleSheet,
   View,
-  TextInput
+  TextInput,
+  Image,
 }
   from 'react-native'
 
@@ -20,14 +21,55 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     flex: 1
   },
-  button: {
-    backgroundColor: '#FF3366',
-    borderColor: '#FF3366',
+  image : {
+    marginBottom:10,
+    flex:1.6,
+    height:80,
+    width:160
+  },
+  empty1 : {
+    flex:1
+  },
+  empty05 : {
+    flex:0.5
+  },
+  wrapperId : {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width:200,
+    height: 30,
+  },
+  wrapperPassword : {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width:200,
+    height: 30,
+    marginTop:30
+  },
+  input : {
+    borderBottomWidth: 10,
+    alignItems: 'center',
+    textAlign: 'center',
+    flex:0.5
+  },
+  signInButton: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth:1,
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 10
+    marginTop: 10,
+    // flex:1
+  },
+  signUpButton: {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    marginLeft: 10,
+    marginRight: 10,
+    // flex:1
   }
 })
 
@@ -72,37 +114,35 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.empty05}/>
+        <View style={styles.empty05}/>
+        <Image style={styles.image} source = {require('../images/main.png')}/>
+         <View style={styles.empty05}/>
+          <View style={styles.wrapperId}> 
         <TextInput
-          placeholder="아이디"
-          style={{
-            height: 40,
-            borderColor: 'gray',
-            borderWidth: 1,
-            marginLeft: 10,
-            marginRight: 10,
-            marginTop: 10
-          }}
+          placeholder="ID"
+          style={styles.input}
           onChangeText={(text) => this.setState({ id: text })}
           value={this.state.id}
-
         />
+         </View> 
+         <View style={styles.wrapperPassword}>
         <TextInput
-          placeholder="패스워드"
-          style={{
-            height: 40,
-            borderColor: 'gray',
-            borderWidth: 1,
-            marginLeft: 10,
-            marginRight: 10,
-            marginTop: 10
-          }}
+          placeholder="PASSWORD"
+          style={styles.input}
           onChangeText={(text) => this.setState({ password: text })}
           value={this.state.password}
           secureTextEntry={true}
         />
-        <Button style={styles.button}
+        </View>
+        <View style={{flex:0.2}}/>
+        <Button style={styles.signInButton}
           onPress={this.login}
-        >로그인</Button>
+        >Sign In</Button>
+        <Button style={styles.signUpButton}
+          onPress={this.login}
+        >Sign Up</Button>
+        <View style={styles.empty1}/>
       </View>
     )
   }
