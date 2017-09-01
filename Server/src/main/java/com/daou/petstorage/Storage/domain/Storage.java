@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Storage.util.BlobConverter;
+import com.daou.petstorage.Story.domain.Story;
 import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
@@ -46,6 +47,9 @@ public class Storage extends BaseEntity{
 	
 	@Column
 	private String fakeName; 
+	
+	@ManyToOne
+	private Story story ; 
 	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
