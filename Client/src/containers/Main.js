@@ -14,7 +14,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  ListView,
+  TextInput,
+  ScrollView,
   Image
 }
   from 'react-native'
@@ -30,27 +31,124 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
-  summary: {
-    fontFamily: 'BodoniSvtyTwoITCTT-Book',
-    fontSize: 18,
-    fontWeight: 'bold'
+  image: {
+    height: 283,
+    width: 283
   },
-  button: {
-    backgroundColor: '#FF3366',
-    borderColor: '#FF3366',
-    marginLeft: 10,
-    marginRight: 10
-    // marginTop:520
-  },
-  camera: {
-    marginTop: 20,
-    marginBottom: 20
-  },
-  dataRow: {
-    marginTop: 10,
-    marginBottom: 10
 
-  }
+  takeButton: {
+    height:100,
+    width:100,
+    bottom:0
+  },
+  mainButton: {
+    height:100,
+    width:100
+  },
+  icon: {
+    height:40,
+    width:40
+  },
+  profileImage : {
+    height:70,
+    width:70
+  },
+
+  wPadding100:{
+    width:100
+  },
+  wPadding:{
+    width:10
+  },
+  hPadding:{
+    height:10
+  },
+  wrapper: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width: 200,
+    height: 80,
+  },
+  storyMain :{
+    flex:1,
+    alignItems:'center',
+    //paddingTop:30
+  },
+  input: {
+    alignItems: 'center',
+    textAlign: 'center',
+    width:530,
+    height:50,
+  },
+  scrollViewStyle:{
+    flex:1,
+    height:600
+  },
+  mainBottom:{
+    height:100,
+    marginLeft:410,
+    alignItems: 'flex-start',
+  },
+  storyHeaderView: {
+    width: 600,
+    height: 80,
+    alignItems: 'flex-start',
+  },
+  storyBottomView: {
+    width: 600,
+    height: 100,
+    alignItems: 'flex-start',
+  },
+  commentText:{
+    fontSize:12,
+  },
+  bottomRow :{
+    flexDirection:'row',
+    height:100,
+    alignItems:'flex-start',
+    //flex:1,
+    //flexWrap:'nowrap',
+    //padding:30
+  },
+
+
+  row :{
+    flexDirection:'row',
+    height:70,
+    alignItems:'flex-start',
+    //flex:1,
+    //flexWrap:'nowrap',
+    //padding:30
+  },
+
+  petName : {
+    fontSize:25,
+  },
+
+  petIntroduce: {
+    fontSize:15,
+  },
+  overlay: {
+    position: 'absolute',
+    padding: 16,
+    right: 0,
+    left: 0,
+    alignItems: 'center',
+  },
+  bottomOverlayGray: {
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomOverlay: {
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })
 /**
  * ### Translations
@@ -59,102 +157,91 @@ var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
-/**
- * ## App class
- */
-const itemsPerRow = 4;
-
-// Use data from an array... 
-const data = Array(20)
-  .fill(null)
-  .map((item, index) => index + 1);
-
-// ...or create your own data source. 
-// This will randomly allocate 1-3 items per row, and will be used 
-// if the `randomizeRows` prop is `true`. 
-const randomData = [];
-const picture = []
-for (let i = 0; i < data.length; i) {
-  const endIndex = Math.max(Math.round(Math.random() * itemsPerRow), 1) + i;
-  randomData.push('사진');
-  i = endIndex;
-}
-const dataSource = new GridView.DataSource({
-  rowHasChanged: (r1, r2) => r1 !== r2,
-}).cloneWithRows(randomData);
-
 class Main extends Component {
   constructor() {
     super();
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows(['사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진', '사진']),
-    };
 
-    this.getPhotoList= this.getPhotoList.bind(this)
-
+    this.gallary = this.gallary.bind(this);
+    this.takePicture = this.takePicture.bind(this);
+    this.renderStoryItem = this.renderStoryItem.bind(this);
   }
 
-  componentWillMount(){
-      // if( !this.props.auth.form.isFetching ) Actions.Login();
-  }
-
-  handlePress() {
-    Actions.Subview({
-      title: 'Subview'
-      // you can add additional props to be passed to Subview here...
+  gallary() {
+    Actions.PetPhotoBrowser({
     })
   }
-  getPhotoList() {
-
-    console.log ( "getPhotoList");
-
-    // this.props.actions.getPhotoUrl();
-    let currentPage = this.props.photo.page + 1;
-    console.log ( "page : " + currentPage);
-
-  }
-  goToDetailView() {
-    Actions.DetailView({
-      // title: 'Main'
-      // you can add additional props to be passed to Subview here...
+  takePicture() {
+    Actions.TakePicture({
     })
+  }
+  profile() {
+    Actions.Login({
+    })
+  }
+
+  renderStoryItem(idx){
+    return (
+      <View style={styles.storyMain}>
+
+        <View style={styles.storyHeaderView}>
+          <View style={styles.row}>
+            <Image style={styles.profileImage} source={require('../images/miho/miho_profile.jpg')} />
+            <View style={styles.wPadding} />
+            <View >
+              <Text style={styles.petName} >미호</Text>
+              <Text style={styles.petIntroduce} >세상에서 가장 사랑스러운 강아지 </Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.hPadding}/>
+        <View style={styles.hPadding}/>
+        <Image  source = {require('../images/miho/miho_1.png')}/>
+
+        <View style={styles.hPadding} />
+        <View style={styles.storyBottomView}>
+          <View style={styles.row}>
+            <Image style={styles.icon} source={require('../images/like_button.png')} />
+            <TextInput style={styles.input}
+              placeholder="미호 귀엽다" />
+            <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+          </View>
+        </View>
+ 
+      </View>
+    );
   }
 
   render() {
-      console.log(this.props);
-    this.getPhotoList();
-
-    var titleConfig = {
-      title: I18n.t('Subview.subview')
-    }
-
-    var leftButtonConfig = {
-      title: I18n.t('Subview.back'),
-      handler: Actions.pop
-    }
     return (
-            <View style={styles.container}>
-                <NavBar/>
-                <GridView
-                    data={data}
-                    dataSource={null}
-                    itemsPerRow={itemsPerRow}
-                    renderItem={(item, sectionID, rowID, itemIndex, itemID) => {
-                        return (
-                            <View style={{flex: 1, borderWidth: 1}}>
-                                {/* <Text>{`${item} (${sectionID}-${rowID}-${itemIndex}-${itemID})`}</Text> */}
-                                <Text>강아지 사진</Text>
-                                <TouchableOpacity onPress={() => this.goToDetailView()}>
-                                    <Image style={{height: 80, width: 80}} source={require('../images/corgi.png')}/>
-                                </TouchableOpacity>
-                            </View>
-                        );
-                    }}
-                />
-                <BottomBar/>
-            </View>
-    )
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollViewStyle}>
+          {this.renderStoryItem(0)}
+          {this.renderStoryItem(1)}
+        </ScrollView>
+
+        <View style={[styles.overlay, styles.bottomOverlayGray]}>
+
+          <View style={styles.bottomRow}>
+            <TouchableOpacity onPress={this.gallary} >
+            <Image style={styles.mainButton} source={require('../images/list_button.png')} />
+            </TouchableOpacity>
+            <View style={styles.wPadding100} />
+            <View style={styles.wPadding} />
+            <View style={styles.wPadding} />
+            <TouchableOpacity onPress={this.takePicture} >
+            <Image style={styles.takeButton} source={require('../images/picture_button.png')} />
+            </TouchableOpacity>
+            <View style={styles.wPadding100} />
+            <View style={styles.wPadding} />
+            <View style={styles.wPadding} />
+            <TouchableOpacity onPress={this.profile} >
+            <Image style={styles.mainButton} source={require('../images/profile_button.png')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
   }
 }
 
@@ -169,6 +256,9 @@ function mapStateToProps(state) {
         global: {
             currentState: state.global.currentState,
             showState: state.global.showState
+        },
+        story: {
+          storys:state.story.storys
         },
         photo:{
             maxSize:state.photo.maxSize,

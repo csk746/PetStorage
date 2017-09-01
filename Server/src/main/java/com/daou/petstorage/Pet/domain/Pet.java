@@ -4,7 +4,9 @@ package com.daou.petstorage.Pet.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.core.domain.BaseEntity;
 
@@ -31,6 +33,9 @@ public class Pet extends BaseEntity{
 	
 	@Column
 	private String birthDay ; 
+	
+	@OneToOne
+	private Storage profilePhoto;
 	
 	@ManyToOne
 	private User user; 

@@ -57,6 +57,7 @@ import { setStore } from './reducers/global/globalActions'
 import AuthInitialState from './reducers/auth/authInitialState'
 import DeviceInitialState from './reducers/device/deviceInitialState'
 import PhotoInitialState from './reducers/photo/photoInitialState'
+import StoryInitialState from './reducers/story/storyInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
 import pack from '../package'
 var VERSION = pack.version
@@ -66,6 +67,7 @@ export default function (platform) {
   const states = {
     auth: new AuthInitialState(),
     photo : new PhotoInitialState(),
+    story : new StoryInitialState(),
     device: new DeviceInitialState().set('platform', platform).set('version', pack.version),
   }
 
