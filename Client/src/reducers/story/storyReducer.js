@@ -17,7 +17,8 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
-  GET_STORY
+ ILIKE_STORY, 
+ GET_STORY
 } = require('../../lib/constants').default
 
 const initialState = new InitialState()

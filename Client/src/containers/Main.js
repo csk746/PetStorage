@@ -6,6 +6,7 @@ import GridView from 'react-native-gridview';
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as photoActions from '../reducers/photo/photoActions'
+import * as storyActions from '../reducers/story/storyActions'
 
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
@@ -153,6 +154,7 @@ class Main extends Component {
     this.gallary = this.gallary.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderStoryItem = this.renderStoryItem.bind(this);
+    this.likeStory = this.likeStory.bind(this);
   }
 
   gallary() {
@@ -166,6 +168,10 @@ class Main extends Component {
   profile() {
     Actions.Login({
     })
+  }
+
+  likeStory(id){
+    this.props.actions.iLikeStory(id);
   }
 
   renderStoryItem(idx){
@@ -190,7 +196,9 @@ class Main extends Component {
         <View style={styles.hPadding} />
         <View style={styles.storyBottomView}>
           <View style={styles.row}>
+            <TouchableOpacity onPress={() => this.likeStory(idx)} >
             <Image style={styles.icon} source={require('../images/like_button.png')} />
+            </TouchableOpacity>
             <TextInput style={styles.input}
               placeholder="미호 귀엽다" />
             <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
@@ -207,6 +215,8 @@ class Main extends Component {
         <ScrollView style={styles.scrollViewStyle}>
           {this.renderStoryItem(0)}
           {this.renderStoryItem(1)}
+          {this.renderStoryItem(2)}
+          {this.renderStoryItem(3)}
         </ScrollView>
 
         <View style={[styles.overlay, styles.bottomOverlayGray]}>
@@ -262,7 +272,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions}, dispatch)
+        actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions}, dispatch)
     }
 }
 

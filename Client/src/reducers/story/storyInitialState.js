@@ -13,6 +13,11 @@
  * ## Import immutable record
  */
   import {Record} from 'immutable'
+
+const Commnet = Record({
+  id:0, 
+  text:'',
+})
 const Pet = Record({
   id:0,
   name:'',
@@ -21,6 +26,8 @@ const Pet = Record({
 
 const Storys = Record({
   pet: new Pet(),
+  iliked:false,
+  comments: [],
   photoList : []
 })
 

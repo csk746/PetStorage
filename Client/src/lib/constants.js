@@ -57,6 +57,8 @@ export default keyMirror({
   SAVE_PHOTO:null,
   UPLOAD_PHOTO:null,
   TAKE_PHOTO:null,
-  GET_PHOTOLIST:null
+  GET_PHOTOLIST:null,
 
+ ILIKE_STORY:null,
+ GET_STORY:null
 })

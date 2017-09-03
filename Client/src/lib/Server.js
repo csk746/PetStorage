@@ -11,51 +11,16 @@ export class Server {
           CONFIG.prod.url
   }
 
-  async test() {
-    return await this._fetch({
-      method: 'GET',
-      url: '/test',
-    })
-  }
-
-  async register(email, password) {
-    return await this._fetch({
-      method: 'POST',
-      url: '/auth/signup',
-      body: {
-        email,
-        password,
-      }
-    })
-  }
-
-
-  async validateAuthToken(authToken) {
-    return await this._fetch({
-      method: 'GET',
-      url: '/auth/validate',
-      headers: {
-        'Authorization': 'Bearer ' + authToken,
-      }
-    })
-  }
-
-  async refreshAuthToken(refreshToken) {
-    return await this._fetch({
-      method: 'GET',
-      url: '/auth/refresh',
-      headers: {
-        'Authorization': 'Bearer ' + refreshToken,
-      }
-    })
-  }
-
+  /**
+   * storage api
+   **/ 
   async getUrlList(params){
     return this._fetch({
         method : 'GET',
         url : '/storage/list/' + params.petId + '?' + params.param,
     })
   }
+
   async uploadPhoto(params) {
     let formData = new FormData();
     formData.append('image', { uri: params.url, type: 'image/jpg', name: '1.jpg' })
@@ -69,6 +34,24 @@ export class Server {
       body: formData
     })
   }
+
+
+  /**
+   * story api
+   **/ 
+  async iLikeStroy(params){
+    return this._fetch({
+        method : 'PUT',
+        url : '/story/' + params.storyId 
+    })
+  }
+
+
+
+
+  /**
+   * login api
+   **/ 
   async login(params){
     return this._fetch({
         method : 'POST',
