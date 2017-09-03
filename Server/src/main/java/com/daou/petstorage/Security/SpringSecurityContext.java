@@ -1,4 +1,4 @@
-package com.daou.petstorage.security;
+package com.daou.petstorage.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

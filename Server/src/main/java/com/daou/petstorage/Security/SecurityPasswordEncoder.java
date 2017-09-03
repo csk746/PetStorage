@@ -1,4 +1,4 @@
-package com.daou.petstorage.security;
+package com.daou.petstorage.Security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

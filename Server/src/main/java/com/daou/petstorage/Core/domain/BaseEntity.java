@@ -1,4 +1,4 @@
-package com.daou.petstorage.core.domain;
+package com.daou.petstorage.Core.domain;
 
 import lombok.ToString;
 

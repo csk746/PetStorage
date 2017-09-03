@@ -1,4 +1,4 @@
-package com.daou.petstorage.service.init;
+package com.daou.petstorage.Service.init;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

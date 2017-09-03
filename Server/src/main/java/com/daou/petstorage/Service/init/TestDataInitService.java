@@ -1,4 +1,4 @@
-package com.daou.petstorage.service.init;
+package com.daou.petstorage.Service.init;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,13 +58,13 @@ public class TestDataInitService {
 		
 		List<User> saveUserList = new ArrayList<>();
 		
-		saveUserList.add(this.getDefaultUser("admin", "관리자", "admin"));
-		saveUserList.add(this.getDefaultUser("hsim", "임희섭", "1234"));
+		saveUserList.add(this.getDefaultUser("admin", "愿�由ъ옄", "admin"));
+		saveUserList.add(this.getDefaultUser("hsim", "�엫�씗�꽠", "1234"));
 		
 		this.userService.saveUser(saveUserList, true);
 		
 		User hsim = this.userService.getUser("hsim");
-		Pet miho = getDefaultPet("미호", "2014-09-14", "스피츠");
+		Pet miho = getDefaultPet("誘명샇", "2014-09-14", "�뒪�뵾痢�");
 		
 		this.petService.save(miho, hsim);
 		
