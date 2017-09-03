@@ -29,33 +29,33 @@ const Button = require('apsl-react-native-button')
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1
+    flex: 10
   },
   image: {
-    height: 283,
-    width: 283
+    width:360,
+    height:360
   },
 
   takeButton: {
-    height:100,
-    width:100,
+    width:50, 
+    height:50,
     bottom:0
   },
   mainButton: {
-    height:100,
-    width:100
+    width:50, 
+    height:50
   },
   icon: {
-    height:40,
-    width:40
+    width:30,
+    height:30
   },
   profileImage : {
-    height:70,
-    width:70
+    width:50,
+    height:50
   },
 
   wPadding100:{
-    width:100
+    height:100,
   },
   wPadding:{
     width:10
@@ -66,37 +66,29 @@ var styles = StyleSheet.create({
   wrapper: {
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
-    width: 200,
-    height: 80,
   },
   storyMain :{
     flex:1,
-    alignItems:'center',
+    alignItems:'flex-start',
+    //alignItems:'center',
     //paddingTop:30
   },
   input: {
+    flex:1,
     alignItems: 'center',
     textAlign: 'center',
-    width:530,
-    height:50,
   },
   scrollViewStyle:{
     flex:1,
-    height:600
   },
   mainBottom:{
-    height:100,
     marginLeft:410,
     alignItems: 'flex-start',
   },
   storyHeaderView: {
-    width: 600,
-    height: 80,
     alignItems: 'flex-start',
   },
   storyBottomView: {
-    width: 600,
-    height: 100,
     alignItems: 'flex-start',
   },
   commentText:{
@@ -104,19 +96,16 @@ var styles = StyleSheet.create({
   },
   bottomRow :{
     flexDirection:'row',
-    height:100,
     alignItems:'flex-start',
+    height:60
     //flex:1,
     //flexWrap:'nowrap',
     //padding:30
   },
 
-
   row :{
     flexDirection:'row',
-    height:70,
     alignItems:'flex-start',
-    //flex:1,
     //flexWrap:'nowrap',
     //padding:30
   },
@@ -196,7 +185,7 @@ class Main extends Component {
 
         <View style={styles.hPadding}/>
         <View style={styles.hPadding}/>
-        <Image  source = {require('../images/miho/miho_1.png')}/>
+        <Image  style={styles.image} source = {require('../images/miho/miho_1.png')}/>
 
         <View style={styles.hPadding} />
         <View style={styles.storyBottomView}>
