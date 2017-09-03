@@ -5,9 +5,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import com.daou.petstorage.Security.account.AccountUserDetails;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
-import com.daou.petstorage.security.account.AccountUserDetails;
 
 @Component
 public class SpringSecurityContext extends SecurityContextHolder {

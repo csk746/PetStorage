@@ -1,4 +1,4 @@
-package com.daou.petstorage.security.account;
+package com.daou.petstorage.Security.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

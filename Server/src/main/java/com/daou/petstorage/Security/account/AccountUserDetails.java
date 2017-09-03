@@ -1,4 +1,4 @@
-package com.daou.petstorage.security.account;
+package com.daou.petstorage.Security.account;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -7,9 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import com.daou.petstorage.Core.domain.BaseEntity;
 import com.daou.petstorage.Story.domain.Story;
 import com.daou.petstorage.User.domain.User;
-import com.daou.petstorage.core.domain.BaseEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

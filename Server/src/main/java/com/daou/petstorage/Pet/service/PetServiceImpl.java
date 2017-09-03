@@ -1,7 +1,5 @@
 package com.daou.petstorage.Pet.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,9 +12,9 @@ import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.PetMap.domain.PetUserMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.PetMap.repository.PetUserMapRepository;
+import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
-import com.daou.petstorage.security.SpringSecurityContext;
 
 /**
  * Created by hsim on 2017. 8. 13...

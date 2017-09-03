@@ -1,12 +1,13 @@
-package com.daou.petstorage.core.model;
+package com.daou.petstorage.Core.model;
 
-import com.daou.petstorage.core.domain.BaseEntity;
+import java.util.Date;
+
+import com.daou.petstorage.Core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 /**
  * Created by geonheelee on 2017. 8. 11..

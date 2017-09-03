@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daou.petstorage.Security.SecurityPasswordEncoder;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
-import com.daou.petstorage.security.SecurityPasswordEncoder;
-
-import junit.framework.Assert;
 
 /**
  * Created by hsim on 2017. 8. 13...

@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-import com.daou.petstorage.security.account.AccountUserDetailsService;
+import com.daou.petstorage.Security.account.AccountUserDetailsService;
 
 /**
  * Created by geonheelee on 2017. 8. 11..
