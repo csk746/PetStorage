@@ -60,5 +60,6 @@ export default keyMirror({
   GET_PHOTOLIST:null,
 
  ILIKE_STORY:null,
+ ADD_COMMENT:null,
  GET_STORY:null
 })

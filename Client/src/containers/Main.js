@@ -33,8 +33,7 @@ var styles = StyleSheet.create({
     flex: 10
   },
   image: {
-    width:360,
-    height:360
+    flex:1,
   },
 
   takeButton: {
@@ -47,8 +46,8 @@ var styles = StyleSheet.create({
     height:50
   },
   icon: {
-    width:30,
-    height:30
+    width:50,
+    height:50
   },
   profileImage : {
     width:50,
@@ -68,6 +67,11 @@ var styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
   },
+  storyImage: {
+    flex: 1,
+    alignItems: 'center',
+    //paddingTop:30
+  },
   storyMain :{
     flex:1,
     alignItems:'flex-start',
@@ -75,7 +79,7 @@ var styles = StyleSheet.create({
     //paddingTop:30
   },
   input: {
-    flex:1,
+    flex:0.8,
     alignItems: 'center',
     textAlign: 'center',
   },
@@ -155,8 +159,12 @@ class Main extends Component {
     this.takePicture = this.takePicture.bind(this);
     this.renderStoryItem = this.renderStoryItem.bind(this);
     this.likeStory = this.likeStory.bind(this);
+    this.getStoryList = this.getStoryList.bind(this);
   }
 
+  getStoryList(page) {
+    this.props.actions.getStory(page, 10, 'createdAt', 'desc' ) ;
+  }
   gallary() {
     Actions.PetPhotoBrowser({
     })
@@ -169,13 +177,16 @@ class Main extends Component {
     Actions.Login({
     })
   }
-
+  addComment(id, comment){
+    this.props.actions.addComment(id, comment ) ;
+  }
   likeStory(id){
     this.props.actions.iLikeStory(id);
   }
 
   renderStoryItem(idx){
     return (
+      <View style={styles.container}>
       <View style={styles.storyMain}>
 
         <View style={styles.storyHeaderView}>
@@ -189,27 +200,35 @@ class Main extends Component {
           </View>
         </View>
 
+      </View>
         <View style={styles.hPadding}/>
         <View style={styles.hPadding}/>
-        <Image  style={styles.image} source = {require('../images/miho/miho_1.png')}/>
 
-        <View style={styles.hPadding} />
-        <View style={styles.storyBottomView}>
-          <View style={styles.row}>
-            <TouchableOpacity onPress={() => this.likeStory(idx)} >
-            <Image style={styles.icon} source={require('../images/like_button.png')} />
-            </TouchableOpacity>
-            <TextInput style={styles.input}
-              placeholder="미호 귀엽다" />
-            <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+        <View style={styles.storyImage}>
+          <Image style={styles.image} source={require('../images/miho/miho_1.png')} />
+
+          <View style={styles.hPadding} />
+          <View style={styles.storyBottomView}>
+            <View style={styles.row}>
+              <TouchableOpacity onPress={() => this.likeStory(idx)} >
+                <Image style={styles.icon} source={require('../images/like_button.png')} />
+              </TouchableOpacity>
+              <TextInput style={styles.input}
+                placeholder="미호 귀엽다" />
+              <TouchableOpacity onPress={() => this.addComment(idx, "댓글 테스트")} >
+              <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
- 
       </View>
+ 
     );
   }
 
   render() {
+    this.getStoryList(0);
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollViewStyle}>

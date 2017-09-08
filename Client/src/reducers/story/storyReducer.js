@@ -18,6 +18,7 @@ import { getHost } from '../../lib/utils';
  */
 const {
  ILIKE_STORY, 
+ ADD_COMMENT,
  GET_STORY
 } = require('../../lib/constants').default
 
@@ -36,7 +37,15 @@ export default function storyReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
+    case ADD_COMMENT :{
+      let storyId = action.storyId;
+      let comment = action.comment;
+
+      console.log ( "reducer storyId : " + storyId );
+      console.log ( "reducer comment : " + comment);
+    }
     case GET_STORY: {
+      console.log ( "reducer data : " + action.data);
 
     }
   }

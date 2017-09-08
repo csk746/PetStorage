@@ -45,9 +45,28 @@ export class Server {
         url : '/story/' + params.storyId 
     })
   }
-
-
-
+  async addComment(params){
+    return this._fetch({
+        method : 'POST',
+        url : '/story/comment',
+        body : {
+          id: params.storyId,
+          comment: params.comment
+        }
+    })
+  }
+  async getStoryList(params){
+    return this._fetch({
+        method : 'POST',
+        url : '/story/list',
+        body : {
+          page: params.page,
+          offset:params.offset,
+          order: params.order,
+          field: params.field,
+        }
+    })
+  }
 
   /**
    * login api
