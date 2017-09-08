@@ -29,11 +29,11 @@ public class PetObjectMapper extends ObjectMapper{
 			throws IOException, JsonParseException, JsonMappingException {
 		// TODO Auto-generated method stub
 		T t = super.readValue(src, valueType);
-		log.info("\n-----------------------------------------------------------"
-				+ "Str to Obj \n"
-				+ "-----------------------------------------------------------\n"
-				+  t.toString()
-				+ "\n-----------------------------------------------------------\n");
+		if ( t != null){
+			log.info("Request Body : \n"
+					+  t.toString()
+					+ "\n-----------------------------------------------------------\n");
+		}
 		
 		return t; 
 	}
