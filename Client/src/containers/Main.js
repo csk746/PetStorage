@@ -30,10 +30,18 @@ const Button = require('apsl-react-native-button')
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 10
+    flex: 10,
+    marginTop:15,
+    marginBottom:15
+  },
+  Bottom: {
+    flexDirection: 'column',
+    flex: 10,
   },
   image: {
     flex:1,
+    width:300,
+    height:300
   },
 
   takeButton: {
@@ -45,17 +53,14 @@ var styles = StyleSheet.create({
     width:50, 
     height:50
   },
-  icon_ios: {
+  icon: {
     width:22,
     height:22
   },
-  icon_and: {
-    width:50,
-    height:50
-  },
   profileImage : {
-    width:50,
-    height:50
+    width:40,
+    height:40,
+    borderRadius: 25,
   },
 
   wPadding100:{
@@ -74,6 +79,8 @@ var styles = StyleSheet.create({
   storyImage: {
     flex: 1,
     alignItems: 'center',
+    marginLeft:30,
+    marginRight:30
     //paddingTop:30
   },
   storyMain :{
@@ -83,7 +90,7 @@ var styles = StyleSheet.create({
     //paddingTop:30
   },
   input: {
-    flex:0.8,
+    flex:0.7,
     alignItems: 'center',
     textAlign: 'center',
   },
@@ -96,6 +103,7 @@ var styles = StyleSheet.create({
   },
   storyHeaderView: {
     alignItems: 'flex-start',
+    marginLeft: 50
   },
   storyBottomView: {
     alignItems: 'flex-start',
@@ -121,6 +129,9 @@ var styles = StyleSheet.create({
 
   petName : {
     fontSize:25,
+  },
+  nameTitle : {
+    marginLeft:30
   },
 
   petIntroduce: {
@@ -197,7 +208,7 @@ class Main extends Component {
           <View style={styles.row}>
             <Image style={styles.profileImage} source={require('../images/miho/miho_profile.jpg')} />
             <View style={styles.wPadding} />
-            <View >
+            <View>
               <Text style={styles.petName} >미호</Text>
               <Text style={styles.petIntroduce} >세상에서 가장 사랑스러운 강아지 </Text>
             </View>
@@ -215,12 +226,12 @@ class Main extends Component {
           <View style={styles.storyBottomView}>
             <View style={styles.row}>
               <TouchableOpacity onPress={() => this.likeStory(idx)} >
-                <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/like_button.png')} />
+                <Image style={styles.icon} source={require('../images/like_button.png')} />
               </TouchableOpacity>
               <TextInput style={styles.input}
                 placeholder="미호 귀엽다" />
               <TouchableOpacity onPress={() => this.addComment(idx, "댓글 테스트")} >
-              <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/chat_send_button.png')} />
+              <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
           </View>
@@ -234,7 +245,7 @@ class Main extends Component {
     this.getStoryList(0);
 
     return (
-      <View style={styles.container}>
+      <View style={styles.Bottom}>
         <ScrollView style={styles.scrollViewStyle}>
           {this.renderStoryItem(0)}
           {this.renderStoryItem(1)}
