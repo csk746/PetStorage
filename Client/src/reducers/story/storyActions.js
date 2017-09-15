@@ -39,10 +39,9 @@ export function addComment(storyId, comment) {
 
 export function iLikeStory(storyId) {
   return dispatch => {
-
-    console.log ("like request id : " + storyId)
+    console.log("like request id : " + storyId)
     BackendFactory().iLikeStroy({
-      storyId:storyId
+      storyId: storyId
     })
 
   }

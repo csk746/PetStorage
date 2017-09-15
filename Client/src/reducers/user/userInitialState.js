@@ -14,24 +14,17 @@
  */
   import {Record} from 'immutable'
 
-const Commnet = Record({
-  id:0, 
-  userId:0,
-  text:'',
-})
-
-const Storys = Record({
-  petId:0,
-  text:'',
-  title:'',
-  iliked:false,
-  comments: [],
-  photoList : []
+const Users = Record({
+  id:0,
+  name:'',
+  loginId:'',
+  grade:'',
+  phone:'',
+  email:''
 })
 
 var InitialState = Record({
-  storys:Storys=[],
-  syncIdx:0
+  users:Users=[]
 })
 
 export default InitialState

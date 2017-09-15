@@ -32,6 +32,8 @@ const initialState = new InitialState()
 export default function storyReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
+  let host = getHost() + '/storage/image/';
+
   switch (action.type) {
     /**
      * ### set the platform in the state
@@ -45,6 +47,51 @@ export default function storyReducer(state = initialState, action) {
       console.log ( "reducer comment : " + comment);
     }
     case GET_STORY: {
+
+      if ( action.data != null){
+        let storyList = action.data ; 
+          console.log ("storyList length  : " + storyList.length);
+        for ( let i =0 ;i < storyList.length ; i ++){
+          let story = storyList[i];
+          let storyObj = {};
+          let photoList = [];
+          for ( let i =0 ;i < story.urlList.length; i ++){
+            photoList.push(host + story.urlList[i]);
+          }
+
+          storyObj.urlList = photoList;
+          storyObj.id = story.id;
+          storyObj.text = story.text;
+          storyObj.title = story.title ; 
+          storyObj.userId = story.user.id;
+          storyObj.photoList = photoList ; 
+          if (story.pet != null) {
+            storyObj.petId = story.pet.id;
+          }
+
+          state.storys.push(storyObj);
+          console.log ( " state : " + state.storys)
+        }
+
+        return state.setIn(['syncIdx'], state.syncIdx + 1)
+      }
+
+      /**
+       * 
+const Commnet = Record({
+  id:0, 
+  userId:0,
+  text:'',
+})
+
+const Storys = Record({
+  petId:0,
+  iliked:false,
+  comments: [],
+  photoList : []
+})
+
+       */
       console.log ( "reducer data : " + action.data);
 
     }

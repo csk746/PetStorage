@@ -50,7 +50,11 @@ var styles = StyleSheet.create({
     width:50, 
     height:50
   },
-  icon: {
+  icon_ios: {
+    width:22,
+    height:22
+  },
+  icon_and: {
     width:50,
     height:50
   },
@@ -263,12 +267,12 @@ class Main extends Component {
           <View style={styles.storyBottomView}>
             <View style={styles.row}>
               <TouchableOpacity onPress={() => this.likeStory(story.id)} >
-                <Image style={styles.icon} source={require('../images/like_button.png')} />
+                <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/like_button.png')} />
               </TouchableOpacity>
               <TextInput style={styles.input}
                 placeholder="미호 귀엽다" />
               <TouchableOpacity onPress={() => this.addComment(story.id, "댓글 테스트")} >
-              <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+              <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
           </View>
@@ -331,6 +335,7 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
+        platform: state.device.platform,
         auth: {
             form: {
                 isFetching: state.auth.form.isFetching
