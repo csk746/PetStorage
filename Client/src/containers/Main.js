@@ -7,7 +7,6 @@ import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
-import * as petActions from '../reducers/pet/petActions'
 
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
@@ -18,8 +17,6 @@ import {
   Text,
   TextInput,
   ScrollView,
-  ListView,
-  RefreshControl,
   Image
 }
   from 'react-native'
@@ -37,8 +34,6 @@ var styles = StyleSheet.create({
   },
   image: {
     flex:1,
-    width:500,
-    height:500
   },
 
   takeButton: {
@@ -160,45 +155,23 @@ var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
-const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
-
 class Main extends Component {
-
   constructor() {
     super();
-
-    this.state = {
-      refreshing: false,
-      page:0,
-    };
 
     this.gallary = this.gallary.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderStoryItem = this.renderStoryItem.bind(this);
     this.likeStory = this.likeStory.bind(this);
     this.getStoryList = this.getStoryList.bind(this);
-    this.getPet = this.getPet.bind(this);
-  }
-
-  _onRefresh() {
-    console.log ( " refresh~~~~~~")
-    this.setState({refreshing: true});
-    this.setState({page: (this.state.page+1)});
-
-    this.getStoryList(this.state.page);
-
-  }
-
-  componentWillMount() {
-    this.getStoryList(this.state.page);
   }
 
   getStoryList(page) {
     this.props.actions.getStory(page, 10, 'createdAt', 'desc' ) ;
   }
   gallary() {
-    //Actions.PetPhotoBrowser({
-    //})
+    Actions.PetPhotoBrowser({
+    })
   }
   takePicture() {
     Actions.TakePicture({
@@ -215,43 +188,18 @@ class Main extends Component {
     this.props.actions.iLikeStory(id);
   }
 
-  getPet(id){
-    console.log ( "getPet id : " + id)
-    let pets = this.props.pet.pets ; 
-    if ( pets != null){ 
-      for ( let i =0 ;i < pets.length; i ++){
-        if ( pets[i].id == id) return pets[i];
-      }
-    }
-    console.log ( " getAnotherPetInfo : "  + id)
-    this.props.actions.getAnotherPetInfo(id);
-    return null ; 
-  }
-
-  renderStoryItem(story){
-
-    if ( story == null) return ; 
-
-    console.log ( "image url : " + story.photoList[0])
-
-    let pet = null;
-    if (story.petId != null) {
-      pet = this.getPet(story.petId);
-    }
-
-    if  ( pet == null) return ; 
-
+  renderStoryItem(idx){
     return (
       <View style={styles.container}>
       <View style={styles.storyMain}>
 
         <View style={styles.storyHeaderView}>
           <View style={styles.row}>
-          <Image style={styles.profileImage} source={{uri:pet.profileUrl}} ></Image>
+            <Image style={styles.profileImage} source={require('../images/miho/miho_profile.jpg')} />
             <View style={styles.wPadding} />
             <View >
-              <Text style={styles.petName} >{pet.name}</Text>
-              <Text style={styles.petIntroduce} >{pet.kind} </Text>
+              <Text style={styles.petName} >미호</Text>
+              <Text style={styles.petIntroduce} >세상에서 가장 사랑스러운 강아지 </Text>
             </View>
           </View>
         </View>
@@ -261,17 +209,17 @@ class Main extends Component {
         <View style={styles.hPadding}/>
 
         <View style={styles.storyImage}>
-          <Image style={styles.image} source={{uri:story.photoList[0]}} ></Image>
+          <Image style={styles.image} source={require('../images/miho/miho_1.png')} />
 
           <View style={styles.hPadding} />
           <View style={styles.storyBottomView}>
             <View style={styles.row}>
-              <TouchableOpacity onPress={() => this.likeStory(story.id)} >
+              <TouchableOpacity onPress={() => this.likeStory(idx)} >
                 <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/like_button.png')} />
               </TouchableOpacity>
               <TextInput style={styles.input}
                 placeholder="미호 귀엽다" />
-              <TouchableOpacity onPress={() => this.addComment(story.id, "댓글 테스트")} >
+              <TouchableOpacity onPress={() => this.addComment(idx, "댓글 테스트")} >
               <Image style={this.props.platform === 'ios' ? styles.icon_ios :styles.icon_and} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
@@ -282,30 +230,17 @@ class Main extends Component {
     );
   }
 
-
   render() {
-
-    var data  = ds.cloneWithRows(this.props.story.storys);
+    this.getStoryList(0);
 
     return (
       <View style={styles.container}>
-
-<ScrollView style={styles.scrollViewStyle}>
-     <ListView
-        dataSource={data}
-        renderRow={this.renderStoryItem}>
-        refreshControl={
-          <RefreshControl
-            style={{backgroundColor:'black'}}
-            colors={["#159688"]}
-            progressBackgroundColor="transparent"
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}>
-            </RefreshControl>
-        }
-        
-      </ListView>
-</ScrollView>
+        <ScrollView style={styles.scrollViewStyle}>
+          {this.renderStoryItem(0)}
+          {this.renderStoryItem(1)}
+          {this.renderStoryItem(2)}
+          {this.renderStoryItem(3)}
+        </ScrollView>
 
         <View style={[styles.overlay, styles.bottomOverlayGray]}>
 
@@ -345,12 +280,6 @@ function mapStateToProps(state) {
             currentState: state.global.currentState,
             showState: state.global.showState
         },
-       pet: {
-          pets:state.pet.pets
-        },
-       user: {
-          users:state.user.users
-        },
         story: {
           storys:state.story.storys
         },
@@ -367,7 +296,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions, ...petActions}, dispatch)
+        actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions}, dispatch)
     }
 }
 
