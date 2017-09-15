@@ -168,12 +168,12 @@ const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id 
 
 class Main extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      refreshing: false,
-      page:0,
+      refresh:this.props.story.refresh,
+      page:0
     };
 
     this.gallary = this.gallary.bind(this);
@@ -182,19 +182,26 @@ class Main extends Component {
     this.likeStory = this.likeStory.bind(this);
     this.getStoryList = this.getStoryList.bind(this);
     this.getPet = this.getPet.bind(this);
+    this.getNextStorys = this.getNextStorys.bind(this);
+  }
+  getNextStorys() {
+    console.log("refresh : " + this.state.refresh)
+    console.log( "getNextStorys ~ page : " + this.state.page)
+    this.setState({refresh: true});
+    this.getStoryList(this.state.page);
+    //this.setState({page: (this.state.page+1)});
   }
 
-  _onRefresh() {
-    console.log ( " refresh~~~~~~")
-    this.setState({refreshing: true});
-    this.setState({page: (this.state.page+1)});
-
-    this.getStoryList(this.state.page);
-
+  componentDidMount() {
+    this.setState({refresh: false});
   }
 
   componentWillMount() {
     this.getStoryList(this.state.page);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    //console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
+    return true ; 
   }
 
   getStoryList(page) {
@@ -290,26 +297,30 @@ class Main extends Component {
   render() {
 
     var data  = ds.cloneWithRows(this.props.story.storys);
-
+    console.log ( "render function : (refresh ) " + this.state.refresh)
     return (
+
       <View style={styles.container}>
 
-<ScrollView style={styles.scrollViewStyle}>
-     <ListView
-        dataSource={data}
-        renderRow={this.renderStoryItem}>
-        refreshControl={
-          <RefreshControl
-            style={{backgroundColor:'black'}}
-            colors={["#159688"]}
-            progressBackgroundColor="transparent"
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}>
-            </RefreshControl>
-        }
-        
-      </ListView>
-</ScrollView>
+        <ScrollView style={styles.scrollViewStyle}>
+          <ListView
+            dataSource={data}
+            renderRow={this.renderStoryItem}
+            refreshControl={
+              <RefreshControl
+                tintColor="transparent"
+                colors={['transparent']}
+                style={{ backgroundColor: 'transparent' }}
+                refreshing={this.state.refresh}
+                onRefresh={() =>
+                  this.getNextStorys()
+                }>
+              </RefreshControl>
+            }
+            >
+
+          </ListView>
+        </ScrollView>
 
         <View style={[styles.overlay, styles.bottomOverlayGray]}>
 
@@ -356,7 +367,8 @@ function mapStateToProps(state) {
           users:state.user.users
         },
         story: {
-          storys:state.story.storys
+          storys:state.story.storys,
+          refresh:state.story.refresh
         },
         photo:{
             maxSize:state.photo.maxSize,

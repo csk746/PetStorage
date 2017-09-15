@@ -73,7 +73,9 @@ export default function storyReducer(state = initialState, action) {
           console.log ( " state : " + state.storys)
         }
 
-        return state.setIn(['syncIdx'], state.syncIdx + 1)
+        console.log ( " reducer refreshing : " + state.refresh)
+        return state.setIn(['refresh'], false)
+        //return state.setIn(['syncIdx'], state.syncIdx + 1)
       }
 
       /**
