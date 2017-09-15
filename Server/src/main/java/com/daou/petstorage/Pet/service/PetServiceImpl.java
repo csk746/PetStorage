@@ -13,6 +13,8 @@ import com.daou.petstorage.PetMap.domain.PetUserMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.PetMap.repository.PetUserMapRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
+import com.daou.petstorage.Storage.domain.Storage;
+import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
 
@@ -35,6 +37,9 @@ public class PetServiceImpl implements PetService {
 	
 	@Autowired
 	private PetUserMapRepository petUserMapRepository ; 
+	
+	@Autowired StorageRepository storageRepository ; 
+	
 	
 	private static final Logger log = LoggerFactory.getLogger(PetServiceImpl.class);
 
@@ -102,7 +107,7 @@ public class PetServiceImpl implements PetService {
 			}
 			
 		}
-		return pet ; 
+		return this.setProfilePhoto(pet); 
 	}
 
 	/* (non-Javadoc)
@@ -149,7 +154,32 @@ public class PetServiceImpl implements PetService {
 	@Override
 	public List<Pet> getMyPets() {
 		// TODO Auto-generated method stub
-		return this.getMyPets(null);
+		return this.setProfilePhoto(this.getMyPets(null));
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#setProfilePhoto(com.daou.petstorage.Pet.domain.Pet)
+	 */
+	@Override
+	public Pet setProfilePhoto(Pet pet) {
+		List<Storage> storages = this.storageRepository.findByPetAndIsProfile(pet, true);
+		if ( storages != null && !storages.isEmpty()) {
+			pet.setProfileUrl(storages.get(0).getFakeName());
+		}
+		return pet ; 
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#setProfilePhoto(java.util.List)
+	 */
+	@Override
+	public List<Pet> setProfilePhoto(List<Pet> pet) {
+		// TODO Auto-generated method stub
+		for ( Pet  p : pet){
+			this.setProfilePhoto(p);
+		}
+		return pet ; 
+		
 	}
 
 }

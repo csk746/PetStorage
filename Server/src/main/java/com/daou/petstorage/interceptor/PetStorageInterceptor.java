@@ -3,6 +3,8 @@
  */
 package com.daou.petstorage.interceptor;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -75,8 +77,10 @@ public class PetStorageInterceptor implements HandlerInterceptor{
 		
 		str += "HEADER\n------------------------------------------------------------------------\n";
 		str +=  this.getHeaderStr(req) ;
-		str += "PARAMETER\n------------------------------------------------------------------------\n";
-		str +=  this.getParameterStr(req);
+		if ( req.getParameterNames() != null && req.getParameterNames().hasMoreElements()){
+			str += "PARAMETER\n------------------------------------------------------------------------\n";
+			str +=  this.getParameterStr(req);
+		}
 		str += "\n------------------------------------------------------------------------\n";
 		
 		

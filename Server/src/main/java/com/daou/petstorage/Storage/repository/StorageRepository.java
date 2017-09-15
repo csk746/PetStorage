@@ -18,6 +18,7 @@ public interface StorageRepository extends JpaRepository<Storage, Long>{
 	public Storage findByFakeName(String fakeName);
 	public Storage findByPet(Pet pet);
 	public List<Storage> findByStory(Story story );
+	public List<Storage> findByPetAndIsProfile(Pet pet, boolean isProfile);
 
 }
 
