@@ -31,7 +31,9 @@ const Storys = Record({
 
 var InitialState = Record({
   storys:Storys=[],
+  initStorys:Storys=[],
   refresh:false,
+  page:0,
   syncIdx:0
 })
 

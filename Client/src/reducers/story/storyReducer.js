@@ -24,6 +24,7 @@ const {
 
 const initialState = new InitialState()
 
+
 /**
  * ## deviceReducer function
  * @param {Object} state - initialState
@@ -43,15 +44,15 @@ export default function storyReducer(state = initialState, action) {
       let storyId = action.storyId;
       let comment = action.comment;
 
-      console.log ( "reducer storyId : " + storyId );
-      console.log ( "reducer comment : " + comment);
     }
     case GET_STORY: {
 
       if ( action.data != null){
         let storyList = action.data ; 
-          console.log ("storyList length  : " + storyList.length);
-        for ( let i =0 ;i < storyList.length ; i ++){
+
+          let storageList = state.storys;
+
+          for ( let i =0 ;i < storyList.length ; i ++){
           let story = storyList[i];
           let storyObj = {};
           let photoList = [];
@@ -69,13 +70,12 @@ export default function storyReducer(state = initialState, action) {
             storyObj.petId = story.pet.id;
           }
 
-          state.storys.push(storyObj);
-          console.log ( " state : " + state.storys)
+          storageList.push(storyObj);
         }
 
-        console.log ( " reducer refreshing : " + state.refresh)
-        return state.setIn(['refresh'], false)
-        //return state.setIn(['syncIdx'], state.syncIdx + 1)
+        state.setIn(['storys'], storageList)
+        state.setIn(['refresh'], false)
+        return state.setIn(['syncIdx'], state.syncIdx + 1)
       }
 
       /**
@@ -94,7 +94,6 @@ const Storys = Record({
 })
 
        */
-      console.log ( "reducer data : " + action.data);
 
     }
   }

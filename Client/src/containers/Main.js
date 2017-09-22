@@ -172,8 +172,10 @@ class Main extends Component {
     super(props);
 
     this.state = {
+      initStorys :this.props.story.initStorys,
+      storys :this.props.story.storys,
       refresh:this.props.story.refresh,
-      page:0
+      page:this.props.story.page
     };
 
     this.gallary = this.gallary.bind(this);
@@ -185,11 +187,8 @@ class Main extends Component {
     this.getNextStorys = this.getNextStorys.bind(this);
   }
   getNextStorys() {
-    console.log("refresh : " + this.state.refresh)
-    console.log( "getNextStorys ~ page : " + this.state.page)
-    this.setState({refresh: true});
+    this.setState({page:this.state.page+1});
     this.getStoryList(this.state.page);
-    //this.setState({page: (this.state.page+1)});
   }
 
   componentDidMount() {
@@ -200,7 +199,6 @@ class Main extends Component {
     this.getStoryList(this.state.page);
   }
   shouldComponentUpdate(nextProps, nextState) {
-    //console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
     return true ; 
   }
 
@@ -227,30 +225,37 @@ class Main extends Component {
   }
 
   getPet(id){
-    console.log ( "getPet id : " + id)
     let pets = this.props.pet.pets ; 
     if ( pets != null){ 
       for ( let i =0 ;i < pets.length; i ++){
         if ( pets[i].id == id) return pets[i];
       }
     }
-    console.log ( " getAnotherPetInfo : "  + id)
     this.props.actions.getAnotherPetInfo(id);
     return null ; 
   }
 
+  _onRefresh() {
+
+
+    this.state.storys.splice(0, this.state.storys.length)
+    this.setState({refresh: true});
+    this.setState({page:0});
+    this.getStoryList(this.state.page);
+    this.setState({refresh: false});
+  }
+
   renderStoryItem(story){
 
-    if ( story == null) return ; 
+    if ( story == null) return null; 
 
-    console.log ( "image url : " + story.photoList[0])
 
     let pet = null;
     if (story.petId != null) {
       pet = this.getPet(story.petId);
     }
 
-    if  ( pet == null) return ; 
+    if  ( pet == null) return null; 
 
     return (
       <View style={styles.container}>
@@ -296,14 +301,13 @@ class Main extends Component {
 
   render() {
 
-    var data  = ds.cloneWithRows(this.props.story.storys);
-    console.log ( "render function : (refresh ) " + this.state.refresh)
+    var data  = ds.cloneWithRows(this.state.storys);
     return (
 
       <View style={styles.container}>
 
-        <ScrollView style={styles.scrollViewStyle}>
           <ListView
+            enableEmptySections={true}
             dataSource={data}
             renderRow={this.renderStoryItem}
             refreshControl={
@@ -312,15 +316,13 @@ class Main extends Component {
                 colors={['transparent']}
                 style={{ backgroundColor: 'transparent' }}
                 refreshing={this.state.refresh}
-                onRefresh={() =>
-                  this.getNextStorys()
-                }>
+                onRefresh={this._onRefresh.bind(this)}
+                >
               </RefreshControl>
             }
             >
 
           </ListView>
-        </ScrollView>
 
         <View style={[styles.overlay, styles.bottomOverlayGray]}>
 
@@ -367,6 +369,8 @@ function mapStateToProps(state) {
           users:state.user.users
         },
         story: {
+          page:state.story.page,
+          initStorys:state.story.initStorys,
           storys:state.story.storys,
           refresh:state.story.refresh
         },
