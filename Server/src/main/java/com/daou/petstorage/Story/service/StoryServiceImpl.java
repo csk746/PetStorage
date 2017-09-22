@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 
 import com.daou.petstorage.Comment.domain.Comment;
 import com.daou.petstorage.Comment.repository.CommentRepository;
+import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Story.domain.Story;
 import com.daou.petstorage.Story.model.StoryModel;
 import com.daou.petstorage.Story.repository.StoryRepository;
+import com.daou.petstorage.common.model.CommonRequestModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,6 +38,7 @@ public class StoryServiceImpl implements StoryService{
 	@Autowired private StorageRepository storageRepository ; 
 	@Autowired private CommentRepository commentRepository ; 
 	@Autowired private ObjectMapper objMapper ; 
+	@Autowired private SpringSecurityContext securityContext ; 
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Story.service.StoryService#getStoryList(org.springframework.data.domain.Pageable)
@@ -57,5 +60,43 @@ public class StoryServiceImpl implements StoryService{
 		
 		
 		return modelList ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Story.service.StoryService#plusLikeCount(com.daou.petstorage.common.model.CommonRequestModel)
+	 */
+	@Override
+	public StoryModel plusLikeCount(Long id) {
+		// TODO Auto-generated method stub
+		Story story = this.storyRepository.findOne(id);
+		if ( story == null) return new StoryModel();
+		
+		story.setLikeCount(story.getLikeCount() +1);
+		story = this.storyRepository.save(story);
+		return new StoryModel(story);
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Story.service.StoryService#addComment(com.daou.petstorage.common.model.CommonRequestModel)
+	 */
+	@Override
+	public StoryModel addComment(CommonRequestModel model) {
+		// TODO Auto-generated method stub
+		Story story = this.storyRepository.findOne(model.getId());
+		if ( story == null) return new StoryModel();
+		
+		Comment comment = new Comment();
+		comment.setStory(story);
+		comment.setContent(model.getComment());
+		comment.setLikeCount(0);
+		if ( this.securityContext.getUser() != null){
+			comment.setUser(this.securityContext.getUser());
+		}
+		
+		comment = this.commentRepository.save(comment);
+		
+		return new StoryModel(story);
+		
 	}
 }

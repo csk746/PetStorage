@@ -61,5 +61,8 @@ export default keyMirror({
 
  ILIKE_STORY:null,
  ADD_COMMENT:null,
- GET_STORY:null
+ GET_STORY:null,
+
+ GET_ANOTHER_USER_INFO:null,
+ GET_ANOTHER_PET_INFO:null
 })

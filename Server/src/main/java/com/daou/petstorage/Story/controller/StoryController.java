@@ -37,9 +37,9 @@ public class StoryController {
 	@Autowired private StoryService storyService ; 
 	
 	@RequestMapping(value="/{storyId}", method=RequestMethod.PUT) 
-	public @ResponseBody StoryModel imageUpload( @PathVariable long storyId,  HttpServletResponse res ) {
+	public @ResponseBody StoryModel addlikeCount( @PathVariable long storyId,  HttpServletResponse res ) {
 		log.info("story like update story id : " + storyId + " and user = " + this.securityContext.getUser().getLoginId());
-		return new StoryModel();
+		return this.storyService.plusLikeCount(storyId);
 		
 	}
 	
@@ -47,7 +47,7 @@ public class StoryController {
 	@RequestMapping(value="/comment", method=RequestMethod.POST) 
 	public @ResponseBody StoryModel addComment( @RequestBody CommonRequestModel model , HttpServletResponse res ) {
 		log.info("add comment request :  " + model.toString());
-		return new StoryModel();
+		return this.storyService.addComment(model);
 		
 	}
 		

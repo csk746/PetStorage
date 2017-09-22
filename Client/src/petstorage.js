@@ -59,6 +59,9 @@ import DeviceInitialState from './reducers/device/deviceInitialState'
 import PhotoInitialState from './reducers/photo/photoInitialState'
 import StoryInitialState from './reducers/story/storyInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
+import UserInitialState from './reducers/user/userInitialState'
+import PetInitialState from './reducers/pet/petInitialState'
+
 import pack from '../package'
 var VERSION = pack.version
 
@@ -68,6 +71,8 @@ export default function (platform) {
     auth: new AuthInitialState(),
     photo : new PhotoInitialState(),
     story : new StoryInitialState(),
+    user : new UserInitialState(),
+    pet : new PetInitialState(),
     device: new DeviceInitialState().set('platform', platform).set('version', pack.version),
   }
 
@@ -80,7 +85,7 @@ export default function (platform) {
         component={Login}
         type={ActionConst.RESET}
         initial
-         />
+      />
 
       <Scene key='Main'
         component={Main}

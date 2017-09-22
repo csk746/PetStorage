@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.daou.petstorage.Comment.domain.Comment;
+import com.daou.petstorage.Core.model.BaseModel;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Story.domain.Story;
@@ -20,12 +21,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class StoryModel{
+public class StoryModel extends BaseModel{
 	
 	
 	public StoryModel(Story story){
+		super(story);
+		
 		this.user =  story.getUser() ;
-		//this.pet = story.getPet();
+		this.pet = story.getPet();
 		this.likeCount = story.getLikeCount();
 		this.title = story.getTitle(); 
 		this.text = story.getText();

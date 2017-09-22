@@ -34,8 +34,8 @@ public class Pet extends BaseEntity{
 	@Column
 	private String birthDay ; 
 	
-	@OneToOne
-	private Storage profilePhoto;
+	@Column
+	private String profileUrl;
 	
 	@ManyToOne
 	private User user; 

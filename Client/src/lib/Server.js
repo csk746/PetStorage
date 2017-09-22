@@ -10,7 +10,15 @@ export class Server {
         CONFIG.useDev ? CONFIG.dev.url :
           CONFIG.prod.url
   }
-
+  /**
+   * pet api
+   **/ 
+  async getPet(params){
+    return this._fetch({
+        method : 'GET',
+        url : '/pet/detail/' + params.petId ,
+    })
+  }
   /**
    * storage api
    **/ 
