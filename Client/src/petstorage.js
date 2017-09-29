@@ -48,6 +48,7 @@ import App from './containers/App'
 import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
+import ManagePets from './containers/ManagePets'
 import Subview from './containers/Subview'
 import PetPhotoBrowser from './containers/PetPhotoBrowser'
 import Reducers from './reducers'
@@ -84,12 +85,19 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
+        initial
       />
 
       <Scene key='Main'
         component={Main}
         type={ActionConst.RESET}
-        initial
+                
+      />
+
+      <Scene key='ManagePets'
+        component={ManagePets}
+        type={ActionConst.RESET}
+                
       />
 
       <Scene key='Subview'
