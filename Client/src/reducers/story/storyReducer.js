@@ -43,6 +43,7 @@ export default function storyReducer(state = initialState, action) {
     case ADD_COMMENT :{
       let storyId = action.storyId;
       let comment = action.comment;
+      return state.setIn(['syncIdx'], state.syncIdx + 1)
 
     }
     case GET_STORY: {

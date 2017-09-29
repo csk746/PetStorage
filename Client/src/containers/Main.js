@@ -262,9 +262,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   profile() {
     Actions.Login({
     })
+
   },
   addComment(story, id, comment) {
-    story.comments.push(comment);
+    story.comments.push({ userName: '나', content: comment });
     this.props.actions.addComment(id, comment);
   },
   likeStory(id) {
@@ -284,9 +285,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   _onRefresh() {
     this.state.storys.splice(0, this.state.storys.length)
+
     this.setState({ refresh: true });
     this.setState({ page: 0 });
-    this.getStoryList(this.state.page);
+    this.getStoryList(0);
   },
 
   renderComment(comment) {
