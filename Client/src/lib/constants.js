@@ -54,15 +54,17 @@ export default keyMirror({
   LOGIN: null,
   REGISTER: null,
 
-  SAVE_PHOTO:null,
-  UPLOAD_PHOTO:null,
-  TAKE_PHOTO:null,
-  GET_PHOTOLIST:null,
+  SAVE_PHOTO: null,
+  UPLOAD_PHOTO: null,
+  TAKE_PHOTO: null,
+  GET_PHOTOLIST: null,
 
- ILIKE_STORY:null,
- ADD_COMMENT:null,
- GET_STORY:null,
+  ILIKE_STORY: null,
+  ADD_COMMENT: null,
+  GET_STORY: null,
 
- GET_ANOTHER_USER_INFO:null,
- GET_ANOTHER_PET_INFO:null
+  GET_ANOTHER_USER_INFO: null,
+  GET_ANOTHER_PET_INFO: null,
+
+  GET_MY_PET_LIST: null
 })
