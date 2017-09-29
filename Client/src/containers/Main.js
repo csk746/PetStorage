@@ -229,7 +229,7 @@ class Main extends Component {
     })
   }
   addComment(story, id, comment){
-    story.comments.push({content:comment});
+    story.comments.push({userName:'나', content:comment});
     this.props.actions.addComment(id, comment ) ;
   }
   likeStory(id){
