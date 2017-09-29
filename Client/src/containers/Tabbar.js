@@ -188,7 +188,10 @@ class Tabbar extends Component {
   managePets() {
     this.setState({ nowTab: 'ManagePets' })
   }
-
+  takePicture() {
+    Actions.TakePicture({
+    })
+  }
   render() {
     var content
     console.log(this.state.nowTab)
