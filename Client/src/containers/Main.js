@@ -187,6 +187,9 @@ class Main extends Component {
     this.getNextStorys = this.getNextStorys.bind(this);
   }
   getNextStorys() {
+
+    if ( this.state.refresh) return ; 
+
     this.setState({page:this.state.page+1});
     this.getStoryList(this.state.page);
   }
@@ -236,13 +239,10 @@ class Main extends Component {
   }
 
   _onRefresh() {
-
-
     this.state.storys.splice(0, this.state.storys.length)
     this.setState({refresh: true});
     this.setState({page:0});
     this.getStoryList(this.state.page);
-    this.setState({refresh: false});
   }
 
   renderStoryItem(story){
@@ -333,6 +333,10 @@ class Main extends Component {
                 >
               </RefreshControl>
             }
+            onEndReached={() => {
+                console.log("endReached~"); 
+                this.getNextStorys();
+            }}
             >
 
           </ListView>
