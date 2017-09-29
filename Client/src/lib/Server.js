@@ -103,6 +103,7 @@ export class Server {
       if (opts.headers['Content-Type'] == null) {
         opts.headers['Content-Type'] = 'application/json'
         if (opts.body) {
+          console.log ( " json obj : " + opts.body)
           opts.body = JSON.stringify(opts.body)
         }
       }

@@ -260,7 +260,9 @@ class Main extends Component {
     if (story.petId != null) {
       pet = this.getPet(story.petId);
     }
+    console.log ( " pet : " + pet)
 
+    console.log("photo : " + story.photoList[0]);
     if  ( pet == null) return null; 
 
     return (
@@ -290,7 +292,7 @@ class Main extends Component {
             <View style={styles.row}>
 
               <TouchableOpacity onPress={() => this.likeStory(story.id)} >
-              <Image style={<styles className="icon"></styles>} source={require('../images/like_button.png')} />
+              <Image style={styles.icon} source={require('../images/like_button.png')} />
               </TouchableOpacity>
               <TextInput style={styles.input}
                 placeholder="미호 귀엽다" />

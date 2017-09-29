@@ -35,7 +35,6 @@ export default function petReducer(state = initialState, action) {
   switch (action.type) {
     /**
      * ### set the platform in the state
-     *
      */
     case GET_ANOTHER_PET_INFO:{
       console.log ( "reducer data : " + action.data);
@@ -48,6 +47,7 @@ export default function petReducer(state = initialState, action) {
       pet.profileUrl= host + resPet.profileUrl;
       pet.userId = resPet.userId;
       state.pets.push(pet);
+      console.log ( "petReducer end");
       return state.setIn(['syncIdx'], state.syncIdx + 1)
     }
   }
