@@ -70,6 +70,8 @@ export default function storyReducer(state = initialState, action) {
             storyObj.petId = story.pet.id;
           }
 
+          storyObj.comments = story.comments;
+
           storageList.push(storyObj);
         }
 

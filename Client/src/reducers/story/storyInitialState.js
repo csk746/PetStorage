@@ -25,6 +25,7 @@ const Storys = Record({
   text:'',
   title:'',
   iliked:false,
+  comment:'',
   comments: [],
   photoList : []
 })
