@@ -53,16 +53,29 @@ var styles = StyleSheet.create({
   }
 
 })
+function mapStateToProps(state) {
+  return {
+    platform: state.device.platform,
 
-class ManagePets extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      refresh: this.props.story.refresh,
-      page: 0
-    };
   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions, ...petActions }, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
+  getInitialState() {
+    return {
+      // refresh: this.props.story.refresh,
+      page: 0,
+      petList: null
+    }
+  },
+  componentWillMount() {
+    this.setState({ petList: this.props.actions.getMyPetList() })
+  },
   render() {
     return (
       <View style={styles.column}>
@@ -81,45 +94,4 @@ class ManagePets extends Component {
       </View>
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    platform: state.device.platform,
-    auth: {
-      form: {
-        isFetching: state.auth.form.isFetching
-      }
-    },
-    global: {
-      currentState: state.global.currentState,
-      showState: state.global.showState
-    },
-    pet: {
-      pets: state.pet.pets
-    },
-    user: {
-      users: state.user.users
-    },
-    story: {
-      storys: state.story.storys,
-      refresh: state.story.refresh
-    },
-    photo: {
-      maxSize: state.photo.maxSize,
-      order: state.photo.order,
-      field: state.photo.field,
-      page: state.photo.page,
-      urlList: state.photo.urlList,
-      photoList: state.photo.photoList
-    }
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions, ...petActions }, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ManagePets)
+}))
