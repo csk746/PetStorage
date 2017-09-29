@@ -8,7 +8,7 @@ import * as globalActions from '../reducers/global/globalActions'
 import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import petActions from '../reducers/pet/petActions'
-
+import Dimensions from 'Dimensions';
 import Main from './Main'
 import ManagePets from './ManagePets'
 
@@ -55,8 +55,8 @@ var styles = StyleSheet.create({
     bottom: 0
   },
   mainButton: {
-    width: 50,
-    height: 50
+    width: 70,
+    height: 70
   },
   icon: {
     width: 25,
@@ -115,9 +115,14 @@ var styles = StyleSheet.create({
     fontSize: 12,
   },
   bottomRow: {
+    position: 'absolute',
+    // top: 30,
+    backgroundColor: 'gray',
+    bottom: 30,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    height: 60
+    // height: 60
+
   },
 
   row: {
@@ -136,18 +141,16 @@ var styles = StyleSheet.create({
     fontSize: 15,
   },
   overlay: {
-    position: 'absolute',
-    padding: 16,
-    right: 0,
-    left: 0,
     alignItems: 'center',
   },
   bottomOverlayGray: {
-    bottom: 0,
+    // position: 'absolute',
+    top: Dimensions.get('window').height - 100,
     backgroundColor: 'rgba(0,0,0,0.2)',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    height: 120
   },
   bottomOverlay: {
     bottom: 0,
@@ -196,28 +199,25 @@ class Tabbar extends Component {
     }
 
     return (
-      <View style={{ flexDirection: 'column', flex: 1 }}>
-        <View>
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 4 }}>
           {content}
         </View>
-        <View style={[styles.overlay, styles.bottomOverlayGray]}>
-          <View style={styles.bottomRow}>
-            <TouchableOpacity onPress={this.main} >
-              <Image style={styles.mainButton} source={require('../images/list_button.png')} />
-            </TouchableOpacity>
-            <View style={styles.wPadding100} />
-            <View style={styles.wPadding} />
-            <View style={styles.wPadding} />
-            <TouchableOpacity onPress={this.takePicture} >
-              <Image style={styles.takeButton} source={require('../images/picture_button.png')} />
-            </TouchableOpacity>
-            <View style={styles.wPadding100} />
-            <View style={styles.wPadding} />
-            <View style={styles.wPadding} />
-            <TouchableOpacity onPress={this.managePets} >
-              <Image style={styles.mainButton} source={require('../images/profile_button.png')} />
-            </TouchableOpacity>
-          </View>
+        <View style={{ flex: 0.6, flexDirection: 'row', borderTopColor: 'rgba(0,0,0,1)', borderTopWidth: 1, justifyContent: 'center', alignItems: 'center', }}>
+          <TouchableOpacity onPress={this.main} style={{ flex: 1, marginLeft: 10, alignItems: 'center' }}>
+            <Image style={{ width: 60, height: 60 }} source={require('../images/list_button.png')} />
+            <Text>타임라인</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.takePicture} style={{ flex: 1, marginLeft: 10, alignItems: 'center' }}>
+            <Image style={{ width: 60, height: 60 }} source={require('../images/picture_button.png')} />
+            <Text>카메라</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.managePets} style={{ flex: 1, marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Image style={{ width: 60, height: 60 }} source={require('../images/profile_button.png')} />
+            <Text>프로필</Text>
+          </TouchableOpacity>
+
+
         </View>
       </View>
     );
