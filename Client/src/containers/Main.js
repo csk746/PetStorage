@@ -229,7 +229,7 @@ class Main extends Component {
     })
   }
   addComment(story, id, comment){
-    story.comments.push(comment);
+    story.comments.push({content:comment});
     this.props.actions.addComment(id, comment ) ;
   }
   likeStory(id){
@@ -251,7 +251,7 @@ class Main extends Component {
     this.state.storys.splice(0, this.state.storys.length)
     this.setState({refresh: true});
     this.setState({page:0});
-    this.getStoryList(this.state.page);
+    this.getStoryList(0);
   }
 
   renderComment(comment){
