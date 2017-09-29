@@ -12,26 +12,36 @@ export class Server {
   }
   /**
    * pet api
-   **/ 
-  async getPet(params){
+   **/
+  async getPet(params) {
     return this._fetch({
-        method : 'GET',
-        url : '/pet/detail/' + params.petId ,
+      method: 'GET',
+      url: '/pet/detail/' + params.petId,
+    })
+  }
+
+  async getMyPetList(params) {
+    return this._fetch({
+      method: 'GET',
+      url: '/pet/list',
     })
   }
   /**
    * storage api
-   **/ 
-  async getUrlList(params){
+   **/
+  async getUrlList(params) {
     return this._fetch({
-        method : 'GET',
-        url : '/storage/list/' + params.petId + '?' + params.param,
+      method: 'GET',
+      url: '/storage/list/' + params.petId + '?' + params.param,
     })
   }
 
   async uploadPhoto(params) {
     let formData = new FormData();
     formData.append('image', { uri: params.url, type: 'image/jpg', name: '1.jpg' })
+
+    console.log("petId : " + params.petId)
+    console.log("url :" + params.url)
 
     return this._fetch({
       method: 'POST',
@@ -44,47 +54,47 @@ export class Server {
 
   /**
    * story api
-   **/ 
-  async iLikeStroy(params){
+   **/
+  async iLikeStroy(params) {
     return this._fetch({
-        method : 'PUT',
-        url : '/story/' + params.storyId 
+      method: 'PUT',
+      url: '/story/' + params.storyId
     })
   }
-  async addComment(params){
+  async addComment(params) {
     return this._fetch({
-        method : 'POST',
-        url : '/story/comment',
-        body : {
-          id: params.storyId,
-          comment: params.comment
-        }
+      method: 'POST',
+      url: '/story/comment',
+      body: {
+        id: params.storyId,
+        comment: params.comment
+      }
     })
   }
-  async getStoryList(params){
+  async getStoryList(params) {
     return this._fetch({
-        method : 'POST',
-        url : '/story/list',
-        body : {
-          page: params.page,
-          offset:params.offset,
-          order: params.order,
-          field: params.field,
-        }
+      method: 'POST',
+      url: '/story/list',
+      body: {
+        page: params.page,
+        offset: params.offset,
+        order: params.order,
+        field: params.field,
+      }
     })
   }
 
   /**
    * login api
-   **/ 
-  async login(params){
+   **/
+  async login(params) {
     return this._fetch({
-        method : 'POST',
-        url : '/user/login',
-        body : {
-          loginId : params.loginId,
-          password : params.password
-        }
+      method: 'POST',
+      url: '/user/login',
+      body: {
+        loginId: params.loginId,
+        password: params.password
+      }
     })
   }
 
@@ -101,6 +111,8 @@ export class Server {
       if (opts.headers['Content-Type'] == null) {
         opts.headers['Content-Type'] = 'application/json'
         if (opts.body) {
+          console.log(" json obj : " + opts.body)
+
           opts.body = JSON.stringify(opts.body)
         }
       }
