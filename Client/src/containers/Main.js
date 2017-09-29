@@ -86,13 +86,10 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft:30,
     marginRight:30
-    //paddingTop:30
   },
   storyMain :{
     flex:1,
     alignItems:'flex-start',
-    //alignItems:'center',
-    //paddingTop:30
   },
   input: {
     // flex:0.7,
@@ -120,16 +117,11 @@ var styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'flex-start',
     height:60
-    //flex:1,
-    //flexWrap:'nowrap',
-    //padding:30
   },
 
   row :{
     flexDirection:'row',
     alignItems:'flex-start',
-    //flexWrap:'nowrap',
-    //padding:30
   },
 
   petName : {
@@ -182,7 +174,8 @@ class Main extends Component {
       initStorys :this.props.story.initStorys,
       storys :this.props.story.storys,
       refresh:this.props.story.refresh,
-      page:this.props.story.page
+      page:this.props.story.page,
+      comment:''
     };
 
     this.gallary = this.gallary.bind(this);
@@ -272,7 +265,11 @@ class Main extends Component {
 
         <View style={styles.storyHeaderView}>
           <View style={styles.row}>
-          <Image style={styles.profileImage} source={{uri:pet.profileUrl}} ></Image>
+          <Image style={{
+            width:40,
+            height:40,
+            borderRadius: this.props.platform === 'ios' ? 20:25,
+          }} source={{uri:pet.profileUrl}} ></Image>
             <View style={styles.wPadding} />
             <View >
               <Text style={styles.petName} >{pet.name}</Text>
@@ -296,7 +293,12 @@ class Main extends Component {
               <Image style={styles.icon} source={require('../images/like_button.png')} />
               </TouchableOpacity>
               <View style = {{width:250}}>
-              <TextInput style={styles.input}
+              <TextInput style={{
+                  marginTop: this.props.platform === 'ios' ? 30 : 0,
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  height:this.props.platform === 'ios' ? 15 : 50
+                }}
                 placeholder="미호 귀엽다" />
               </View>
               <TouchableOpacity onPress={() => this.addComment(story.id, "댓글 테스트")} >
@@ -363,7 +365,7 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-      platform: state.device.platform,
+        platform: state.device.platform,
         auth: {
             form: {
                 isFetching: state.auth.form.isFetching
@@ -392,7 +394,7 @@ function mapStateToProps(state) {
             page:state.photo.page,
             urlList:state.photo.urlList,
             photoList:state.photo.photoList
-        }
+        },
     }
 }
 
