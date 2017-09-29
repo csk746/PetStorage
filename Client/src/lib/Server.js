@@ -32,8 +32,6 @@ export class Server {
   async uploadPhoto(params) {
     let formData = new FormData();
     formData.append('image', { uri: params.url, type: 'image/jpg', name: '1.jpg' })
-    console.log ( "petId : " + params.petId)
-    console.log ( "url :" + params.url)
 
     return this._fetch({
       method: 'POST',
@@ -103,7 +101,6 @@ export class Server {
       if (opts.headers['Content-Type'] == null) {
         opts.headers['Content-Type'] = 'application/json'
         if (opts.body) {
-          console.log ( " json obj : " + opts.body)
           opts.body = JSON.stringify(opts.body)
         }
       }

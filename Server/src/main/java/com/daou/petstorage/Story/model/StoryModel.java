@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.daou.petstorage.Comment.domain.Comment;
+import com.daou.petstorage.Comment.model.CommentModel;
 import com.daou.petstorage.Core.model.BaseModel;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Storage.domain.Storage;
@@ -46,7 +47,7 @@ public class StoryModel extends BaseModel{
 	
 	private List<String> urlList ; 
 	
-	private List<Comment> comments ; 
+	private List<CommentModel> comments ; 
 	
 	public void setStorageList(List<Storage> list){
 		if ( list == null || list.isEmpty() ) return ; 
@@ -58,10 +59,10 @@ public class StoryModel extends BaseModel{
 	}
 	
 	public void setComments(List<Comment> comments){
+		this.comments = new ArrayList<>();
 		for ( Comment c : comments){
-			c.setStory(null);
+			this.comments.add(new CommentModel(c));
 		}
-		this.comments = comments ; 
 	}
 	
 }

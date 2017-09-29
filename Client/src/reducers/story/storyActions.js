@@ -56,7 +56,6 @@ export function getStory(page, offset, field, order) {
       field:field,
       order:order
     }).then(res=> {
-      console.log ( res)
       dispatch({ type: GET_STORY, data:res  });
     })
   }

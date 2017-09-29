@@ -124,6 +124,13 @@ var styles = StyleSheet.create({
     alignItems:'flex-start',
   },
 
+  commentUser: {
+    fontSize:10,
+  },
+  commentText: {
+    width:265,
+    fontSize:10,
+  },
   petName : {
     fontSize:25,
   },
@@ -181,6 +188,7 @@ class Main extends Component {
     this.gallary = this.gallary.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderStoryItem = this.renderStoryItem.bind(this);
+    this.renderComment= this.renderComment.bind(this);
     this.likeStory = this.likeStory.bind(this);
     this.getStoryList = this.getStoryList.bind(this);
     this.getPet = this.getPet.bind(this);
@@ -220,7 +228,8 @@ class Main extends Component {
     Actions.Login({
     })
   }
-  addComment(id, comment){
+  addComment(story, id, comment){
+    story.comments.push(comment);
     this.props.actions.addComment(id, comment ) ;
   }
   likeStory(id){
@@ -245,18 +254,35 @@ class Main extends Component {
     this.getStoryList(this.state.page);
   }
 
+  renderComment(comment){
+    if ( comment == null) return null ; 
+
+    return(
+      <View style={styles.row}>
+        <Text style={styles.commentUser} >{comment.userName} : </Text>
+        <Text style={styles.commentText} >{comment.content}</Text>
+      </View>
+    )
+    
+  }
+
   renderStoryItem(story){
 
     if ( story == null) return null; 
 
+    if (!story.comments){
+      story.comments = [];
+      story.comments.push({'text':''})
+    }
+
+    var commentSource = ds.cloneWithRows(story.comments);
 
     let pet = null;
+    let comment = '';
     if (story.petId != null) {
       pet = this.getPet(story.petId);
     }
-    console.log ( " pet : " + pet)
 
-    console.log("photo : " + story.photoList[0]);
     if  ( pet == null) return null; 
 
     return (
@@ -286,7 +312,16 @@ class Main extends Component {
           <Image style={styles.image} source={{uri:story.photoList[0]}} ></Image>
 
           <View style={styles.hPadding} />
+          <View style={styles.hPadding} />
+
+            <ListView 
+              enableEmptySections={true}
+              dataSource={commentSource}
+              renderRow={this.renderComment}
+            ></ListView>
+ 
           <View style={styles.storyBottomView}>
+
             <View style={styles.row}>
 
               <TouchableOpacity onPress={() => this.likeStory(story.id)} >
@@ -299,9 +334,10 @@ class Main extends Component {
                   textAlign: 'center',
                   height:this.props.platform === 'ios' ? 15 : 50
                 }}
-                placeholder="미호 귀엽다" />
+                onChangeText={(text) => comment = text }
+                placeholder="" />
               </View>
-              <TouchableOpacity onPress={() => this.addComment(story.id, "댓글 테스트")} >
+              <TouchableOpacity onPress={() => this.addComment(story, story.id, comment)} >
               <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
@@ -334,7 +370,6 @@ class Main extends Component {
               </RefreshControl>
             }
             onEndReached={() => {
-                console.log("endReached~"); 
                 this.getNextStorys();
             }}
             >
