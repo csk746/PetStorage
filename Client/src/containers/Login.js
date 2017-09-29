@@ -11,6 +11,7 @@ import {
   View,
   TextInput,
   Image,
+  Platform
 }
   from 'react-native'
 
@@ -36,21 +37,34 @@ var styles = StyleSheet.create({
   empty05 : {
     flex:0.5
   },
-  wrapperId : {
+  wrapperId_ios : {
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
     width:200,
-    height: 30,
+    height: 40,
   },
-  wrapperPassword : {
+  wrapperPassword_ios : {
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
     width:200,
-    height: 30,
+    height: 40,
+    marginTop:30
+  },
+  wrapperId_and : {
+    // borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width:200,
+    height: 40,
+  },
+  wrapperPassword_and : {
+    // borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    width:200,
+    height: 40,
     marginTop:30
   },
   input : {
-    borderBottomWidth: 10,
+    // borderBottomWidth: 10,
     alignItems: 'center',
     textAlign: 'center',
     flex:0.5
@@ -113,12 +127,18 @@ class Login extends Component {
 
   render() {
     return (
+      
       <View style={styles.container}>
         <View style={styles.empty05}/>
         <View style={styles.empty05}/>
         <Image style={styles.image} source = {require('../images/main.png')}/>
          <View style={styles.empty05}/>
-          <View style={styles.wrapperId}> 
+          <View style={{
+            borderBottomWidth: this.props.device.platform === 'ios' ? 1:0,
+            borderBottomColor: 'gray',
+            width:200,
+            height: 40,
+          }}> 
         <TextInput
           placeholder="ID"
           style={styles.input}
@@ -126,7 +146,12 @@ class Login extends Component {
           value={this.state.id}
         />
          </View> 
-         <View style={styles.wrapperPassword}>
+         <View style={{
+            borderBottomWidth: this.props.device.platform === 'ios' ? 1:0,
+            borderBottomColor: 'gray',
+            width:200,
+            height: 40,
+         }}> 
         <TextInput
           placeholder="PASSWORD"
           style={styles.input}
@@ -158,6 +183,9 @@ function mapStateToProps(state) {
     global: {
       currentState: state.global.currentState,
       showState: state.global.showState
+    },
+    device: {
+      platform: state.device.platform
     }
   }
 }
