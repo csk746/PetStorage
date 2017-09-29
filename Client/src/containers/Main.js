@@ -58,8 +58,9 @@ var styles = StyleSheet.create({
     height:50
   },
   icon: {
-    width:22,
-    height:22
+    width:25,
+    height:25,
+    marginTop:20
   },
   profileImage : {
     width:40,
@@ -94,7 +95,7 @@ var styles = StyleSheet.create({
     //paddingTop:30
   },
   input: {
-    flex:0.7,
+    // flex:0.7,
     alignItems: 'center',
     textAlign: 'center',
   },
@@ -294,8 +295,10 @@ class Main extends Component {
               <TouchableOpacity onPress={() => this.likeStory(story.id)} >
               <Image style={styles.icon} source={require('../images/like_button.png')} />
               </TouchableOpacity>
+              <View style = {{width:250}}>
               <TextInput style={styles.input}
                 placeholder="미호 귀엽다" />
+              </View>
               <TouchableOpacity onPress={() => this.addComment(story.id, "댓글 테스트")} >
               <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
