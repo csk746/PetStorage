@@ -25,54 +25,54 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  image : {
-    marginBottom:10,
-    flex:1.6,
-    height:80,
-    width:160
+  image: {
+    marginBottom: 10,
+    flex: 1.6,
+    height: 80,
+    width: 160
   },
-  empty1 : {
-    flex:1
+  empty1: {
+    flex: 1
   },
-  empty05 : {
-    flex:0.5
+  empty05: {
+    flex: 0.5
   },
-  wrapperId_ios : {
+  wrapperId_ios: {
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
-    width:200,
+    width: 200,
     height: 40,
   },
-  wrapperPassword_ios : {
+  wrapperPassword_ios: {
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
-    width:200,
+    width: 200,
     height: 40,
-    marginTop:30
+    marginTop: 30
   },
-  wrapperId_and : {
+  wrapperId_and: {
     // borderBottomWidth: 1,
     borderBottomColor: 'gray',
-    width:200,
+    width: 200,
     height: 40,
   },
-  wrapperPassword_and : {
+  wrapperPassword_and: {
     // borderBottomWidth: 1,
     borderBottomColor: 'gray',
-    width:200,
+    width: 200,
     height: 40,
-    marginTop:30
+    marginTop: 30
   },
-  input : {
+  input: {
     // borderBottomWidth: 10,
     alignItems: 'center',
     textAlign: 'center',
-    flex:0.5
+    flex: 0.5
   },
   signInButton: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
-    borderWidth:1,
+    borderWidth: 1,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 10,
@@ -98,8 +98,8 @@ class Login extends Component {
     this.login = this.login.bind(this);
 
     this.state = {
-      loginId : '',
-      password : ''
+      loginId: '',
+      password: ''
     };
   }
 
@@ -109,15 +109,15 @@ class Login extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
 
-      if(this.props != nextProps){
-          console.log(nextProps);
-          console.log(this.props);
+    if (this.props != nextProps) {
+      console.log(nextProps);
+      console.log(this.props);
 
-          if(nextProps.auth.form.isFetching){
-              Actions.Main();
-          }
+      if (nextProps.auth.form.isFetching) {
+        Actions.Tabbar();
       }
-      return true;
+    }
+    return true;
   }
 
   login() {
@@ -127,47 +127,47 @@ class Login extends Component {
 
   render() {
     return (
-      
+
       <View style={styles.container}>
-        <View style={styles.empty05}/>
-        <View style={styles.empty05}/>
-        <Image style={styles.image} source = {require('../images/main.png')}/>
-         <View style={styles.empty05}/>
-          <View style={{
-            borderBottomWidth: this.props.device.platform === 'ios' ? 1:0,
-            borderBottomColor: 'gray',
-            width:200,
-            height: 40,
-          }}> 
-        <TextInput
-          placeholder="ID"
-          style={styles.input}
-          onChangeText={(text) => this.setState({ id: text })}
-          value={this.state.id}
-        />
-         </View> 
-         <View style={{
-            borderBottomWidth: this.props.device.platform === 'ios' ? 1:0,
-            borderBottomColor: 'gray',
-            width:200,
-            height: 40,
-         }}> 
-        <TextInput
-          placeholder="PASSWORD"
-          style={styles.input}
-          onChangeText={(text) => this.setState({ password: text })}
-          value={this.state.password}
-          secureTextEntry={true}
-        />
+        <View style={styles.empty05} />
+        <View style={styles.empty05} />
+        <Image style={styles.image} source={require('../images/main.png')} />
+        <View style={styles.empty05} />
+        <View style={{
+          borderBottomWidth: this.props.device.platform === 'ios' ? 1 : 0,
+          borderBottomColor: 'gray',
+          width: 200,
+          height: 40,
+        }}>
+          <TextInput
+            placeholder="ID"
+            style={styles.input}
+            onChangeText={(text) => this.setState({ id: text })}
+            value={this.state.id}
+          />
         </View>
-        <View style={{flex:0.2}}/>
+        <View style={{
+          borderBottomWidth: this.props.device.platform === 'ios' ? 1 : 0,
+          borderBottomColor: 'gray',
+          width: 200,
+          height: 40,
+        }}>
+          <TextInput
+            placeholder="PASSWORD"
+            style={styles.input}
+            onChangeText={(text) => this.setState({ password: text })}
+            value={this.state.password}
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={{ flex: 0.2 }} />
         <Button style={styles.signInButton}
           onPress={this.login}
         >Sign In</Button>
         <Button style={styles.signUpButton}
           onPress={this.login}
         >Sign Up</Button>
-        <View style={styles.empty1}/>
+        <View style={styles.empty1} />
       </View>
     )
   }

@@ -49,6 +49,7 @@ import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
 import ManagePets from './containers/ManagePets'
+import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
 import PetPhotoBrowser from './containers/PetPhotoBrowser'
 import Reducers from './reducers'
@@ -70,10 +71,10 @@ export default function (platform) {
 
   const states = {
     auth: new AuthInitialState(),
-    photo : new PhotoInitialState(),
-    story : new StoryInitialState(),
-    user : new UserInitialState(),
-    pet : new PetInitialState(),
+    photo: new PhotoInitialState(),
+    story: new StoryInitialState(),
+    user: new UserInitialState(),
+    pet: new PetInitialState(),
     device: new DeviceInitialState().set('platform', platform).set('version', pack.version),
   }
 
@@ -85,19 +86,22 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
+      />
+      <Scene key='Tabbar'
+        component={Tabbar}
+        type={ActionConst.RESET}
         initial
       />
-
       <Scene key='Main'
         component={Main}
         type={ActionConst.RESET}
-                
+
       />
 
       <Scene key='ManagePets'
         component={ManagePets}
         type={ActionConst.RESET}
-                
+
       />
 
       <Scene key='Subview'
