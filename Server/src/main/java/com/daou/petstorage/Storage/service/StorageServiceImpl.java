@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.daou.petstorage.Pet.domain.Pet;
@@ -77,7 +78,12 @@ public class StorageServiceImpl implements StorageService{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		RestTemplate restTemplate = new RestTemplate();
+		//이미지 추론하는 데몬으로 리퀘스트.
+		// /tmp/imagenet/tmp.jpg 에 저장하고 데몬은 같은 파일에 접근하여
+		// 판단 결과를 result에 저장
+		String result = restTemplate.getForObject("http://ghdoc.com:7000/ml",String.class);
+		storage.setSpecies(result);
 //		String filePath = request.getServletContext().getRealPath(dir);
 //		log.info(filePath);
 		return this.save(storage);

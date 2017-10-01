@@ -47,7 +47,10 @@ public class Storage extends BaseEntity{
 	
 	@Column
 	private String fakeName; 
-	
+
+	@Column
+	private String species;
+
 	@ManyToOne
 	private Story story ; 
 	
