@@ -2,6 +2,8 @@ package com.daou.petstorage.Storage.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.model.StorageListModel;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Storage.util.BlobConverter;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by hsim on 2017. 8. 13...
@@ -44,7 +49,10 @@ public class StorageServiceImpl implements StorageService{
 	private PetService petService;
 	
 	@Autowired
-	private SecurityPasswordEncoder encoder ; 
+	private SecurityPasswordEncoder encoder ;
+
+	@Autowired
+	private HttpServletRequest request;
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Storage.service.StorageService#saveImageFile(org.springframework.web.multipart.MultipartFile, java.lang.Long)
@@ -59,7 +67,19 @@ public class StorageServiceImpl implements StorageService{
 		Storage storage = new Storage(pet);
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
-		
+
+		String dir = "/tmp/imagenet/tmp.jpg";
+
+		File f = new File(dir);
+
+		try {
+			file.transferTo(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		String filePath = request.getServletContext().getRealPath(dir);
+//		log.info(filePath);
 		return this.save(storage);
 	}
 
