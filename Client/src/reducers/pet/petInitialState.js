@@ -12,20 +12,22 @@
 /**
  * ## Import immutable record
  */
-  import {Record} from 'immutable'
+import { Record } from 'immutable'
 
 const Pets = Record({
-  id:0,
-  name:'',
-  kind:'',
-  birthDay:'',
-  profileUrl:'',
-  userId:0
+  id: 0,
+  name: '',
+  kind: '',
+  birthDay: '',
+  profileUrl: '',
+  userId: 0
 })
 
 var InitialState = Record({
-  syncIdx:0,
-  pets:Pets=[]
+  syncIdx: 0,
+  pets: [],
+  myPetList: [],
+  refresh: false,
 })
 
 export default InitialState

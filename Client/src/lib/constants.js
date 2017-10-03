@@ -66,5 +66,6 @@ export default keyMirror({
   GET_ANOTHER_USER_INFO: null,
   GET_ANOTHER_PET_INFO: null,
 
-  GET_MY_PET_LIST: null
+  REQUESTED_GET_MY_PET_LIST: null,
+  RESPONSE_GET_MY_PET_LIST: null
 })

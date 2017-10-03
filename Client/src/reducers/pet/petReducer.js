@@ -18,11 +18,12 @@ import { getHost } from '../../lib/utils';
  */
 const {
  GET_ANOTHER_PET_INFO,
-  GET_MY_PET_LIST
+  REQUESTED_GET_MY_PET_LIST,
+  RESPONSE_GET_MY_PET_LIST
 } = require('../../lib/constants').default
 
 const initialState = new InitialState()
-
+import DataStore from '../../lib/DataStore'
 /**
  * ## deviceReducer function
  * @param {Object} state - initialState
@@ -51,8 +52,12 @@ export default function petReducer(state = initialState, action) {
       console.log("petReducer end");
       return state.setIn(['syncIdx'], state.syncIdx + 1)
     }
-    case GET_MY_PET_LIST: {
-      let petList = action.data;
+    case REQUESTED_GET_MY_PET_LIST:
+      return state.setIn(['refresh'], true)
+    case RESPONSE_GET_MY_PET_LIST: {
+      console.log('list : ' + action.data)
+      return state.setIn(['myPetList'], action.data)
+        .setIn(['refresh'], false)
     }
   }
   return state;

@@ -20,7 +20,8 @@ import {
   ScrollView,
   ListView,
   RefreshControl,
-  Image
+  Image,
+  Button
 }
   from 'react-native'
 
@@ -56,10 +57,11 @@ var styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     platform: state.device.platform,
-
+    petList: state.pet.myPetList,
+    refresh: state.pet.refresh
   }
 }
-
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ ...authActions, ...globalActions, ...photoActions, ...storyActions, ...petActions }, dispatch)
@@ -68,15 +70,21 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
-      // refresh: this.props.story.refresh,
       page: 0,
-      petList: null
+      petList: null,
     }
   },
   componentWillMount() {
-    this.setState({ petList: this.props.actions.getMyPetList() })
+    this.props.actions.getMyPetList()
+  },
+
+  renderMyPets(pet) {
+    return (
+      <View><Text>{pet.name}</Text></View>
+    )
   },
   render() {
+    var data = ds.cloneWithRows(this.props.petList);
     return (
       <View style={styles.column}>
         <View style={styles.row}><View style={styles.flex1} /></View>
@@ -85,8 +93,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           <Image style={styles.imageCircle} source={require('../images/default_image.png')} />
           <View style={styles.flex1} />
         </View>
-        <View style={styles.row}><View style={styles.flex1} /></View>
-        <View style={styles.row}><View style={styles.flex1} /></View>
+
+        <ListView
+          enableEmptySections={true}
+          dataSource={data}
+          renderRow={this.renderMyPets}
+        >
+
+        </ListView>
         <View style={styles.row}><View style={styles.flex1} /></View>
         <View style={styles.row}><View style={styles.flex1} /></View>
         <View style={styles.row}><View style={styles.flex1} /></View>

@@ -16,7 +16,8 @@ const BackendFactory = require('../../lib/BackendFactory').default
  */
 const {
   GET_ANOTHER_PET_INFO,
-  GET_MY_PET_LIST
+  REQUESTED_GET_MY_PET_LIST,
+  RESPONSE_GET_MY_PET_LIST
 } = require('../../lib/constants').default
 
 import { getHost } from '../../lib/utils';
@@ -33,13 +34,26 @@ export function getAnotherPetInfo(petId) {
     })
   }
 }
+
+export function actionRequestGetMyPetList() {
+  return {
+    type: REQUESTED_GET_MY_PET_LIST
+  }
+}
+
+export function actionResponseGetMyPetList(data) {
+  return {
+    type: RESPONSE_GET_MY_PET_LIST,
+    data
+  }
+}
+
 export function getMyPetList() {
-
   return dispatch => {
-    BackendFactory().getMyPetList({
-
-    }).then(res => {
-      dispatch({ type: GET_MY_PET_LIST, data: res })
+    dispatch(actionRequestGetMyPetList())
+    BackendFactory().getMyPetList().then(res => {
+      console.log('Action : ' + res)
+      dispatch(actionResponseGetMyPetList(res))
     })
   }
 }
