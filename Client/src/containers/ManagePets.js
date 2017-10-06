@@ -27,15 +27,14 @@ import {
 
 var styles = StyleSheet.create({
   row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    // height:60
+    flex: 0.5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  imageCircle: {
-    flex: 1,
-    // width:100,
-    // height:133
+  checkBorder: {
+    borderColor: 'black',
+    borderWidth: 1,
   },
   column: {
     flex: 1,
@@ -80,18 +79,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   renderMyPets(pet) {
     return (
-      <View><Text>{pet.name}</Text></View>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
+        <TouchableOpacity style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
+      </View>
     )
   },
   render() {
     var data = ds.cloneWithRows(this.props.petList);
     return (
       <View style={styles.column}>
-        <View style={styles.row}><View style={styles.flex1} /></View>
         <View style={styles.row}>
-          <View style={styles.flex1} />
-          <Image style={styles.imageCircle} source={require('../images/default_image.png')} />
-          <View style={styles.flex1} />
+          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Image source={require('../images/default_image.png')} />
+          </View>
         </View>
 
         <ListView
@@ -99,13 +100,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           dataSource={data}
           renderRow={this.renderMyPets}
         >
-
         </ListView>
-        <View style={styles.row}><View style={styles.flex1} /></View>
-        <View style={styles.row}><View style={styles.flex1} /></View>
-        <View style={styles.row}><View style={styles.flex1} /></View>
-        <View style={styles.row}><View style={styles.flex1} /></View>
-      </View>
+
+      </View >
     );
   }
 }))
