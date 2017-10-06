@@ -20,7 +20,13 @@ import {Record} from 'immutable'
  * The fields we're concerned with
  */
 var InitialState = Record({
-  petId:1,
+  petId:4,
+  page:0,
+  maxSize:20,
+  order:'desc',
+  field:'createdAt',
+  syncIdx:0,
+  urlList:[],
   photoList:[]
 })
 

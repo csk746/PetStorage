@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daou.petstorage.Security.SecurityPasswordEncoder;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
-import com.daou.petstorage.security.SecurityPasswordEncoder;
-
-import junit.framework.Assert;
 
 /**
  * Created by hsim on 2017. 8. 13...
@@ -35,6 +33,14 @@ public class UserServiceImpl implements UserService{
 	public boolean isExistUser(String loginId, String password) {
 		// TODO Auto-generated method stub
 		return this.userRepository.findByLoginIdAndPassword(loginId, password) != null ;
+	}
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.User.Service.UserService#getUser(java.lang.Long)
+	 */
+	@Override
+	public User getUser(Long id) {
+		// TODO Auto-generated method stub
+		return this.userRepository.findOne(id);
 	}
 
 	/* (non-Javadoc)
@@ -112,6 +118,7 @@ public class UserServiceImpl implements UserService{
 		if ( this.isExistUser(user.getLoginId() )) return null;
 		return this.userRepository.save(user);
 	}
+
 
 }
 

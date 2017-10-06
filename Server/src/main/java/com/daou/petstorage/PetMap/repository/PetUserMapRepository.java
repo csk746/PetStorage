@@ -15,6 +15,7 @@ public interface PetUserMapRepository extends JpaRepository<PetUserMap, Long>{
 	
 	List<PetUserMap> findByUser(User user);
 	List<PetUserMap> findByPet(Pet pet);
+	PetUserMap findByPetAndUser(Pet pet, User user);
 }
 
 

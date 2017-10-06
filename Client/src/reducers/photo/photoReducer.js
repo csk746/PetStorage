@@ -17,8 +17,10 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
+  GET_PHOTOLIST,
   UPLOAD_PHOTO,
-  SAVE_PHOTO
+  SAVE_PHOTO,
+  TAKE_PHOTO
 } = require('../../lib/constants').default
 
 const initialState = new InitialState()
@@ -32,40 +34,31 @@ export default function photoReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
   switch (action.type) {
-
     /**
      * ### set the platform in the state
      *
      */
+    case GET_PHOTOLIST: {
+
+      let actionList = action.urlList;
+      for (let i = 0; i < actionList.length; i++) {
+        state.urlList.push(actionList[i]);
+      }
+      return state.setIn(['syncIdx'], state.syncIdx + 1)
+
+    }
+    case TAKE_PHOTO: {
+      state.photoList.push(action.url);
+      return state;
+    }
+
     case UPLOAD_PHOTO: {
+      return state;
     }
     case SAVE_PHOTO: {
-      let photoList = state.photoList;
-      photoList.push(action.payload)
-      state.set('photoList', photoList)
-
-      let petId = state.petId;
-
-      let requestUrl = getHost() + '/storage/image/' + petId;
-      let formData = new FormData();
-      let imageUrl = action.payload  ;
-
-      formData.append('image', {uri: imageUrl, type:'image/jpg', name:'1.jpg'})
-
-      fetch(requestUrl, {
-        method: "POST",
-        headers: { "Accept": "multipart/form-data", "Content-Type": "multipart/form-data" },
-        body: formData
-      }).then((response) => response).
-        then(responseData => {
-          console.log(responseData)
-        })
-        .catch(err => {
-          console.log(err)
-        })  
-      }
-
+      return state;
     }
+  }
+  return state;
 
-  return state
 }

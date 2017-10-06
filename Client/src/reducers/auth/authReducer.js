@@ -67,7 +67,7 @@ export default function authReducer(state = initialState, action) {
     case LOGIN_REQUEST:
     case RESET_PASSWORD_REQUEST: {
       let nextState = state
-        .setIn(['form', 'isFetching'], true)
+        .setIn(['form', 'isFetching'], false)
         .setIn(['form', 'error'], null)
       return nextState
     }
@@ -96,7 +96,10 @@ export default function authReducer(state = initialState, action) {
 
     case SIGNUP_SUCCESS:
 
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS: {
+      return state.setIn(['form', 'isFetching'], true)
+                 // .setIn(['form', 'fields','userInfo'],action.userInfo);
+    }
 
     case LOGOUT_SUCCESS:
 

@@ -48,7 +48,10 @@ import App from './containers/App'
 import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
+import ManagePets from './containers/ManagePets'
+import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
+import PetPhotoBrowser from './containers/PetPhotoBrowser'
 import Reducers from './reducers'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { setPlatform, setVersion } from './reducers/device/deviceActions'
@@ -56,7 +59,11 @@ import { setStore } from './reducers/global/globalActions'
 import AuthInitialState from './reducers/auth/authInitialState'
 import DeviceInitialState from './reducers/device/deviceInitialState'
 import PhotoInitialState from './reducers/photo/photoInitialState'
+import StoryInitialState from './reducers/story/storyInitialState'
 import GlobalInitialState from './reducers/global/globalInitialState'
+import UserInitialState from './reducers/user/userInitialState'
+import PetInitialState from './reducers/pet/petInitialState'
+
 import pack from '../package'
 var VERSION = pack.version
 
@@ -64,7 +71,10 @@ export default function (platform) {
 
   const states = {
     auth: new AuthInitialState(),
-    photo : new PhotoInitialState(),
+    photo: new PhotoInitialState(),
+    story: new StoryInitialState(),
+    user: new UserInitialState(),
+    pet: new PetInitialState(),
     device: new DeviceInitialState().set('platform', platform).set('version', pack.version),
   }
 
@@ -76,12 +86,22 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
-         initial/>
-
+      />
+      <Scene key='Tabbar'
+        component={Tabbar}
+        type={ActionConst.RESET}
+        initial
+      />
       <Scene key='Main'
         component={Main}
         type={ActionConst.RESET}
-        
+
+      />
+
+      <Scene key='ManagePets'
+        component={ManagePets}
+        type={ActionConst.RESET}
+
       />
 
       <Scene key='Subview'
@@ -89,8 +109,12 @@ export default function (platform) {
 
       <Scene key='TakePicture'
         title={'TakePicture'}
-        iconName={'gear'}
         component={TakePicture} />
+
+
+      <Scene key='PetPhotoBrowser'
+        title={'PetPhotoBrowser'}
+        component={PetPhotoBrowser} />
 
     </Scene>
   )

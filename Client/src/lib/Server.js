@@ -10,46 +10,93 @@ export class Server {
         CONFIG.useDev ? CONFIG.dev.url :
           CONFIG.prod.url
   }
-
-  async test() {
-    return await this._fetch({
+  /**
+   * pet api
+   **/
+  async getPet(params) {
+    return this._fetch({
       method: 'GET',
-      url: '/test',
+      url: '/pet/detail/' + params.petId,
     })
   }
 
-  async register(email, password) {
-    return await this._fetch({
+  async getMyPetList(params) {
+    return this._fetch({
+      method: 'GET',
+      url: '/pet/list',
+    })
+  }
+  /**
+   * storage api
+   **/
+  async getUrlList(params) {
+    return this._fetch({
+      method: 'GET',
+      url: '/storage/list/' + params.petId + '?' + params.param,
+    })
+  }
+
+  async uploadPhoto(params) {
+    let formData = new FormData();
+    formData.append('image', { uri: params.url, type: 'image/jpg', name: '1.jpg' })
+
+    console.log("petId : " + params.petId)
+    console.log("url :" + params.url)
+
+    return this._fetch({
       method: 'POST',
-      url: '/auth/signup',
+      url: '/storage/image/' + params.petId,
+      headers: { "Accept": "multipart/form-data", "Content-Type": "multipart/form-data" },
+      body: formData
+    })
+  }
+
+
+  /**
+   * story api
+   **/
+  async iLikeStroy(params) {
+    return this._fetch({
+      method: 'PUT',
+      url: '/story/' + params.storyId
+    })
+  }
+  async addComment(params) {
+    return this._fetch({
+      method: 'POST',
+      url: '/story/comment',
       body: {
-        email,
-        password,
+        id: params.storyId,
+        comment: params.comment
+      }
+    })
+  }
+  async getStoryList(params) {
+    return this._fetch({
+      method: 'POST',
+      url: '/story/list',
+      body: {
+        page: params.page,
+        offset: params.offset,
+        order: params.order,
+        field: params.field,
       }
     })
   }
 
-
-  async validateAuthToken(authToken) {
-    return await this._fetch({
-      method: 'GET',
-      url: '/auth/validate',
-      headers: {
-        'Authorization': 'Bearer ' + authToken,
+  /**
+   * login api
+   **/
+  async login(params) {
+    return this._fetch({
+      method: 'POST',
+      url: '/user/login',
+      body: {
+        loginId: params.loginId,
+        password: params.password
       }
     })
   }
-
-  async refreshAuthToken(refreshToken) {
-    return await this._fetch({
-      method: 'GET',
-      url: '/auth/refresh',
-      headers: {
-        'Authorization': 'Bearer ' + refreshToken,
-      }
-    })
-  }
-
 
   async _fetch(opts) {
     opts = _.extend({
@@ -61,9 +108,13 @@ export class Server {
     }, opts)
 
     if (opts.method === 'POST' || opts.method === 'PUT') {
-      opts.headers['Content-Type'] = 'application/json'
-      if (opts.body) {
-        opts.body = JSON.stringify(opts.body)
+      if (opts.headers['Content-Type'] == null) {
+        opts.headers['Content-Type'] = 'application/json'
+        if (opts.body) {
+          console.log(" json obj : " + opts.body)
+
+          opts.body = JSON.stringify(opts.body)
+        }
       }
     }
 

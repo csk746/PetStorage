@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
-import com.daou.petstorage.core.domain.BaseEntity;
+import com.daou.petstorage.Core.domain.BaseEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
