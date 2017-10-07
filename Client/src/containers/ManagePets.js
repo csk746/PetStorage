@@ -76,14 +76,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   componentWillMount() {
     this.props.actions.getMyPetList()
   },
-
+  selectPet() {
+    Actions.PetPhotos({})
+  },
   renderMyPets(pet) {
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50, marginLeft: pet.id % 2 == 0 ? 40 : 0, marginRight: pet.id % 2 == 1 ? 40 : 0 }}>
+        <TouchableOpacity
+          style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
+          onPress={this.selectPet}
+        ><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
       </View>
     )
   },
+
   render() {
     var petListOdd = []
     var petListEven = []
@@ -92,6 +98,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         petListEven.push(element)
       } else {
         petListOdd.push(element)
+        var pet = new Object
+        pet.name = '추가'
+        pet.id = 3
+        petListOdd.push(pet)
       }
     });
     var odd = ds.cloneWithRows(petListOdd);
@@ -99,11 +109,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return (
       <View style={styles.column}>
         <View style={styles.row}>
-          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 60, width: 120, height: 120, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Image source={require('../images/default_image.png')} />
           </View>
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
           <ListView
             enableEmptySections={true}
             dataSource={even}
