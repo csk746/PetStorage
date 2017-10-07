@@ -81,12 +81,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return (
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
       </View>
     )
   },
   render() {
-    var data = ds.cloneWithRows(this.props.petList);
+    var petListOdd = []
+    var petListEven = []
+    this.props.petList.forEach((element) => {
+      if (element.id % 2 == 0) {
+        petListEven.push(element)
+      } else {
+        petListOdd.push(element)
+      }
+    });
+    var odd = ds.cloneWithRows(petListOdd);
+    var even = ds.cloneWithRows(petListEven);
     return (
       <View style={styles.column}>
         <View style={styles.row}>
@@ -94,14 +103,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             <Image source={require('../images/default_image.png')} />
           </View>
         </View>
-
-        <ListView
-          enableEmptySections={true}
-          dataSource={data}
-          renderRow={this.renderMyPets}
-        >
-        </ListView>
-
+        <View style={{ flexDirection: 'row' }}>
+          <ListView
+            enableEmptySections={true}
+            dataSource={even}
+            renderRow={this.renderMyPets}
+          >
+          </ListView>
+          <ListView
+            enableEmptySections={true}
+            dataSource={odd}
+            renderRow={this.renderMyPets}
+          >
+          </ListView>
+        </View>
       </View >
     );
   }
