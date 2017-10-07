@@ -77,7 +77,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     this.props.actions.getMyPetList()
   },
   selectPet() {
-    Actions.PetPhotoBrowser({})
+    Actions.PetPhotos({})
   },
   renderMyPets(pet) {
     return (
