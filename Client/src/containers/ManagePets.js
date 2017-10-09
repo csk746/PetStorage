@@ -24,6 +24,7 @@ import {
   Button
 }
   from 'react-native'
+import _ from 'underscore'
 
 var styles = StyleSheet.create({
   row: {
@@ -76,15 +77,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   componentWillMount() {
     this.props.actions.getMyPetList()
   },
-  selectPet() {
-    Actions.PetPhotos({})
+  selectPet(petId, opt) {
+    Actions.PetPhotos(_.extend({
+      pet_id: petId,
+    }, opt))
   },
   renderMyPets(pet) {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50, marginLeft: pet.id % 2 == 0 ? 40 : 0, marginRight: pet.id % 2 == 1 ? 40 : 0 }}>
         <TouchableOpacity
+          key={pet.id}
           style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
-          onPress={this.selectPet}
+          onPress={() => this.selectPet(pet.id)}
         ><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
       </View>
     )

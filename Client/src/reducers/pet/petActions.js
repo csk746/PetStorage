@@ -48,12 +48,33 @@ export function actionResponseGetMyPetList(data) {
   }
 }
 
+export function actionRequestGetPetPhotoList() {
+  return {
+    type: REQUESTED_GET_PET_PHOTO_LIST
+  }
+}
+
+export function actionResponseGetPetPhotoList(data) {
+  return {
+    type: RESPONSE_GET_PET_PHOTO_LIST,
+    data
+  }
+}
+
 export function getMyPetList() {
   return dispatch => {
     dispatch(actionRequestGetMyPetList())
     BackendFactory().getMyPetList().then(res => {
-      console.log('Action : ' + res)
       dispatch(actionResponseGetMyPetList(res))
+    })
+  }
+}
+
+export function getPetPhotoList(petID) {
+  return dispatch => {
+    dispatch(actionRequestGetPetPhotoList())
+    BackendFactory().getUrlList(petId).then(res => {
+      dispatch(actionResponseGetPetPhotoList(res))
     })
   }
 }

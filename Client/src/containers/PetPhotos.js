@@ -43,6 +43,7 @@ import {
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as photoActions from '../reducers/photo/photoActions'
+import * as petActions from '../reducers/pet/petActions'
 import * as deviceActions from '../reducers/device/deviceActions'
 
 /**
@@ -65,7 +66,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(...authActions, ...globalActions, ...photoActions, dispatch)
+    actions: bindActionCreators(...authActions, ...globalActions, ...photoActions, ...petActions, dispatch)
   }
 }
 
@@ -93,6 +94,11 @@ class PetPhotos extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(data)
     }
+  }
+
+  componentWillMount() {
+    console.log(this.props.pet_id)
+    this.props.actions.getPetPhotoList(this.props.pet_id)
   }
   render() {
     return (
