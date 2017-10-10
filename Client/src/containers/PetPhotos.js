@@ -12,7 +12,7 @@
  */
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
+const BackendFactory = require('../lib/BackendFactory').default
 /**
  * Router
  */
@@ -87,36 +87,46 @@ var styles = StyleSheet.create({
  * ## Subview class
  */
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-var data = Array.apply(null, { length: 25 }).map(Number.call, Number);
 class PetPhotos extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataSource: ds.cloneWithRows(data)
+      petList: []
     }
   }
 
   componentWillMount() {
     console.log(this.props.pet_id)
-    this.props.actions.getPetPhotoList(this.props.pet_id)
+    BackendFactory().getUrlList(this.props.pet_id).then((res) => { this.setState({ petList: res.urlList }) })
+
+    // this.setState({ petList: BackendFactory().getUrlList(this.props.pet_id) })
+    // console.log(this.state.petList.length)
+
+  }
+  renderRow(url) {
+    return (
+      <Image
+        style={{
+          alignSelf: 'center',
+          width: 90,
+          height: 90,
+          margin: 5
+        }}
+        source={{ uri: 'http://192.168.1.112:9000' + url }}
+      />
+    )
   }
   render() {
+    var data = ds.cloneWithRows(this.state.petList)
     return (
       <View>
         <NavigationBar
           leftButton={<NavBarBack isNegative={true} />} />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <ListView contentContainerStyle={styles.list}
-            dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Image
-              style={{
-                alignSelf: 'center',
-                width: 90,
-                height: 90,
-                margin: 5
-              }}
-              source={require('../images/corgi.png')}
-            />}
+            dataSource={data}
+            enableEmptySections={true}
+            renderRow={this.renderRow}
           />
         </View>
       </View>
