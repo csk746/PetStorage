@@ -38,7 +38,7 @@ public class Storage extends BaseEntity{
 		super();
 		this.pet = pet ; 
 	}
-
+	
 	@ManyToOne
 	private Pet pet ;
 	

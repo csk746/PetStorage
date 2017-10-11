@@ -23,6 +23,8 @@ import NavBarBack from '../components/NavBarBack'
  */
 import NavigationBar from 'react-native-navbar'
 
+import { getHost } from '../lib/utils';
+
 /**
  * The necessary components from React
  */
@@ -104,6 +106,8 @@ class PetPhotos extends Component {
 
   }
   renderRow(url) {
+
+    let host = getHost();
     return (
       <Image
         style={{
@@ -112,7 +116,7 @@ class PetPhotos extends Component {
           height: 90,
           margin: 5
         }}
-        source={{ uri: 'http://192.168.1.112:9000' + url }}
+        source={{ uri: host + url }}
       />
     )
   }

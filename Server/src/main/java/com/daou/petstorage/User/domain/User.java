@@ -3,9 +3,11 @@ package com.daou.petstorage.User.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.daou.petstorage.Core.domain.BaseEntity;
+import com.daou.petstorage.Storage.domain.Storage;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,5 +42,8 @@ public class User extends BaseEntity {
 	
 	@Column 
 	String email ; 
+	
+	@ManyToOne
+	Storage profile; 
 	
 }

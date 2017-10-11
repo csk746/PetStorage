@@ -58,7 +58,11 @@ public class StorageController {
 		Sort sort = SortUtil.direction(order, field);
 		Pageable pageRequest = new PageRequest(page, size, sort);
 		
-		return this.storageService.getFileList(petId, pageRequest);
+		StorageListModel resultModel =  this.storageService.getFileList(petId, pageRequest);
+		
+		log.info("result : " + resultModel.toString());
+		
+		return resultModel;
 	}
 	
 	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET) 
