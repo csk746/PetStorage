@@ -48,6 +48,7 @@ import App from './containers/App'
 import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
+import PetPhotos from './containers/PetPhotos'
 import ManagePets from './containers/ManagePets'
 import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
@@ -86,11 +87,12 @@ export default function (platform) {
       <Scene key='Login'
         component={Login}
         type={ActionConst.RESET}
+        initial
       />
       <Scene key='Tabbar'
         component={Tabbar}
         type={ActionConst.RESET}
-        initial
+
       />
       <Scene key='Main'
         component={Main}
@@ -98,6 +100,10 @@ export default function (platform) {
 
       />
 
+      <Scene key='PetPhotos'
+        component={PetPhotos}
+
+      />
       <Scene key='ManagePets'
         component={ManagePets}
         type={ActionConst.RESET}
