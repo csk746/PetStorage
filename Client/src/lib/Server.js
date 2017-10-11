@@ -29,10 +29,10 @@ export class Server {
   /**
    * storage api
    **/
-  async getUrlList(params) {
+  async getUrlList(petId) {
     return this._fetch({
       method: 'GET',
-      url: '/storage/list/' + params.petId + '?' + params.param,
+      url: '/storage/list/' + petId,
     })
   }
 
