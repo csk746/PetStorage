@@ -97,8 +97,8 @@ export default function authReducer(state = initialState, action) {
     case SIGNUP_SUCCESS:
 
     case LOGIN_SUCCESS: {
-      return state.setIn(['form', 'isFetching'], true)
-                 // .setIn(['form', 'fields','userInfo'],action.userInfo);
+      console.log ( state.myInfo)
+      return state.setIn(['myInfo'], action.userInfo).setIn(['form', 'isFetching'], true)
     }
 
     case LOGOUT_SUCCESS:

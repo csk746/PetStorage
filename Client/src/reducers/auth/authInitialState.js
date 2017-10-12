@@ -50,6 +50,7 @@ const Form = Record({
  * The form is set
  */
 var InitialState = Record({
+  myInfo:null,
   form: new Form()
 })
 export default InitialState

@@ -176,7 +176,8 @@ function mapStateToProps(state) {
     auth: {
       form: {
         isFetching: state.auth.form.isFetching
-      }
+      },
+      myInfo:state.auth.myInfo
     },
     global: {
       currentState: state.global.currentState,
@@ -265,7 +266,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   },
   addComment(story, comment) {
-    story.comments.push({ userName: '나', content: comment });
+    story.comments.push({ userName: this.props.auth.myInfo.name , content: comment });
     this.props.actions.addComment(story, comment);
   },
   likeStory(story) {
@@ -317,10 +318,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     let pet = story.pet;
     let comment = '';
     console.log ( " ilike : " + story.ilike)
-    let likeButtonImage = '../images/like_button.png';
-    if (story.ilike)
-      likeButtonImage = '../images/like_button_enable.png';
-
     console.log(" storyUrl :  " + story.urlList[0])
 
     return (
@@ -363,7 +360,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             <View style={styles.row}>
 
               <TouchableOpacity onPress={() => this.likeStory(story)} >
-                <Image style={styles.icon} source={story.ilike ? require( '../images/like_button_enable.png' ) : require( '../images/like_button.png' )} />
+                <Image style={styles.icon} source={story.ilike ? require( '../images/heart_fill.png' ) : require( '../images/heart_notfill.png' )} />
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{
@@ -388,7 +385,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
 
   render() {
-    console.log(" render :: " + this.state.storys);
+    console.log ( this.props.auth.myInfo)
+    console.log ( " myInfo name : " + this.props.auth.myInfo.id)
 
     var data = ds.cloneWithRows(this.state.storys);
     return (
