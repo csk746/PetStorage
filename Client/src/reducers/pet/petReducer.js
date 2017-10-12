@@ -17,6 +17,7 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
+  ALREAY_REQUEST_ANOTHER_PET_INFO,
  GET_ANOTHER_PET_INFO,
   REQUESTED_GET_MY_PET_LIST,
   RESPONSE_GET_MY_PET_LIST
@@ -38,16 +39,16 @@ export default function petReducer(state = initialState, action) {
     /**
      * ### set the platform in the state
      */
+    case ALREAY_REQUEST_ANOTHER_PET_INFO: {
+      console.log ( " alreay request pet - reducer");
+      return state ; 
+    }
     case GET_ANOTHER_PET_INFO: {
       console.log("reducer data : " + action.data);
-      let resPet = action.data;
-      let pet = {};
-      pet.id = resPet.id;
-      pet.name = resPet.name;
-      pet.kind = resPet.kind;
-      pet.birthDay = resPet.birthDay;
-      pet.profileUrl = host + resPet.profileUrl;
-      pet.userId = resPet.userId;
+      let pet = action.data;
+      pet.profileUrl = host + pet.profileUrl;
+      console.log ( "pet-profileUrl : " + pet.profileUrl)
+
       state.pets.push(pet);
       console.log("petReducer end");
       return state.setIn(['syncIdx'], state.syncIdx + 1)

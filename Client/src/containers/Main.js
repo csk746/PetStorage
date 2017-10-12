@@ -183,7 +183,8 @@ function mapStateToProps(state) {
       showState: state.global.showState
     },
     pet: {
-      pets: state.pet.pets
+      pets: state.pet.pets,
+      requestPets: state.pet.requestPets
     },
     user: {
       users: state.user.users
@@ -279,8 +280,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         if (pets[i].id == id) return pets[i];
       }
     }
-    this.props.actions.getAnotherPetInfo(id);
-    return null;
+    return this.props.actions.getAnotherPetInfo(id);
   },
 
   _onRefresh() {

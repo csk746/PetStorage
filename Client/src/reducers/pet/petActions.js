@@ -15,6 +15,7 @@ const BackendFactory = require('../../lib/BackendFactory').default
  * The actions supported
  */
 const {
+  ALREAY_REQUEST_ANOTHER_PET_INFO,
   GET_ANOTHER_PET_INFO,
   REQUESTED_GET_MY_PET_LIST,
   RESPONSE_GET_MY_PET_LIST
@@ -22,8 +23,21 @@ const {
 
 import { getHost } from '../../lib/utils';
 
+var requestPets = [0,];
+
 export function getAnotherPetInfo(petId) {
+
+  for (let i = 0; i < requestPets.length; i++) {
+    if (requestPets[i] == petId) {
+      return {
+        type: ALREAY_REQUEST_ANOTHER_PET_INFO
+      }
+    }
+  }
+
   console.log("[action]getPet : " + petId)
+
+  requestPets.push(petId);
 
   return dispatch => {
     BackendFactory().getPet({
