@@ -101,8 +101,8 @@ export class TakePicture extends Component {
       camera: {
         aspect: Camera.constants.Aspect.fill,
         captureTarget: Camera.constants.CaptureTarget.temp,
-        //captureQuality: Camera.constants.CaptureQuality["720p"],
-        captureQuality: 'photo',
+        captureQuality: Camera.constants.CaptureQuality["720p"],
+        //captureQuality: 'photo',
         type: Camera.constants.Type.back,
         orientation: Camera.constants.Orientation.auto,
         flashMode: Camera.constants.FlashMode.auto,

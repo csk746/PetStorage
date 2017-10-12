@@ -53,50 +53,19 @@ export default function storyReducer(state = initialState, action) {
 
           let storageList = state.storys;
 
-          for ( let i =0 ;i < storyList.length ; i ++){
-          let story = storyList[i];
-          let storyObj = {};
-          let photoList = [];
-          for ( let i =0 ;i < story.urlList.length; i ++){
-            photoList.push(host + story.urlList[i]);
-          }
-
-          storyObj.urlList = photoList;
-          storyObj.id = story.id;
-          storyObj.text = story.text;
-          storyObj.title = story.title ; 
-          storyObj.userId = story.user.id;
-          storyObj.photoList = photoList ; 
-          if (story.pet != null) {
-            storyObj.petId = story.pet.id;
-          }
-
-          storyObj.comments = story.comments;
-
-          storageList.push(storyObj);
+          for (let i = 0; i < storyList.length; i++) {
+            let story = storyList[i];
+            for (let i = 0; i < story.urlList.length; i++) {
+              story.urlList[i] = host + story.urlList[i];
+              story.pet.profileUrl = host + story.pet.profileUrl;
+              console.log ( "storyId : " + story.id + " petUrl  : " + story.pet.profileUrl)
+            }
+            state.storys.push(story);
         }
 
-        state.setIn(['storys'], storageList)
         state.setIn(['refresh'], false)
         return state.setIn(['syncIdx'], state.syncIdx + 1)
       }
-
-      /**
-       * 
-const Commnet = Record({
-  id:0, 
-  userId:0,
-  text:'',
-})
-
-const Storys = Record({
-  petId:0,
-  iliked:false,
-  comments: [],
-  photoList : []
-})
-
-       */
 
     }
   }

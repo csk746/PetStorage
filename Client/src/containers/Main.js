@@ -222,7 +222,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
       // refresh: this.props.story.refresh,
-      initStorys: this.props.story.initStorys,
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
@@ -304,6 +303,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   renderStoryItem(story) {
 
+    console.log ( " story : " + story)
     if (!story ) return null;
 
     if (!story.comments) {
@@ -313,13 +313,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     var commentSource = ds.cloneWithRows(story.comments);
 
-    let pet = null;
+    let pet = story.pet;
     let comment = '';
-    if (story.petId != null) {
-      pet = this.getPet(story.petId);
-    }
-
-    if (!pet ) return null;
+    console.log ( " storyUrl :  " + story.urlList[0])
 
     return (
       <View style={styles.container}>
@@ -345,7 +341,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         <View style={styles.hPadding} />
 
         <View style={styles.storyImage}>
-          <Image style={styles.image} source={{ uri: story.photoList[0] }} ></Image>
+          <Image style={styles.image} source={{ uri: story.urlList[0] }} ></Image>
 
           <View style={styles.hPadding} />
           <View style={styles.hPadding} />
@@ -386,6 +382,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
 
   render() {
+    console.log ( " render :: " + this.state.storys);
 
     var data = ds.cloneWithRows(this.state.storys);
     return (
