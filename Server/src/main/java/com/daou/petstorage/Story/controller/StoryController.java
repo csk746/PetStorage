@@ -39,10 +39,9 @@ public class StoryController {
 	@RequestMapping(value="/{storyId}", method=RequestMethod.PUT) 
 	public @ResponseBody StoryModel addlikeCount( @PathVariable long storyId,  HttpServletResponse res ) {
 		log.info("story like update story id : " + storyId + " and user = " + this.securityContext.getUser().getLoginId());
-		return this.storyService.plusLikeCount(storyId);
+		return this.storyService.changeLikeStatus(storyId);
 		
 	}
-	
 		
 	@RequestMapping(value="/comment", method=RequestMethod.POST) 
 	public @ResponseBody StoryModel addComment( @RequestBody CommonRequestModel model , HttpServletResponse res ) {

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.daou.petstorage.Comment.domain.Comment;
 import com.daou.petstorage.Comment.repository.CommentRepository;
+import com.daou.petstorage.Like.service.LikeService;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
@@ -39,6 +40,8 @@ public class StoryServiceImpl implements StoryService{
 	@Autowired private CommentRepository commentRepository ; 
 	@Autowired private ObjectMapper objMapper ; 
 	@Autowired private SpringSecurityContext securityContext ; 
+	@Autowired private LikeService likeService ; 
+	 
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Story.service.StoryService#getStoryList(org.springframework.data.domain.Pageable)
@@ -51,6 +54,7 @@ public class StoryServiceImpl implements StoryService{
 		
 		for ( Story s : storyPage.getContent()){
 			StoryModel sModel = new StoryModel(s);
+			sModel.setIlike(this.likeService.isIlikeItem(s));
 			List<Storage> stlist = this.storageRepository.findByStory(s);
 			List<Comment> commentList = this.commentRepository.findByStory(s);
 			sModel.setStorageList(stlist);
@@ -66,13 +70,13 @@ public class StoryServiceImpl implements StoryService{
 	 * @see com.daou.petstorage.Story.service.StoryService#plusLikeCount(com.daou.petstorage.common.model.CommonRequestModel)
 	 */
 	@Override
-	public StoryModel plusLikeCount(Long id) {
+	public StoryModel changeLikeStatus(Long id) {
 		// TODO Auto-generated method stub
 		Story story = this.storyRepository.findOne(id);
 		if ( story == null) return new StoryModel();
 		
-		story.setLikeCount(story.getLikeCount() +1);
-		story = this.storyRepository.save(story);
+		story = this.likeService.likeStatusChange(story);
+		
 		return new StoryModel(story);
 		
 	}

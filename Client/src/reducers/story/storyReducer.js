@@ -40,11 +40,13 @@ export default function storyReducer(state = initialState, action) {
      * ### set the platform in the state
      *
      */
+    case ILIKE_STORY:{
+      return state.setIn(['syncIdx'], state.syncIdx + 1)
+    }
     case ADD_COMMENT :{
-      let storyId = action.storyId;
+      let story= action.story;
       let comment = action.comment;
       return state.setIn(['syncIdx'], state.syncIdx + 1)
-
     }
     case GET_STORY: {
 

@@ -264,17 +264,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     })
 
   },
-  addComment(story, id, comment) {
+  addComment(story, comment) {
     story.comments.push({ userName: '나', content: comment });
-    this.props.actions.addComment(id, comment);
+    this.props.actions.addComment(story, comment);
   },
-  likeStory(id) {
-    this.props.actions.iLikeStory(id);
+  likeStory(story) {
+    story.ilike = !story.ilike;
+    this.props.actions.iLikeStory(story.id);
   },
 
   getPet(id) {
     let pets = this.props.pet.pets;
-    if (pets ) {
+    if (pets) {
       for (let i = 0; i < pets.length; i++) {
         if (pets[i].id == id) return pets[i];
       }
@@ -291,7 +292,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   renderComment(comment) {
-    if (!comment ) return null;
+    if (!comment) return null;
     return (
       <View style={styles.row}>
         <Text style={styles.commentUser} >{comment.userName} : </Text>
@@ -303,8 +304,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   renderStoryItem(story) {
 
-    console.log ( " story : " + story)
-    if (!story ) return null;
+    console.log(" story : " + story)
+    if (!story) return null;
 
     if (!story.comments) {
       story.comments = [];
@@ -315,7 +316,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     let pet = story.pet;
     let comment = '';
-    console.log ( " storyUrl :  " + story.urlList[0])
+    console.log ( " ilike : " + story.ilike)
+    let likeButtonImage = '../images/like_button.png';
+    if (story.ilike)
+      likeButtonImage = '../images/like_button_enable.png';
+
+    console.log(" storyUrl :  " + story.urlList[0])
 
     return (
       <View style={styles.container}>
@@ -356,8 +362,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
             <View style={styles.row}>
 
-              <TouchableOpacity onPress={() => this.likeStory(story.id)} >
-                <Image style={styles.icon} source={require('../images/like_button.png')} />
+              <TouchableOpacity onPress={() => this.likeStory(story)} >
+                <Image style={styles.icon} source={story.ilike ? require( '../images/like_button_enable.png' ) : require( '../images/like_button.png' )} />
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{
@@ -369,7 +375,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
                   onChangeText={(text) => comment = text}
                   placeholder="" />
               </View>
-              <TouchableOpacity onPress={() => this.addComment(story, story.id, comment)} >
+              <TouchableOpacity onPress={() => this.addComment(story, comment)} >
                 <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
@@ -382,7 +388,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
 
   render() {
-    console.log ( " render :: " + this.state.storys);
+    console.log(" render :: " + this.state.storys);
 
     var data = ds.cloneWithRows(this.state.storys);
     return (
