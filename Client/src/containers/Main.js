@@ -275,7 +275,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getPet(id) {
     let pets = this.props.pet.pets;
-    if (pets != null) {
+    if (pets ) {
       for (let i = 0; i < pets.length; i++) {
         if (pets[i].id == id) return pets[i];
       }
@@ -292,7 +292,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   renderComment(comment) {
-    if (comment == null) return null;
+    if (!comment ) return null;
     return (
       <View style={styles.row}>
         <Text style={styles.commentUser} >{comment.userName} : </Text>
@@ -304,7 +304,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   renderStoryItem(story) {
 
-    if (story == null) return null;
+    if (!story ) return null;
 
     if (!story.comments) {
       story.comments = [];
@@ -319,7 +319,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       pet = this.getPet(story.petId);
     }
 
-    if (pet == null) return null;
+    if (!pet ) return null;
 
     return (
       <View style={styles.container}>

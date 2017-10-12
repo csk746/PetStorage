@@ -95,7 +95,7 @@ public class PetStorageInterceptor implements HandlerInterceptor{
 			throws Exception {
 		// TODO Auto-generated method stub
 		
-		log.info(this.getHttpFullStr(request));
+		//log.info(this.getHttpFullStr(request));
 		return true;
 	}
 
