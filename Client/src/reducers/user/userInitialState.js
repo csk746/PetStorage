@@ -16,7 +16,9 @@
 
 
 var InitialState = Record({
-  users:[]
+  users:[],
+  syncIdx: 0,
+  myInfo:{}
 })
 
 export default InitialState

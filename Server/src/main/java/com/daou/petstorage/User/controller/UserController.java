@@ -10,12 +10,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daou.petstorage.Security.account.AccountUserDetails;
+import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
 
@@ -25,8 +29,16 @@ public class UserController {
 	
 	@Autowired AuthenticationManager authenticationManager; 
 	@Autowired UserRepository userRepository; 
+	@Autowired UserService userService ; 
+	
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
+	
+	
+	@GetMapping(value = "/detail/{id}")
+	public @ResponseBody User getUser(@PathVariable Long id){
+		return this.userService.getUser(id);
+	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST) 
 	public AccountUserDetails login( @RequestBody User user,  HttpSession session ) {

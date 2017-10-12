@@ -17,6 +17,7 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
+  ALREAY_REQUEST_ANOTHER_USER_INFO,
  GET_ANOTHER_USER_INFO
 } = require('../../lib/constants').default
 
@@ -30,13 +31,23 @@ const initialState = new InitialState()
 export default function userReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
+  let host = getHost() + '/storage/image/';
+
   switch (action.type) {
     /**
      * ### set the platform in the state
      *
      */
     case GET_ANOTHER_USER_INFO:{
-      console.log ( "reducer data : " + action.data);
+      console.log("reducer data : " + action.data);
+      let user = action.data;
+      user.profileUrl = host + user.profile.fakeUrl;
+      console.log("pet-profileUrl : " + user.profileUrl)
+
+      state.users.push(user);
+      console.log("userReducer end");
+      return state.setIn(['syncIdx'], state.syncIdx + 1)
+
     }
   }
   return state;

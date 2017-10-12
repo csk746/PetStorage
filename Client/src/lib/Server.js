@@ -10,6 +10,19 @@ export class Server {
         CONFIG.useDev ? CONFIG.dev.url :
           CONFIG.prod.url
   }
+
+  /**
+   * user api
+   **/
+  async getUser(params) {
+    return this._fetch({
+      method: 'GET',
+      url: '/user/detail/' + params.userId,
+    })
+  }
+
+
+
   /**
    * pet api
    **/
