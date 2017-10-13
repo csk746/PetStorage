@@ -66,8 +66,17 @@ export default function petReducer(state = initialState, action) {
       return state.setIn(['refresh'], true)
     case RESPONSE_GET_MY_PET_LIST: {
       console.log('list : ' + action.data)
-      return state.setIn(['myPetList'], action.data)
-        .setIn(['refresh'], false)
+      let pets = action.data;
+
+      if (pets) {
+        for (let i = 0; i > pets.length; i++) {
+          if (pets[i].profile) {
+            pets[i].profileUrl = host + pets[i].profile.url;
+            console.log( " profile : " +  pets[i].profileUrl)
+          }
+        }
+      }
+      return state.setIn(['myPetList'], pets) .setIn(['refresh'], false)
     }
   }
   return state;

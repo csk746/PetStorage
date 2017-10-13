@@ -112,6 +112,10 @@ var styles = StyleSheet.create({
   storyBottomView: {
     alignItems: 'flex-start',
   },
+  commentList:{
+    flex:1,
+    height:100,
+  },
   // commentText: {
   //   fontSize: 12,
   // },
@@ -342,7 +346,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           <Text style={styles.petIntroduce} >{story.text} </Text>
           <View style={styles.hPadding} />
 
-          <ListView
+          <ListView style={styles.commentList}
             enableEmptySections={true}
             dataSource={commentSource}
             renderRow={this.renderComment}

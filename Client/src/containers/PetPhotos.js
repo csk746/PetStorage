@@ -78,20 +78,30 @@ function mapDispatchToProps(dispatch) {
 }
 
 var styles = StyleSheet.create({
+
   list: {
-    // justifyContent: 'center',
-    flexDirection: 'row',
+    //justifyContent: 'center',
+    //flexDirection: 'row',
     flexWrap: 'wrap'
   },
   popupButton :{
     height:100,
     width:100,
   },
+  container:{
+    flex:1
+  },
   item: {
     backgroundColor: 'red',
     margin: 10,
     width: 100,
     height: 100
+  },
+  image:{
+    alignSelf: 'center',
+    width: 250,
+    height: 250,
+    margin: 10
   }
 });
 /**
@@ -117,6 +127,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
   renderRow(url) {
 
+    console.log ( " url :  " + url );
     let host = getHost();
     return (
       <TouchableOpacity onPress={() => {
@@ -124,12 +135,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         this.popupDialog.show()
       }} >
       <Image
-        style={{
-          alignSelf: 'center',
-          width: 90,
-          height: 90,
-          margin: 5
-        }}
+        style={styles.image}
         source={{ uri: host + url }}
       />
       </TouchableOpacity>
@@ -159,7 +165,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   render() {
     var data = ds.cloneWithRows(this.state.petList)
     return (
-      <View>
+      <View style={styles.container}>
         <NavigationBar
           leftButton={<NavBarBack isNegative={true} />} />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>

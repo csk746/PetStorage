@@ -307,7 +307,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
                   placeholder="" />
               </View>
               <TouchableOpacity onPress={() => this.posting(content)} >
-                <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+                <Image style={styles.icon} source={require('../images/send.png')} />
               </TouchableOpacity>
             </View>
           </View>

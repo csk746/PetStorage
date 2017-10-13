@@ -56,6 +56,8 @@ const initialState = new InitialState()
  * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
+import { getHost } from '../../lib/utils';
+
 export default function authReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state)
 
@@ -98,6 +100,10 @@ export default function authReducer(state = initialState, action) {
 
     case LOGIN_SUCCESS: {
       console.log ( state.myInfo)
+      let info = action.userInfo;
+      info.profileUrl = getHost() + info.profileUrl;
+      console.log(" user profile : " + info.profileUrl)
+
       return state.setIn(['myInfo'], action.userInfo).setIn(['form', 'isFetching'], true)
     }
 
