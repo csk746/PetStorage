@@ -36,6 +36,13 @@ public class StoryController {
 	@Autowired private SpringSecurityContext securityContext ; 
 	@Autowired private StoryService storyService ; 
 	
+	@RequestMapping(value="", method=RequestMethod.POST) 
+	public @ResponseBody StoryModel createStory( @RequestBody CommonRequestModel model,  HttpServletResponse res ) {
+		log.info("request : " + model.toString());
+		return this.storyService.createStory(model);
+
+	}
+	
 	@RequestMapping(value="/{storyId}", method=RequestMethod.PUT) 
 	public @ResponseBody StoryModel addlikeCount( @PathVariable long storyId,  HttpServletResponse res ) {
 		log.info("story like update story id : " + storyId + " and user = " + this.securityContext.getUser().getLoginId());

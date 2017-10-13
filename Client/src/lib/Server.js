@@ -26,6 +26,18 @@ export class Server {
   /**
    * pet api
    **/
+
+  async setPetProfile(petId, url) {
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/profile',
+      body: {
+        id: petId,
+        url: url
+      }
+    })
+  }
+
   async getPet(params) {
     return this._fetch({
       method: 'GET',
@@ -74,6 +86,7 @@ export class Server {
       url: '/story/' + params.storyId
     })
   }
+
   async addComment(params) {
     return this._fetch({
       method: 'POST',
@@ -84,6 +97,7 @@ export class Server {
       }
     })
   }
+
   async getStoryList(params) {
     return this._fetch({
       method: 'POST',
@@ -93,6 +107,18 @@ export class Server {
         offset: params.offset,
         order: params.order,
         field: params.field,
+      }
+    })
+  }
+
+  async createPosting(petId, url, content ) {
+    return this._fetch({
+      method: 'POST',
+      url: '/story',
+      body: {
+        id: petId,
+        url: url,
+        content: content
       }
     })
   }

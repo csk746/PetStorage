@@ -53,6 +53,8 @@ import ManagePets from './containers/ManagePets'
 import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
 import PetPhotoBrowser from './containers/PetPhotoBrowser'
+import PostingPhoto from './containers/PostingPhoto'
+
 import Reducers from './reducers'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { setPlatform, setVersion } from './reducers/device/deviceActions'
@@ -97,9 +99,7 @@ export default function (platform) {
       <Scene key='Main'
         component={Main}
         type={ActionConst.RESET}
-
       />
-
       <Scene key='PetPhotos'
         component={PetPhotos}
 
@@ -117,10 +117,13 @@ export default function (platform) {
         title={'TakePicture'}
         component={TakePicture} />
 
-
       <Scene key='PetPhotoBrowser'
         title={'PetPhotoBrowser'}
         component={PetPhotoBrowser} />
+
+
+      <Scene key='PostingPhoto'
+        component={PostingPhoto} />
 
     </Scene>
   )

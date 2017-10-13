@@ -3,6 +3,8 @@
  */
 package com.daou.petstorage.Story.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import com.daou.petstorage.Comment.domain.Comment;
 import com.daou.petstorage.Comment.repository.CommentRepository;
 import com.daou.petstorage.Like.service.LikeService;
 import com.daou.petstorage.Map.repository.StoryStorageMapRepository;
+import com.daou.petstorage.Pet.domain.Pet;
+import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
@@ -43,6 +47,7 @@ public class StoryServiceImpl implements StoryService{
 	@Autowired private SpringSecurityContext securityContext ; 
 	@Autowired private LikeService likeService ; 
 	@Autowired private StoryStorageMapRepository storyStorageMapRepository ; 
+	@Autowired private PetRepository petRepository ; 
 	 
 	
 
@@ -120,6 +125,30 @@ public class StoryServiceImpl implements StoryService{
 			storageList.add(map.getStorage());
 		}
 		return storageList ; 
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Story.service.StoryService#createStory(com.daou.petstorage.common.model.CommonRequestModel)
+	 */
+	@Override
+	public StoryModel createStory(CommonRequestModel model) {
+		// TODO Auto-generated method stub
+		Story story = new Story();
+		story.setUser(this.securityContext.getUser());
+		Pet pet = this.petRepository.findOne(model.getId());
+		assertNotNull(pet);
+		story.setPet(pet);
+		story.setText(model.getContent());
+		story.setTitle(model.getContent());
+		
+		Storage storage = this.storageRepository.findByFakeName(model.getFakeName());
+		assertNotNull(storage);
+		
+		story = this.storyRepository.save(story);
+		
+		StoryStorageMap map = this.storyStorageMapRepository.save(new StoryStorageMap(story, storage));
+		
+		return new StoryModel(story);
 	}
 
 }

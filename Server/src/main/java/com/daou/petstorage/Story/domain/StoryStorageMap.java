@@ -22,6 +22,12 @@ import lombok.Setter;
 @Setter
 @Entity
 public class StoryStorageMap extends BaseEntity {
+	
+	public StoryStorageMap(Story story, Storage storage) {
+		super();
+		this.story = story;
+		this.storage = storage;
+	}
 
 	@ManyToOne
 	private Story story;

@@ -22,9 +22,16 @@ public class CommonRequestModel {
 	
 	private Long id ; 
 	private String comment ; 
+	private String url ; 
 
 	private int page ; 
 	private int offset ; 
 	private String order ; 
 	private String field ; 
+	private String content ; 
+	
+	public String getFakeName(){
+		if ( url == null ) return null ; 
+		return url.replaceAll("storage", "").replaceAll("image", "").replaceAll("/", "").trim();
+	}
 }

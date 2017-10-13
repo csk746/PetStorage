@@ -58,7 +58,7 @@ function mapStateToProps(state) {
   return {
     platform: state.device.platform,
     petList: state.pet.myPetList,
-    refresh: state.pet.refresh
+    refresh: state.pet.refresh,
   }
 }
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
@@ -77,18 +77,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   componentWillMount() {
     this.props.actions.getMyPetList()
   },
-  selectPet(petId, opt) {
+  selectPet(pet, opt) {
     Actions.PetPhotos(_.extend({
-      pet_id: petId,
+      pet_id: pet.id
     }, opt))
   },
   renderMyPets(pet) {
+    console.log("petId : " + pet.id )
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50, marginLeft: pet.id % 2 == 0 ? 40 : 0, marginRight: pet.id % 2 == 1 ? 40 : 0 }}>
         <TouchableOpacity
           key={pet.id}
           style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
-          onPress={() => this.selectPet(pet.id)}
+          onPress={() => this.selectPet(pet)}
         ><Text style={{ textAlign: 'center' }}>{pet.name}</Text></TouchableOpacity>
       </View>
     )

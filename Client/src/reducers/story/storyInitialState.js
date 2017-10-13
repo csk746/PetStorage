@@ -19,6 +19,7 @@ var InitialState = Record({
   storys:[],
   initStorys:[],
   refresh:false,
+  postingUrl:'',
   page:0,
   syncIdx:0
 })

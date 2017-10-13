@@ -21,4 +21,5 @@ public interface StoryService {
 	public List<StoryModel> getStoryList(Pageable page);
 	public StoryModel changeLikeStatus(Long id);
 	public StoryModel addComment(CommonRequestModel model);
+	public StoryModel createStory(CommonRequestModel model);
 }

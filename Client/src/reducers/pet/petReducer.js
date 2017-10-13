@@ -19,6 +19,7 @@ import { getHost } from '../../lib/utils';
 const {
   ALREAY_REQUEST_ANOTHER_PET_INFO,
  GET_ANOTHER_PET_INFO,
+ SET_PET_PROFILE_PHOTO,
   REQUESTED_GET_MY_PET_LIST,
   RESPONSE_GET_MY_PET_LIST
 } = require('../../lib/constants').default
@@ -43,6 +44,10 @@ export default function petReducer(state = initialState, action) {
       console.log ( " alreay request pet - reducer");
       return state ; 
     }
+    case   SET_PET_PROFILE_PHOTO:{
+      console.log ( " pet profile photo reducer ")
+    }
+    
     case GET_ANOTHER_PET_INFO: {
       console.log("reducer data : " + action.data);
       let pet = action.data;
