@@ -61,8 +61,8 @@ export function login(id, password) {
             password:password
         })
         .then(response => {
-            // var res = JSON.parse(response);
-            // console.log(res);
+             //var res = JSON.parse(response);
+             console.log(response);
             if(response.token){
                 dispatch({type : LOGIN_SUCCESS, userInfo : response});
                 // saveSessionToken({ authToken : response.token });

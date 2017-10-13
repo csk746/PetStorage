@@ -32,6 +32,7 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
+  TouchableOpacity,
   Text,
   ListView,
   Image
@@ -48,6 +49,7 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as petActions from '../reducers/pet/petActions'
 import * as deviceActions from '../reducers/device/deviceActions'
 
+import PopupDialog from 'react-native-popup-dialog';
 /**
 * ## Redux boilerplate
 */
@@ -89,13 +91,13 @@ var styles = StyleSheet.create({
  * ## Subview class
  */
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-class PetPhotos extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
+  getInitialState() {
+    return {
+      // refresh: this.props.story.refresh,
       petList: []
     }
-  }
+  },
 
   componentWillMount() {
     console.log(this.props.pet_id)
@@ -103,12 +105,12 @@ class PetPhotos extends Component {
 
     // this.setState({ petList: BackendFactory().getUrlList(this.props.pet_id) })
     // console.log(this.state.petList.length)
-
-  }
+  },
   renderRow(url) {
 
     let host = getHost();
     return (
+      <TouchableOpacity onPress={() =>  this.popupDialog.show()} >
       <Image
         style={{
           alignSelf: 'center',
@@ -118,8 +120,9 @@ class PetPhotos extends Component {
         }}
         source={{ uri: host + url }}
       />
+      </TouchableOpacity>
     )
-  }
+  },
   render() {
     var data = ds.cloneWithRows(this.state.petList)
     return (
@@ -132,14 +135,15 @@ class PetPhotos extends Component {
             enableEmptySections={true}
             renderRow={this.renderRow}
           />
+          <PopupDialog
+            ref={(popupDialog) => { this.popupDialog = popupDialog; }} >
+            <View>
+              <Text>Hello</Text>
+            </View>
+          </PopupDialog>
         </View>
       </View>
     );
 
   }
-}
-
-/**
- * Connect the properties
- */
-export default connect(mapStateToProps, mapDispatchToProps)(PetPhotos)
+}))

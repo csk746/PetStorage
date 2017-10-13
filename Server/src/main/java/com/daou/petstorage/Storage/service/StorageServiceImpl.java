@@ -69,7 +69,7 @@ public class StorageServiceImpl implements StorageService{
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
 
-		if ( false ){
+		if ( true ){
 
 			String dir = "/tmp/imagenet/tmp.jpg";
 			File f = new File(dir);

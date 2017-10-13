@@ -54,9 +54,6 @@ public class Storage extends BaseEntity{
 	@ManyToOne
 	private Story story ; 
 	
-	@Column
-	private boolean isProfile;
-	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
 		try {

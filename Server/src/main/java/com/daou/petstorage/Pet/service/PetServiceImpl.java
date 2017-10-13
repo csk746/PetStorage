@@ -107,7 +107,7 @@ public class PetServiceImpl implements PetService {
 			}
 			
 		}
-		return this.setProfilePhoto(pet); 
+		return pet; 
 	}
 
 	/* (non-Javadoc)
@@ -154,33 +154,9 @@ public class PetServiceImpl implements PetService {
 	@Override
 	public List<Pet> getMyPets() {
 		// TODO Auto-generated method stub
-		return this.setProfilePhoto(this.getMyPets(null));
+		return this.getMyPets(null);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.daou.petstorage.Pet.service.PetService#setProfilePhoto(com.daou.petstorage.Pet.domain.Pet)
-	 */
-	@Override
-	public Pet setProfilePhoto(Pet pet) {
-		List<Storage> storages = this.storageRepository.findByPetAndIsProfile(pet, true);
-		if ( storages != null && !storages.isEmpty()) {
-			pet.setProfileUrl(storages.get(0).getFakeName());
-		}
-		return pet ; 
-	}
-
-	/* (non-Javadoc)
-	 * @see com.daou.petstorage.Pet.service.PetService#setProfilePhoto(java.util.List)
-	 */
-	@Override
-	public List<Pet> setProfilePhoto(List<Pet> pet) {
-		// TODO Auto-generated method stub
-		for ( Pet  p : pet){
-			this.setProfilePhoto(p);
-		}
-		return pet ; 
-		
-	}
 
 }
 
