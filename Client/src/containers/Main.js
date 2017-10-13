@@ -339,6 +339,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           <Image style={styles.image} source={{ uri: story.urlList[0] }} ></Image>
 
           <View style={styles.hPadding} />
+          <Text style={styles.petIntroduce} >{story.text} </Text>
           <View style={styles.hPadding} />
 
           <ListView
