@@ -59,7 +59,7 @@ public class TestDataInitService {
 		List<User> saveUserList = new ArrayList<>();
 		
 		saveUserList.add(this.getDefaultUser("admin", "admin", "admin"));
-		saveUserList.add(this.getDefaultUser("hsim", "�임희섭", "1234"));
+		saveUserList.add(this.getDefaultUser("hsim", "임희섭", "1234"));
 		
 		this.userService.saveUser(saveUserList, true);
 		
