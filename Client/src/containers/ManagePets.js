@@ -124,8 +124,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               onPress={() => this.selectPet(pet)}
             >
               <Image style={{
-                width: 80,
-                height: 80,
+                width: 60,
+                height: 60,
                 borderRadius: this.props.platform === 'ios' ? 20 : 25,
               }}
                 source={require('../images/plus.png')} />
@@ -143,7 +143,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
             <TouchableOpacity
               key={pet.id}
-              style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
+              style={[ { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
               onPress={() => this.selectPet(pet)}
             >
               <Image style={{
