@@ -42,9 +42,6 @@ public class Storage extends BaseEntity{
 
 	@Column
 	private String species;
-
-	@ManyToOne
-	private Story story ; 
 	
 	public String getUrl(){
 		return "/storage/image/" + this.fakeName;

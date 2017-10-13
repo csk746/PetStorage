@@ -1,13 +1,8 @@
 package com.daou.petstorage.Storage.repository;
 
-import java.util.List;
-
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Storage.domain.Storage;
-import com.daou.petstorage.Story.domain.Story;
 
 /**
  * Created by hsim on 2017. 8. 13...
@@ -15,8 +10,6 @@ import com.daou.petstorage.Story.domain.Story;
 public interface StorageRepository extends JpaRepository<Storage, Long>{
 	
 	public Storage findByFakeName(String fakeName);
-	public List<Storage> findByStory(Story story );
-
 }
 
 

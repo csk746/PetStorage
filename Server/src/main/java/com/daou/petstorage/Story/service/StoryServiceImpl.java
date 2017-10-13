@@ -16,14 +16,15 @@ import org.springframework.stereotype.Service;
 import com.daou.petstorage.Comment.domain.Comment;
 import com.daou.petstorage.Comment.repository.CommentRepository;
 import com.daou.petstorage.Like.service.LikeService;
+import com.daou.petstorage.Map.repository.StoryStorageMapRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Story.domain.Story;
+import com.daou.petstorage.Story.domain.StoryStorageMap;
 import com.daou.petstorage.Story.model.StoryModel;
 import com.daou.petstorage.Story.repository.StoryRepository;
 import com.daou.petstorage.common.model.CommonRequestModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -41,7 +42,9 @@ public class StoryServiceImpl implements StoryService{
 	@Autowired private ObjectMapper objMapper ; 
 	@Autowired private SpringSecurityContext securityContext ; 
 	@Autowired private LikeService likeService ; 
+	@Autowired private StoryStorageMapRepository storyStorageMapRepository ; 
 	 
+	
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Story.service.StoryService#getStoryList(org.springframework.data.domain.Pageable)
@@ -55,7 +58,7 @@ public class StoryServiceImpl implements StoryService{
 		for ( Story s : storyPage.getContent()){
 			StoryModel sModel = new StoryModel(s);
 			sModel.setIlike(this.likeService.isIlikeItem(s));
-			List<Storage> stlist = this.storageRepository.findByStory(s);
+			List<Storage> stlist = this.getStorageList(s);
 			List<Comment> commentList = this.commentRepository.findByStory(s);
 			sModel.setStorageList(stlist);
 			sModel.setComments(commentList);
@@ -103,4 +106,20 @@ public class StoryServiceImpl implements StoryService{
 		return new StoryModel(story);
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Story.service.StoryService#getStorageList(com.daou.petstorage.Story.domain.Story)
+	 */
+	@Override
+	public List<Storage> getStorageList(Story story) {
+		// TODO Auto-generated method stub
+		List<StoryStorageMap> mapList = this.storyStorageMapRepository.findByStory(story);
+		
+		List<Storage> storageList = new ArrayList<>();
+		for ( StoryStorageMap map : mapList){
+			storageList.add(map.getStorage());
+		}
+		return storageList ; 
+	}
+
 }
