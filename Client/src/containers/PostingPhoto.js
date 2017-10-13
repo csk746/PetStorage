@@ -11,6 +11,8 @@ import * as petActions from '../reducers/pet/petActions'
 
 import { getHost } from '../lib/utils';
 
+import NavBarBack from '../components/NavBarBack'
+import NavigationBar from 'react-native-navbar'
 const BackendFactory = require('../lib/BackendFactory').default
 
 import { Actions } from 'react-native-router-flux'
@@ -245,14 +247,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         if (pets[i].id == id) return pets[i];
       }
     }
-    let myPetList = this.props.pet.myPetList;
-    if (myPetList) {
-
-      for (let i = 0; i < myPetList.length; i++) {
-        if (myPetList[i].id == id) return myPetList[i];
-      }
-    }
+  
     this.props.actions.getAnotherPetInfo(id);
+    return null ; 
   },
 
   render() {
@@ -266,12 +263,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     let url = getHost() + this.props.url;
     console.log ( " url : "+ url)
 
-    if ( !pet) return ( <View> </View>)
+    if ( !pet) return null
 
     console.log (" rendering start")
     console.log (pet)
     return (
       <View style={styles.container}>
+
+        <NavigationBar
+          leftButton={<NavBarBack isNegative={true} />} />
         <View style={styles.storyMain}>
 
           <View style={styles.storyHeaderView}>
