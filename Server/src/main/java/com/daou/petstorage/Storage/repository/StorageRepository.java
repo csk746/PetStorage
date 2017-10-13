@@ -14,9 +14,7 @@ import com.daou.petstorage.Story.domain.Story;
  */
 public interface StorageRepository extends JpaRepository<Storage, Long>{
 	
-	public List<Storage> findByPet(Pet pet, Pageable page);
 	public Storage findByFakeName(String fakeName);
-	public Storage findByPet(Pet pet);
 	public List<Storage> findByStory(Story story );
 
 }

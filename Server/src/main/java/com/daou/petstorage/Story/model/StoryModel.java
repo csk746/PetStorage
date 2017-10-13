@@ -55,7 +55,7 @@ public class StoryModel extends BaseModel{
 		
 		this.urlList = new ArrayList<>();
 		for ( Storage s : list){
-			this.urlList.add(s.getFakeName());
+			this.urlList.add(s.getUrl());
 		}
 	}
 	

@@ -13,7 +13,6 @@ import com.daou.petstorage.PetMap.domain.PetUserMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.PetMap.repository.PetUserMapRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
-import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
@@ -38,7 +37,8 @@ public class PetServiceImpl implements PetService {
 	@Autowired
 	private PetUserMapRepository petUserMapRepository ; 
 	
-	@Autowired StorageRepository storageRepository ; 
+	@Autowired 
+	private StorageRepository storageRepository ; 
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(PetServiceImpl.class);

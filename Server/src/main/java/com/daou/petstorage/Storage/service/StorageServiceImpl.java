@@ -8,6 +8,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.service.PetService;
+import com.daou.petstorage.PetMap.domain.PetStorageMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
+import com.daou.petstorage.PetMap.repository.PetStorageMapRepository;
 import com.daou.petstorage.Security.SecurityPasswordEncoder;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.model.StorageListModel;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Storage.util.BlobConverter;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by hsim on 2017. 8. 13...
@@ -54,6 +55,9 @@ public class StorageServiceImpl implements StorageService{
 
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	private PetStorageMapRepository petStorageMapRepository ; 
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Storage.service.StorageService#saveImageFile(org.springframework.web.multipart.MultipartFile, java.lang.Long)
@@ -65,11 +69,12 @@ public class StorageServiceImpl implements StorageService{
 		Pet pet = this.petService.getPet(petId);
 		if ( pet == null ) return null; 
 		
-		Storage storage = new Storage(pet);
+		Storage storage = new Storage();
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
-		storage = this.save(storage);
-
+		storage = this.save(pet, storage);
+		
+		PetStorageMap storageMap = this.petStorageMapRepository.save(new PetStorageMap(storage, pet) );
 
 		String dir = "/tmp/imagenet/tmp.jpg";
 		File f = new File(dir);
@@ -92,16 +97,15 @@ public class StorageServiceImpl implements StorageService{
 		//		String filePath = request.getServletContext().getRealPath(dir);
 		//		log.info(filePath);
 		
-		return this.save(storage);
+		return this.save(pet, storage);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Storage.service.StorageService#save(com.daou.petstorage.Storage.domain.Storage)
 	 */
 	@Override
-	public Storage save(Storage storage) {
+	public Storage save(Pet pet,Storage storage) {
 		// TODO Auto-generated method stub
-		Pet pet = storage.getPet();
 		assertNotNull(pet);
 		assertNotNull(securityContext.getUser());
 		
@@ -120,10 +124,15 @@ public class StorageServiceImpl implements StorageService{
 		// TODO Auto-generated method stub
 		Storage storage = this.storageRepository.findByFakeName(fileName);
 		if ( storage == null ){ return null ; }
+
+		List<PetStorageMap> mapList = this.petStorageMapRepository.findByStorage(storage);
 		
-		boolean permission = this.petService.isHavingPermission(this.securityContext.getUser(), storage.getPet(), AccessControl.READ);
+		for ( PetStorageMap map : mapList){
+			boolean permission = this.petService.isHavingPermission(this.securityContext.getUser(), map.getPet(), AccessControl.READ);
+			if (permission ) return storage ; 
+		}
+		
 		return storage ; 
-		//if ( permission ) return storage ; 
 		//return null ; 
 		
 	}
@@ -144,11 +153,12 @@ public class StorageServiceImpl implements StorageService{
 			return model ; 
 		}
 		
-		List<Storage> stList = this.storageRepository.findByPet(pet, page);
+		List<PetStorageMap> mapList = this.petStorageMapRepository.findByPet(pet, page);
 		
-		if ( stList != null && !stList.isEmpty()){
-			for ( Storage st : stList)
-			urlList.add("/storage/image/" + st.getFakeName());
+		if ( mapList!= null && !mapList.isEmpty()){
+			for ( PetStorageMap map : mapList){
+				urlList.add(map.getStorage().getUrl());
+			}
 		}
 		model.setUrlList(urlList);
 		
