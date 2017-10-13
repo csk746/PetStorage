@@ -68,29 +68,30 @@ public class StorageServiceImpl implements StorageService{
 		Storage storage = new Storage(pet);
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
+		storage = this.save(storage);
 
-		if ( true ){
 
-			String dir = "/tmp/imagenet/tmp.jpg";
-			File f = new File(dir);
-
+		String dir = "/tmp/imagenet/tmp.jpg";
+		File f = new File(dir);
+		log.info("parent Dir : " +  f.getParent());
+		
+		if ( f.getParentFile().exists()){
 			try {
 				file.transferTo(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+
+		RestTemplate restTemplate = new RestTemplate();
+		//이미지 추론하는 데몬으로 리퀘스트.
+		// /tmp/imagenet/tmp.jpg 에 저장하고 데몬은 같은 파일에 접근하여
+		// 판단 결과를 result에 저장
+		String result = restTemplate.getForObject("http://ghdoc.com:7000/ml",String.class);
+		storage.setSpecies(result);
+		//		String filePath = request.getServletContext().getRealPath(dir);
+		//		log.info(filePath);
 		
-		if ( true){
-			RestTemplate restTemplate = new RestTemplate();
-			//이미지 추론하는 데몬으로 리퀘스트.
-			// /tmp/imagenet/tmp.jpg 에 저장하고 데몬은 같은 파일에 접근하여
-			// 판단 결과를 result에 저장
-			String result = restTemplate.getForObject("http://ghdoc.com:7000/ml",String.class);
-			storage.setSpecies(result);
-			//		String filePath = request.getServletContext().getRealPath(dir);
-			//		log.info(filePath);
-		}
 		return this.save(storage);
 	}
 
