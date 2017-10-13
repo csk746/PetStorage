@@ -31,7 +31,7 @@ const initialState = new InitialState()
 export default function userReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
-  let host = getHost() + '/storage/image/';
+  let host = getHost() ;
 
   switch (action.type) {
     /**

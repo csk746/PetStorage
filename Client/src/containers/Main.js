@@ -9,6 +9,8 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
 
+
+
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
 import {
@@ -272,16 +274,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   likeStory(story) {
     story.ilike = !story.ilike;
     this.props.actions.iLikeStory(story.id);
-  },
-
-  getPet(id) {
-    let pets = this.props.pet.pets;
-    if (pets) {
-      for (let i = 0; i < pets.length; i++) {
-        if (pets[i].id == id) return pets[i];
-      }
-    }
-    return this.props.actions.getAnotherPetInfo(id);
   },
 
   _onRefresh() {

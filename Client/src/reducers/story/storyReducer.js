@@ -33,7 +33,7 @@ const initialState = new InitialState()
 export default function storyReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
-  let host = getHost() + '/storage/image/';
+  let host = getHost() ;
 
   switch (action.type) {
     /**
@@ -59,7 +59,15 @@ export default function storyReducer(state = initialState, action) {
             let story = storyList[i];
             for (let i = 0; i < story.urlList.length; i++) {
               story.urlList[i] = host + story.urlList[i];
-              story.pet.profileUrl = host + story.pet.profileUrl;
+              console.log ( story.pet)
+              if (story.pet.profile) {
+                console.log ( story.pet.profile.url)
+                console.log ( story.pet.profile.fakeName)
+                story.pet.profileUrl = host + story.pet.profile.url;
+              }
+              else{
+                story.pet.profileUrl = ''
+              }
               console.log ( "storyId : " + story.id + " petUrl  : " + story.pet.profileUrl)
             }
             state.storys.push(story);

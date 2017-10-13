@@ -33,7 +33,7 @@ import DataStore from '../../lib/DataStore'
 export default function petReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
-  let host = getHost() + '/storage/image/';
+  let host = getHost() ;
 
   switch (action.type) {
     /**
@@ -46,8 +46,12 @@ export default function petReducer(state = initialState, action) {
     case GET_ANOTHER_PET_INFO: {
       console.log("reducer data : " + action.data);
       let pet = action.data;
-      pet.profileUrl = host + pet.profileUrl;
-      console.log ( "pet-profileUrl : " + pet.profileUrl)
+
+      if ( pet.profile){
+        console.log("pet-profile : " + pet.profile)
+        pet.profileUrl = host + pet.profile.url;
+        console.log("pet-profileUrl : " + pet.profile.url)
+      }
 
       state.pets.push(pet);
       console.log("petReducer end");
