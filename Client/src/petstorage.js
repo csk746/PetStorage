@@ -50,6 +50,7 @@ import Main from './containers/Main'
 import Login from './containers/Login'
 import PetPhotos from './containers/PetPhotos'
 import ManagePets from './containers/ManagePets'
+import ManageFriends from './containers/ManageFriends'
 import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
 import PetPhotoBrowser from './containers/PetPhotoBrowser'
@@ -107,7 +108,10 @@ export default function (platform) {
       <Scene key='ManagePets'
         component={ManagePets}
         type={ActionConst.RESET}
+      />
 
+      <Scene key='ManageFriends'
+        component={ManageFriends}
       />
 
       <Scene key='Subview'

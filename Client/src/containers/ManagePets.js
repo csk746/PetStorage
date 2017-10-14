@@ -112,6 +112,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     var even = ds.cloneWithRows(petListEven);
     return (
       <View style={styles.column}>
+        <TouchableOpacity>
+          <Image source={require('../images/list.png')} />
+        </TouchableOpacity>
         <View style={styles.row}>
           <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 60, width: 120, height: 120, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Image source={require('../images/default_image.png')} />

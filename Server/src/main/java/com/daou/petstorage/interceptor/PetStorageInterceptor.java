@@ -3,8 +3,6 @@
  */
 package com.daou.petstorage.interceptor;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.util.Enumeration;
 import java.util.Map;
 
