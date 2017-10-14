@@ -17,6 +17,7 @@ import { Record } from 'immutable'
 var InitialState = Record({
   syncIdx: 0,
   pets: [],
+  selectPet:{},
   myPetList: [],
   refresh: false,
 })

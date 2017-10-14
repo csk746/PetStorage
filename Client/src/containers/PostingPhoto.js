@@ -9,7 +9,11 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
 
+import { getHost } from '../lib/utils';
 
+import NavBarBack from '../components/NavBarBack'
+import NavigationBar from 'react-native-navbar'
+const BackendFactory = require('../lib/BackendFactory').default
 
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
@@ -34,10 +38,7 @@ const Button = require('apsl-react-native-button')
 
 var styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    flex: 10,
-    marginTop: 15,
-    marginBottom: 15
+    flex: 1,
   },
   Bottom: {
     flexDirection: 'column',
@@ -90,7 +91,6 @@ var styles = StyleSheet.create({
     marginRight: 30
   },
   storyMain: {
-    flex: 1,
     alignItems: 'flex-start',
   },
   input: {
@@ -111,10 +111,6 @@ var styles = StyleSheet.create({
   },
   storyBottomView: {
     alignItems: 'flex-start',
-  },
-  commentList:{
-    flex:1,
-    height:100,
   },
   // commentText: {
   //   fontSize: 12,
@@ -191,6 +187,7 @@ function mapStateToProps(state) {
     },
     pet: {
       pets: state.pet.pets,
+      myPetList :state.pet.myPetList,
       requestPets: state.pet.requestPets
     },
     user: {
@@ -219,105 +216,62 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
     return {
-      // refresh: this.props.story.refresh,
-      storys: this.props.story.storys,
-      refresh: this.props.story.refresh,
-      page: this.props.story.page,
-      comment: ''
+      title:'',
+      content:''
     }
-  },
-
-  getNextStorys() {
-
-    if (this.state.refresh) return;
-
-    this.setState({ page: this.state.page + 1 });
-    this.getStoryList(this.state.page);
-  },
-
-  componentDidMount() {
-    this.setState({ refresh: false });
   },
 
   componentWillMount() {
-    this.getStoryList(this.state.page);
-  },
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
+    console.log ( " start ")
   },
 
-  getStoryList(page) {
-    this.props.actions.getStory(page, 10, 'createdAt', 'desc');
-  },
-  gallary() {
-    //Actions.PetPhotoBrowser({
-    //})
-  },
-  takePicture() {
-    Actions.TakePicture({
-    })
-  },
-  profile() {
-    Actions.Login({
-    })
-
-  },
-  addComment(story, comment) {
-    story.comments.push({ userName: this.props.auth.myInfo.name , content: comment });
-    this.props.actions.addComment(story, comment);
-  },
-  likeStory(story) {
-    story.ilike = !story.ilike;
-    this.props.actions.iLikeStory(story.id);
+  posting(content){
+    console.log ( " petId : " + this.props.pet_id)
+    console.log ( " url : " + this.props.url)
+    console.log (" content : " + content )
+    BackendFactory().createPosting(this.props.pet_id, this.props.url, content).then((res) => { 
+      Actions.Tabbar();
+     })
   },
 
-  _onRefresh() {
-    this.state.storys.splice(0, this.state.storys.length)
-
-    this.setState({ refresh: true });
-    this.setState({ page: 0 });
-    this.getStoryList(0);
-  },
-
-  renderComment(comment) {
-    if (!comment) return null;
-    return (
-      <View style={styles.row}>
-        <Text style={styles.commentUser} >{comment.userName} : </Text>
-        <Text style={styles.commentText} >{comment.content}</Text>
-      </View>
-    )
-
-  },
-
-  renderStoryItem(story) {
-
-    console.log(" story : " + story)
-    if (!story) return null;
-
-    if (!story.comments) {
-      story.comments = [];
-      story.comments.push({ 'text': '' })
+  getPet(id) {
+    let pets = this.props.pet.pets;
+    if (pets) {
+      for (let i = 0; i < pets.length; i++) {
+        if (pets[i].id == id) return pets[i];
+      }
     }
+  
+    this.props.actions.getAnotherPetInfo(id);
+    return null ; 
+  },
 
-    var commentSource = ds.cloneWithRows(story.comments);
+  render() {
 
-    let pet = story.pet;
-    let comment = '';
-    console.log ( " ilike : " + story.ilike)
-    console.log(" storyUrl :  " + story.urlList[0])
+    console.log(" photo : " + this.props.url)
+    console.log(" petId : " + this.props.pet_id)
 
+    let content = ''
+
+    let pet = this.getPet(this.props.pet_id);
+    let url = getHost() + this.props.url;
+    console.log ( " url : "+ url)
+
+    if ( !pet) return null
+
+    console.log (" rendering start")
+    console.log (pet)
     return (
       <View style={styles.container}>
+
+        <NavigationBar
+          leftButton={<NavBarBack isNegative={true} />} />
         <View style={styles.storyMain}>
 
           <View style={styles.storyHeaderView}>
@@ -334,81 +288,31 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               </View>
             </View>
           </View>
-
         </View>
-        <View style={styles.hPadding} />
-        <View style={styles.hPadding} />
 
         <View style={styles.storyImage}>
-          <Image style={styles.image} source={{ uri: story.urlList[0] }} ></Image>
-
-          <View style={styles.hPadding} />
-          <Text style={styles.petIntroduce} >{story.text} </Text>
-          <View style={styles.hPadding} />
-
-          <ListView style={styles.commentList}
-            enableEmptySections={true}
-            dataSource={commentSource}
-            renderRow={this.renderComment}
-          ></ListView>
+          <Image style={styles.image} source={{ uri: url }} ></Image>
 
           <View style={styles.storyBottomView}>
 
             <View style={styles.row}>
-
-              <TouchableOpacity onPress={() => this.likeStory(story)} >
-                <Image style={styles.icon} source={story.ilike ? require( '../images/heart_fill.png' ) : require( '../images/heart_notfill.png' )} />
-              </TouchableOpacity>
-              <View style={{ width: 250 }}>
+             <View style={{ width: 250 }}>
                 <TextInput style={{
                   marginTop: this.props.platform === 'ios' ? 30 : 0,
                   alignItems: 'center',
                   textAlign: 'center',
                   height: this.props.platform === 'ios' ? 15 : 50
                 }}
-                  onChangeText={(text) => comment = text}
+                  onChangeText={(text) => content= text}
                   placeholder="" />
               </View>
-              <TouchableOpacity onPress={() => this.addComment(story, comment)} >
-                <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
+              <TouchableOpacity onPress={() => this.posting(content)} >
+                <Image style={styles.icon} source={require('../images/send.png')} />
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </View>
-
-    );
-  },
-
-
-  render() {
-    console.log ( this.props.auth.myInfo)
-    console.log ( " myInfo name : " + this.props.auth.myInfo.id)
-
-    var data = ds.cloneWithRows(this.state.storys);
-    return (
-      // <View style={styles.Bottom}>
-
-      <ListView
-        enableEmptySections={true}
-        dataSource={data}
-        renderRow={this.renderStoryItem}
-        refreshControl={
-          <RefreshControl
-            tintColor="transparent"
-            colors={['transparent']}
-            style={{ backgroundColor: 'transparent' }}
-            refreshing={this.state.refresh}
-            onRefresh={this._onRefresh}
-          >
-          </RefreshControl>
-        }
-        onEndReached={() => {
-          this.getNextStorys();
-        }}
-      >
-
-      </ListView>
 
     );
   }

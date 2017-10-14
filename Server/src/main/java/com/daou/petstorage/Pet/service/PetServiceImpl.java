@@ -1,5 +1,7 @@
 package com.daou.petstorage.Pet.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,15 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daou.petstorage.Map.repository.PetUserMapRepository;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.PetMap.domain.PetUserMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
-import com.daou.petstorage.PetMap.repository.PetUserMapRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
+import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.User.Service.UserService;
 import com.daou.petstorage.User.domain.User;
+import com.daou.petstorage.common.model.CommonRequestModel;
 
 /**
  * Created by hsim on 2017. 8. 13...
@@ -155,6 +159,22 @@ public class PetServiceImpl implements PetService {
 	public List<Pet> getMyPets() {
 		// TODO Auto-generated method stub
 		return this.getMyPets(null);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#setProfilePhoto(com.daou.petstorage.common.model.CommonRequestModel)
+	 */
+	@Override
+	public Pet setProfilePhoto(CommonRequestModel model) {
+		// TODO Auto-generated method stub
+		log.info("petprofilePhoto petId : " + model.getId() + " and url : " + model.getUrl() + " and fakeName : " + model.getFakeName());
+		Storage storage = this.storageRepository.findByFakeName(model.getFakeName());
+		assertNotNull(storage);
+		Pet pet = this.petRepository.findOne(model.getId());
+		pet.setProfile(storage);
+		this.petRepository.save(pet);
+		
+		return pet ;
 	}
 
 

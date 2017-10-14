@@ -64,6 +64,16 @@ public class AccountUserDetails implements UserDetails {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	public String getProfileUrl(){
+		if ( this.user.getProfile() != null){
+			log.info("profile url :" + this.user.getProfile().getUrl());
+			return this.user.getProfile().getUrl();
+		}
+		else{
+			return "";
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
