@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.daou.petstorage.Core.domain.BaseEntity;
 import com.daou.petstorage.Pet.domain.Pet;
+import com.daou.petstorage.Species.domain.Species;
 import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.Story.domain.Story;
 
@@ -40,8 +41,8 @@ public class Storage extends BaseEntity{
 	@Column
 	private String fakeName; 
 
-	@Column
-	private String species;
+	@ManyToOne
+	private Species species;
 	
 	public String getUrl(){
 		return "/storage/image/" + this.fakeName;
