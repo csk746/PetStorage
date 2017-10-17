@@ -95,19 +95,15 @@ export default function (platform) {
       />
       <Scene key='Tabbar'
         component={Tabbar}
-        type={ActionConst.RESET}
-
       />
       <Scene key='Main'
         component={Main}
-        type={ActionConst.RESET}
       />
       <Scene key='PetPhotos'
         component={PetPhotos}
       />
       <Scene key='ManagePets'
         component={ManagePets}
-        type={ActionConst.RESET}
       />
 
       <Scene key='FriendPets'
