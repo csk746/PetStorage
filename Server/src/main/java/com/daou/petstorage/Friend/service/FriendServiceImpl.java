@@ -34,28 +34,36 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<Pet> findMyPetFriends() {
-        return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS);
+        return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
+                .stream()
+                .map(friendMap -> friendMap.getPet())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<FriendMap> findRequests() {
         List<Pet> pets = petRepository.findByUser(springSecurityContext.getUser());
-
-
-        return null;
+        List<FriendMap> friendMaps = new ArrayList<>();
+        for (Pet pet:pets){
+            friendMaps.addAll(friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY));
+        }
+        return friendMaps;
     }
 
-    private Stream<FriendMap> find(List<Pet> pets){
-        List<FriendMap> friendMaps = new ArrayList<>();
-        for (Pet pet : pets){
-
+    private Stream<FriendMap> find(List<FriendMap> friendMaps){
+        List<FriendMap> friendMapList = new ArrayList<>();
+        for (FriendMap friendMap : friendMaps){
+            friendMapList.add(friendMap);
         }
-        return friendMaps.stream();
+        return friendMapList.stream();
     }
 
     @Override
     public List<User> findByPet(Pet pet) {
-        return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY);
+        return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY).
+                stream()
+                .map(friendMap -> friendMap.getUser())
+                .collect(Collectors.toList());
     }
 
     @Override
