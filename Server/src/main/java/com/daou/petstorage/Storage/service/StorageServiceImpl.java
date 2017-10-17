@@ -25,6 +25,7 @@ import com.daou.petstorage.PetMap.domain.PetStorageMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.Security.SecurityPasswordEncoder;
 import com.daou.petstorage.Security.SpringSecurityContext;
+import com.daou.petstorage.Species.domain.Species;
 import com.daou.petstorage.Species.repository.SpeciesRepository;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.model.StorageListModel;
@@ -97,7 +98,17 @@ public class StorageServiceImpl implements StorageService{
 		// /tmp/imagenet/tmp.jpg 에 저장하고 데몬은 같은 파일에 접근하여
 		// 판단 결과를 result에 저장
 		String result = restTemplate.getForObject("http://ghdoc.com:7000/ml",String.class);
-		storage.setSpecies(this.speciesRepository.findByName(result));
+		
+		if ( result != null){
+			String speicesStr [] = result.split(",");
+			for ( String spe : speicesStr){
+				Species species = this.speciesRepository.findByName(spe);
+				if ( species != null){
+					storage.setSpecies(species);
+					break;
+				}
+			}
+		}
 		//		String filePath = request.getServletContext().getRealPath(dir);
 		//		log.info(filePath);
 		
