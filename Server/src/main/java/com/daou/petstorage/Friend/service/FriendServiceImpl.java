@@ -2,10 +2,10 @@ package com.daou.petstorage.Friend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
 import com.daou.petstorage.Friend.model.FriendPetModel;
@@ -19,7 +19,6 @@ import com.daou.petstorage.User.repository.UserRepository;
 /**
  * Created by geonheelee on 2017. 10. 17..
  */
-@Service
 public class FriendServiceImpl implements FriendService {
 
     @Autowired
@@ -36,28 +35,36 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<Pet> findMyPetFriends() {
-        return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS);
+        return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
+                .stream()
+                .map(friendMap -> friendMap.getPet())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<FriendMap> findRequests() {
         List<Pet> pets = petRepository.findByUser(springSecurityContext.getUser());
-
-
-        return null;
+        List<FriendMap> friendMaps = new ArrayList<>();
+        for (Pet pet:pets){
+            friendMaps.addAll(friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY));
+        }
+        return friendMaps;
     }
 
-    private Stream<FriendMap> find(List<Pet> pets){
-        List<FriendMap> friendMaps = new ArrayList<>();
-        for (Pet pet : pets){
-
+    private Stream<FriendMap> find(List<FriendMap> friendMaps){
+        List<FriendMap> friendMapList = new ArrayList<>();
+        for (FriendMap friendMap : friendMaps){
+            friendMapList.add(friendMap);
         }
-        return friendMaps.stream();
+        return friendMapList.stream();
     }
 
     @Override
     public List<User> findByPet(Pet pet) {
-        return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY);
+        return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY).
+                stream()
+                .map(friendMap -> friendMap.getUser())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -86,11 +93,7 @@ public class FriendServiceImpl implements FriendService {
         friendMap.setStatus(FriendMap.Status.REJECT);
         friendRepository.save(friendMap);
     }
-
-	/* (non-Javadoc)
-	 * @see com.daou.petstorage.Friend.service.FriendService#getFriendPets()
-	 */
-	@Override
+    	@Override
 	public FriendPetModel getFriendPets(Long id) {
 		// TODO Auto-generated method stub
 		FriendPetModel model = new FriendPetModel();
