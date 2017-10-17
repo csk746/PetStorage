@@ -11,11 +11,12 @@ import java.util.List;
  * Created by geonheelee on 2017. 10. 17..
  */
 public interface FriendService {
-    FriendPetModel getFriendPets(Long id);
-    List<Pet> findMyPetFriends();
+    List<Pet> findFollowPets();
     List<FriendMap> findRequests();
     List<User> findByPet(Pet pet);
-    FriendMap requestFriend(long petId);
     void appriveFirend(User user, Pet pet);
     void rejectFriend(long petId, long userId);
+    FriendPetModel getFriendPets(Long id);
+    FriendMap requestFriend(long petId);
 }
+

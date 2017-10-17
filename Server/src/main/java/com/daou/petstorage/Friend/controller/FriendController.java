@@ -1,3 +1,4 @@
+
 package com.daou.petstorage.Friend.controller;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
@@ -36,7 +37,7 @@ public class FriendController {
     @GetMapping(value ="/pet")
     public @ResponseBody
     List<Pet> getMyPetFirends(){
-        return friendService.findMyPetFriends();
+        return friendService.findFollowPets();
     }
 
     @GetMapping(value ="/request/receive")
