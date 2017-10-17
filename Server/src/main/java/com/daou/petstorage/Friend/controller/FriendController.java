@@ -28,9 +28,8 @@ public class FriendController {
     private static final Logger log = LoggerFactory.getLogger(PetController.class);
 
     @GetMapping(value ="/pet")
-    public @ResponseBody
-    List<Pet> getMyPetFirends(){
-        return friendService.findMyPetFriends();
+    public @ResponseBody List<Pet> findFollowPets(){
+        return friendService.findFollowPets();
     }
 
     @GetMapping(value ="/request/receive")
@@ -46,6 +45,5 @@ public class FriendController {
     @PostMapping(value ="/reject/{petId}/{userId}")
     public void rejectFriend(@PathVariable long petId, @PathVariable long userId){
         friendService.rejectFriend(petId, userId);
-
     }
 }

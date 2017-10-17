@@ -8,6 +8,7 @@ import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 /**
  * Created by geonheelee on 2017. 10. 17..
  */
+@Service
 public class FriendServiceImpl implements FriendService {
 
     @Autowired
@@ -33,7 +35,7 @@ public class FriendServiceImpl implements FriendService {
     UserRepository userRepository;
 
     @Override
-    public List<Pet> findMyPetFriends() {
+    public List<Pet> findFollowPets() {
         return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
                 .stream()
                 .map(friendMap -> friendMap.getPet())
@@ -48,14 +50,6 @@ public class FriendServiceImpl implements FriendService {
             friendMaps.addAll(friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY));
         }
         return friendMaps;
-    }
-
-    private Stream<FriendMap> find(List<FriendMap> friendMaps){
-        List<FriendMap> friendMapList = new ArrayList<>();
-        for (FriendMap friendMap : friendMaps){
-            friendMapList.add(friendMap);
-        }
-        return friendMapList.stream();
     }
 
     @Override

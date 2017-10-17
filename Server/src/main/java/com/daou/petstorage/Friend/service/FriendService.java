@@ -10,7 +10,7 @@ import java.util.List;
  * Created by geonheelee on 2017. 10. 17..
  */
 public interface FriendService {
-    List<Pet> findMyPetFriends();
+    List<Pet> findFollowPets();
     List<FriendMap> findRequests();
     List<User> findByPet(Pet pet);
     void requestFriend(long petId);
