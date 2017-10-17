@@ -3,6 +3,7 @@ package com.daou.petstorage.Friend.controller;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
 import com.daou.petstorage.Friend.model.FriendPetModel;
+import com.daou.petstorage.Friend.model.PetModel;
 import com.daou.petstorage.Friend.service.FriendService;
 import com.daou.petstorage.Pet.controller.PetController;
 import com.daou.petstorage.Pet.domain.Pet;
@@ -35,8 +36,7 @@ public class FriendController {
     }
     
     @GetMapping(value ="/pet")
-    public @ResponseBody
-    List<Pet> getMyPetFirends(){
+    public @ResponseBody List<PetModel> getMyPetFirends(){
         return friendService.findFollowPets();
     }
 

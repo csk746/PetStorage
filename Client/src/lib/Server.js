@@ -51,6 +51,35 @@ export class Server {
       url: '/pet/list',
     })
   }
+
+  async findFollowPets() {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/pet',
+    })
+  }
+
+  async getReceiveRequests() {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/request/receive',
+    })
+  }
+
+  async requestFriend(petId) {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/request/' + petId,
+    })
+  }
+
+  async rejectFriend(petId, userId) {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/reject/' + petId + '/' + userId,
+    })
+  }
+
   /**
    * storage api
    **/
@@ -111,7 +140,7 @@ export class Server {
     })
   }
 
-  async createPosting(petId, url, content ) {
+  async createPosting(petId, url, content) {
     return this._fetch({
       method: 'POST',
       url: '/story',

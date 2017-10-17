@@ -2,10 +2,12 @@ package com.daou.petstorage.Friend.service;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
 import com.daou.petstorage.Friend.model.FriendPetModel;
+import com.daou.petstorage.Friend.model.PetModel;
 import com.daou.petstorage.Friend.repository.FriendRepository;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
+import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,31 @@ public class FriendServiceImpl implements FriendService {
     SpringSecurityContext springSecurityContext;
 
     @Autowired
+    StorageRepository storageRepository;
+
+    @Autowired
     PetRepository petRepository;
 
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public List<Pet> findFollowPets() {
+    public List<PetModel> findFollowPets() {
         return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
                 .stream()
                 .map(friendMap -> friendMap.getPet())
-                .collect(Collectors.toList());
+                .map(FriendServiceImpl::entityToModel)
+                .map(petModel -> {
+                    petModel.setUrl(petModel.getProfile().getUrl());
+                    return petModel;
+                }).collect(Collectors.toList());
+    }
+
+    private static PetModel entityToModel(Pet pet){
+        PetModel petModel = new PetModel();
+        petModel.setName(pet.getName());
+        petModel.setProfile(pet.getProfile());
+        return petModel;
     }
 
     @Override
