@@ -1,6 +1,7 @@
 package com.daou.petstorage.Friend.service;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
+import com.daou.petstorage.Friend.model.FriendPetModel;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.User.domain.User;
 
@@ -16,4 +17,6 @@ public interface FriendService {
     void requestFriend(long petId);
     void appriveFirend(User user, Pet pet);
     void rejectFriend(long petId, long userId);
+    FriendPetModel getFriendPets(Long id);
 }
+

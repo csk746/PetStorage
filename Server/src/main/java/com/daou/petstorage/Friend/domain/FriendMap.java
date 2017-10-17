@@ -27,7 +27,7 @@ public class FriendMap extends BaseEntity{
     private User user;
 
     @Column
-    private Status status;
+    private Status status ;
 
     public enum Status {
 
