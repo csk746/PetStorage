@@ -45,8 +45,8 @@ public class FriendController {
     }
 
     @PostMapping(value ="/request/{petId}")
-    public void requestFriend(@PathVariable long petId){
-        friendService.requestFriend(petId);
+    public FriendMap requestFriend(@PathVariable long petId){
+        return friendService.requestFriend(petId);
     }
 
     @PostMapping(value ="/reject/{petId}/{userId}")

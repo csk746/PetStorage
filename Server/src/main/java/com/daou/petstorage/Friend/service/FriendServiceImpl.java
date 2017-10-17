@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
 import com.daou.petstorage.Friend.model.FriendPetModel;
@@ -19,6 +20,7 @@ import com.daou.petstorage.User.repository.UserRepository;
 /**
  * Created by geonheelee on 2017. 10. 17..
  */
+@Service
 public class FriendServiceImpl implements FriendService {
 
     @Autowired
@@ -68,13 +70,13 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void requestFriend(long petId) {
+    public FriendMap requestFriend(long petId) {
         Pet pet = petRepository.findOne(petId);
         FriendMap friendMap = new FriendMap();
         friendMap.setPet(pet);
         friendMap.setUser(springSecurityContext.getUser());
         friendMap.setStatus(FriendMap.Status.READY);
-        friendRepository.save(friendMap);
+        return friendRepository.save(friendMap);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class FriendServiceImpl implements FriendService {
 		
 		User user = this.userRepository.findOne(id);
 		List<Pet> petlist = this.petRepository.findByUser(user);
+		model.setUser(user);
 		model.addPets(petlist);
 		
 		for ( Pet pet :  petlist){
