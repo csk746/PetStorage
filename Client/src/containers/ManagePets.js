@@ -89,7 +89,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   componentWillMount() {
     this.props.actions.getMyPetList()
   },
-  plusPet(){
+  plusPet() {
 
   },
   selectPet(pet, opt) {
@@ -99,7 +99,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       Actions.PetPhotos(_.extend({
         pet_id: pet.id
       }, opt))
-  }
+    }
+  },
+  goToManageFriends() {
+    Actions.ManageFriends()
   },
   renderMyPets(pet) {
     console.log("petId : " + pet.id)
@@ -117,7 +120,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50, marginLeft: pet.id % 2 == 0 ? 40 : 0, marginRight: pet.id % 2 == 1 ? 40 : 0 }}>
-
             <TouchableOpacity
               key={pet.id}
               style={[styles.checkBorder, { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
@@ -143,7 +145,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
             <TouchableOpacity
               key={pet.id}
-              style={[ { borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
+              style={[{ borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
               onPress={() => this.selectPet(pet)}
             >
               <Image style={{
@@ -177,16 +179,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     var odd = ds.cloneWithRows(petListOdd);
     var even = ds.cloneWithRows(petListEven);
 
-    console.log ( " user profile : " + this.props.myInfo.profileUrl)
+    console.log(" user profile : " + this.props.myInfo.profileUrl)
     return (
       <View style={styles.column}>
-        <TouchableOpacity>
-          <Image source={require('../images/list.png')} />
+        <TouchableOpacity style={{ position: 'absolute', top: 20, right: 30, width: 40, height: 40 }} onPress={this.goToManageFriends}>
+          <Image style={{ width: 40, height: 40 }} source={require('../images/list.png')} />
         </TouchableOpacity>
         <View style={styles.row}>
           <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 60, width: 120, height: 120, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Image
-             style={styles.userProfile} source={{uri:this.props.myInfo.profileUrl}} />
+              style={styles.userProfile} source={{ uri: this.props.myInfo.profileUrl }} />
           </View>
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>

@@ -8,7 +8,8 @@ import * as globalActions from '../reducers/global/globalActions'
 import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
-
+import NavigationBar from 'react-native-navbar'
+import NavBarBack from '../components/NavBarBack'
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
 import {
@@ -65,7 +66,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     var even = ds.cloneWithRows(petListEven);
     return (
       <View >
-
+        <NavigationBar
+          leftButton={<NavBarBack isNegative={true} />} />
       </View >
     );
   }
