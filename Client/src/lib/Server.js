@@ -121,6 +121,7 @@ export class Server {
       method: 'POST',
       url: '/story/list',
       body: {
+        petId:params.petId,
         page: params.page,
         offset: params.offset,
         order: params.order,

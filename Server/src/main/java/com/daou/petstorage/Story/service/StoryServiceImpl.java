@@ -55,9 +55,18 @@ public class StoryServiceImpl implements StoryService{
 	 * @see com.daou.petstorage.Story.service.StoryService#getStoryList(org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	public List<StoryModel> getStoryList(Pageable page) {
+	public List<StoryModel> getStoryList(CommonRequestModel model, Pageable page) {
 		// TODO Auto-generated method stub
-		Page<Story> storyPage = this.storyRepository.findAll(page);
+		
+		Page<Story> storyPage = null; 
+		
+		if ( model.getPetId() == null){
+			storyPage = this.storyRepository.findAll(page);
+		}
+		else{
+			Pet pet = this.petRepository.findOne(model.getPetId());
+			storyPage = this.storyRepository.findByPet(pet,page);
+		}
 		List<StoryModel> modelList = new ArrayList<>();
 		
 		for ( Story s : storyPage.getContent()){

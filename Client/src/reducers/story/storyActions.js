@@ -49,10 +49,11 @@ export function iLikeStory(storyId) {
   }
 }
 
-export function getStory(page, offset, field, order) {
+export function getStory(petId, page, offset, field, order) {
 
   return dispatch => {
     BackendFactory().getStoryList({
+      petId:petId,
       page:page , 
       offset:offset,
       field:field,

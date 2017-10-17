@@ -21,6 +21,7 @@ public class CommonRequestModel {
 	private static final Logger log = LoggerFactory.getLogger(CommonRequestModel.class);
 	
 	private Long id ; 
+	private Long petId; 
 	private String comment ; 
 	private String url ; 
 

@@ -232,6 +232,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       refresh: this.props.story.refresh,
       page: this.props.story.page,
       selectUser:null,
+      selectPet:null,
+      storyPet:null,
       comment: ''
     }
   },
@@ -256,7 +258,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   getStoryList(page) {
-    this.props.actions.getStory(page, 10, 'createdAt', 'desc');
+    let petId = null ; 
+    if ( this.state.storyPet){
+      petId = this.state.storyPet.id;
+    }
+
+    this.props.actions.getStory(petId, page, 10, 'createdAt', 'desc');
   },
   gallary() {
     //Actions.PetPhotoBrowser({
@@ -322,7 +329,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
           <View style={styles.storyHeaderView}>
             <View style={styles.row}>
-              <TouchableOpacity onPress={() => this.selectUser(pet.user)} >
+              <TouchableOpacity onPress={() => this.selectUser(pet)} >
               <Image style={{
                 width: 40,
                 height: 40,
@@ -382,11 +389,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     );
   },
 
-  selectUser(user ){
-    this.setState({user:user});
+  selectUser(pet ){
+    this.setState({selectPet :pet});
+    this.setState({user:pet.user});
     this.popupDialog.show();
   },
   goToUserStory(){
+
+    this.setState({storyPet: this.state.selectPet})
+    this._onRefresh()
+
     if (this.popupDialog)
       this.popupDialog.dismiss();
 
