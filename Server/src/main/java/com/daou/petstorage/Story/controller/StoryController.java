@@ -64,7 +64,7 @@ public class StoryController {
 		Sort sort = SortUtil.direction(model.getOrder(), model.getField());
 		Pageable pageRequest = new PageRequest(model.getPage(), model.getOffset(), sort);
 		
-		return this.storyService.getStoryList(pageRequest);
+		return this.storyService.getStoryList(model,pageRequest);
 		
 	}
 

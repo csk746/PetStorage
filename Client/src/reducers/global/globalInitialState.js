@@ -31,6 +31,7 @@ var InitialState = Record({
   showState: false,
   currentState: null,
   store: null,
+  refreshIdx:0,
   testField:'testField'
 })
 export default InitialState

@@ -22,6 +22,7 @@ import {
   ScrollView,
   ListView,
   RefreshControl,
+  Button,
   Image
 }
   from 'react-native'
@@ -29,8 +30,6 @@ import {
 import NavBar from './common/NavBar'
 import BottomBar from './common/BottomBar'
 
-
-const Button = require('apsl-react-native-button')
 
 var styles = StyleSheet.create({
   container: {
@@ -219,10 +218,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
 
 
+import PopupDialog from 'react-native-popup-dialog';
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
@@ -232,6 +231,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
+      selectUser:null,
+      selectPet:null,
+      storyPet:null,
       comment: ''
     }
   },
@@ -256,7 +258,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   getStoryList(page) {
-    this.props.actions.getStory(page, 10, 'createdAt', 'desc');
+    let petId = null ; 
+    if ( this.state.storyPet){
+      petId = this.state.storyPet.id;
+    }
+
+    this.props.actions.getStory(petId, page, 10, 'createdAt', 'desc');
   },
   gallary() {
     //Actions.PetPhotoBrowser({
@@ -322,11 +329,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
           <View style={styles.storyHeaderView}>
             <View style={styles.row}>
+              <TouchableOpacity onPress={() => this.selectUser(pet)} >
               <Image style={{
                 width: 40,
                 height: 40,
                 borderRadius: this.props.platform === 'ios' ? 20 : 25,
               }} source={{ uri: pet.profileUrl }} ></Image>
+              </TouchableOpacity>
               <View style={styles.wPadding} />
               <View >
                 <Text style={styles.petName} >{pet.name}</Text>
@@ -380,6 +389,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     );
   },
 
+  selectUser(pet ){
+    this.setState({selectPet :pet});
+    this.setState({user:pet.user});
+    this.popupDialog.show();
+  },
+  goToUserStory(){
+
+    this.setState({storyPet: this.state.selectPet})
+    this._onRefresh()
+
+    if (this.popupDialog)
+      this.popupDialog.dismiss();
+
+  },
+  goToUserPets(){
+    Actions.FriendPets({
+      user_id: this.state.user.id
+    })
+
+
+    if ( this.popupDialog)
+    this.popupDialog.dismiss();
+  },
+
 
   render() {
     console.log ( this.props.auth.myInfo)
@@ -389,6 +422,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return (
       // <View style={styles.Bottom}>
 
+      <View style={styles.container}>
       <ListView
         enableEmptySections={true}
         dataSource={data}
@@ -409,6 +443,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       >
 
       </ListView>
+
+          <PopupDialog 
+            ref={(popupDialog) => { this.popupDialog = popupDialog;  }}
+            width={200}
+            height={70}
+             >
+            <Button 
+                onPress={this.goToUserStory}
+                title="사용자 스토리"
+                color="darkviolet"
+              />
+           <Button 
+                onPress={this.goToUserPets}
+                title="사용자 펫 목록"
+                color="dodgerblue"
+              />
+          </PopupDialog>
+
+      </View>
 
     );
   }

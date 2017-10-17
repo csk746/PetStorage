@@ -18,7 +18,7 @@ import com.daou.petstorage.common.model.CommonRequestModel;
 public interface StoryService {
 
 	public List<Storage> getStorageList(Story story);
-	public List<StoryModel> getStoryList(Pageable page);
+	public List<StoryModel> getStoryList(CommonRequestModel model, Pageable page);
 	public StoryModel changeLikeStatus(Long id);
 	public StoryModel addComment(CommonRequestModel model);
 	public StoryModel createStory(CommonRequestModel model);

@@ -12,15 +12,23 @@
  */
 const {
   SET_SESSION_TOKEN,
+  REFRESH,
   SET_STORE,
   SET_STATE,
   GET_STATE
 } = require('../../lib/constants').default
 
+export function refresh() {
+  return {
+    type: REFRESH
+  }
+}
+
 /**
  * ## set the sessionToken
  *
  */
+
 export function setSessionToken(sessionToken) {
   return {
     type: SET_SESSION_TOKEN,

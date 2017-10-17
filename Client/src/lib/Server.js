@@ -15,6 +15,7 @@ export class Server {
    * user api
    **/
   async getUser(params) {
+
     return this._fetch({
       method: 'GET',
       url: '/user/detail/' + params.userId,
@@ -22,6 +23,23 @@ export class Server {
   }
 
 
+  /**
+   * friend api
+   **/
+
+  async getFriendPets(userId) {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/user/' + userId,
+    })
+  }
+
+  async requestFriendPet(petId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/request/' + petId,
+    })
+  }
 
   /**
    * pet api
@@ -132,6 +150,7 @@ export class Server {
       method: 'POST',
       url: '/story/list',
       body: {
+        petId:params.petId,
         page: params.page,
         offset: params.offset,
         order: params.order,
