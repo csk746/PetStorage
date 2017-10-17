@@ -1,6 +1,7 @@
 package com.daou.petstorage.Friend.controller;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
+import com.daou.petstorage.Friend.model.FriendPetModel;
 import com.daou.petstorage.Friend.service.FriendService;
 import com.daou.petstorage.Pet.controller.PetController;
 import com.daou.petstorage.Pet.domain.Pet;
@@ -27,6 +28,11 @@ public class FriendController {
 
     private static final Logger log = LoggerFactory.getLogger(PetController.class);
 
+    @GetMapping(value ="/user/{userId}")
+    public @ResponseBody FriendPetModel getAnotherUserPetList(@PathVariable long userId){
+    	return this.friendService.getFriendPets(userId);
+    }
+    
     @GetMapping(value ="/pet")
     public @ResponseBody
     List<Pet> getMyPetFirends(){

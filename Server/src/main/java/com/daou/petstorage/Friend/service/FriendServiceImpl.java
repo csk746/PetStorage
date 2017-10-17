@@ -1,23 +1,25 @@
 package com.daou.petstorage.Friend.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.daou.petstorage.Friend.domain.FriendMap;
+import com.daou.petstorage.Friend.model.FriendPetModel;
 import com.daou.petstorage.Friend.repository.FriendRepository;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by geonheelee on 2017. 10. 17..
  */
+@Service
 public class FriendServiceImpl implements FriendService {
 
     @Autowired
@@ -84,4 +86,24 @@ public class FriendServiceImpl implements FriendService {
         friendMap.setStatus(FriendMap.Status.REJECT);
         friendRepository.save(friendMap);
     }
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Friend.service.FriendService#getFriendPets()
+	 */
+	@Override
+	public FriendPetModel getFriendPets(Long id) {
+		// TODO Auto-generated method stub
+		FriendPetModel model = new FriendPetModel();
+		
+		User user = this.userRepository.findOne(id);
+		List<Pet> petlist = this.petRepository.findByUser(user);
+		model.addPets(petlist);
+		
+		for ( Pet pet :  petlist){
+			FriendMap map = this.friendRepository.findByUserAndPet(user, pet);
+			model.setFriendMap(map);
+		}
+		
+		return model;
+	}
 }
