@@ -97,14 +97,21 @@ export class Server {
 
   async requestFriend(petId) {
     return this._fetch({
-      method: 'GET',
+      method: 'POST',
       url: '/friend/request/' + petId,
+    })
+  }
+
+  async approveFriend(petId, userId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/approve/' + petId + '/' + userId,
     })
   }
 
   async rejectFriend(petId, userId) {
     return this._fetch({
-      method: 'GET',
+      method: 'POST',
       url: '/friend/reject/' + petId + '/' + userId,
     })
   }
@@ -161,7 +168,7 @@ export class Server {
       method: 'POST',
       url: '/story/list',
       body: {
-        petId:params.petId,
+        petId: params.petId,
         page: params.page,
         offset: params.offset,
         order: params.order,
