@@ -393,26 +393,33 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     //this.popupDialog.show();
 
     DialogManager.show({
-      title: pet.name,
-      titleAlign: 'center',
-      animationDuration: 200,
-      height:150,
+      height:200,
       width:200,
       ScaleAnimation: new ScaleAnimation(),
       children: (
         <DialogContent>
-          <View>
+          <View style={{
+            alignItems: 'center',
+            marginBottom: 15 }}>
+            <Image style={{
+              width: 50,
+              height: 50,
+              alignItems: 'center',
+              textAlign: 'center',
+              borderRadius: this.props.platform === 'ios' ? 20 : 25,
+            }} source={{ uri: pet.profileUrl }} ></Image>
+          <Text style={styles.petName}> {pet.name}</Text>
+          </View>
             <Button 
                 onPress={this.goToUserStory}
-                title="사용자 스토리"
+                title="강아지 스토리"
                 color="darkviolet"
               />
            <Button 
                 onPress={this.goToUserPets}
-                title="사용자 펫 목록"
+                title="사용자의 펫 목록"
                 color="dodgerblue"
               />
-          </View>
         </DialogContent>
       ),
     }, () => {
