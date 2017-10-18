@@ -79,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     BackendFactory().getReceiveRequests().then(rl => this.setState({ requests: rl }))
   },
   approveRequest(data) {
-    BackendFactory().requestFriend(data.pet.id).then(() => {
+    BackendFactory().approveRequest(data.pet.id, data.user.id).then(() => {
       var index = this.state.requests.indexOf(data)
       var arr = this.state.requests
       arr.splice(index, 1)
