@@ -34,6 +34,12 @@ public class PetController {
 	
 	private static final Logger log = LoggerFactory.getLogger(PetController.class);
 	
+		
+	@PostMapping(value ="/defaultPet")
+	public @ResponseBody Pet setDefaultPet(@RequestBody CommonRequestModel reqModel){
+		log.info("reqModel : " + reqModel.toString());
+		return this.petService.setDefaultPet(reqModel);
+	}
 	
 	@PostMapping(value ="/profile")
 	public @ResponseBody Pet setProfilePhoto(@RequestBody CommonRequestModel reqModel){

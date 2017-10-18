@@ -26,33 +26,33 @@ import com.daou.petstorage.User.repository.UserRepository;
 @RestController 
 @RequestMapping("/user") 
 public class UserController { 
-	
+
 	@Autowired AuthenticationManager authenticationManager; 
 	@Autowired UserRepository userRepository; 
 	@Autowired UserService userService ; 
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-	
-	
+
+
 	@GetMapping(value = "/detail/{id}")
 	public @ResponseBody User getUser(@PathVariable Long id){
 		return this.userService.getUser(id);
 	}
-	
+
 	@RequestMapping(value="/login", method=RequestMethod.POST) 
 	public AccountUserDetails login( @RequestBody User user,  HttpSession session ) {
-		
+
 		log.info("login request user " + user.getLoginId() + "/" + user.getPassword());
-		
+
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getLoginId(), user.getPassword()); 
 		Authentication authentication = authenticationManager.authenticate(token); 
 		SecurityContextHolder.getContext().setAuthentication(authentication); 
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext()); 
 
-        AccountUserDetails accountUser = new AccountUserDetails(userRepository.findByLoginId(user.getLoginId()));
-        accountUser.setToken(session.getId());
-        
-        return accountUser;
-		} 
-	}
+		AccountUserDetails accountUser = new AccountUserDetails(userRepository.findByLoginId(user.getLoginId()));
+		accountUser.setToken(session.getId());
+
+		return accountUser;
+	} 
+}

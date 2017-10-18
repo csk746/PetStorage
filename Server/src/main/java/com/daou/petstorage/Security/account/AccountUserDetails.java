@@ -56,6 +56,10 @@ public class AccountUserDetails implements UserDetails {
 	public String getName() {
 		return this.user.getName();
 	}
+	
+	public Long getDefaultPetId(){
+		return this.user.getDefaultPetId();
+	}
 
 	public String getToken() {
 		return token;

@@ -56,6 +56,17 @@ export class Server {
     })
   }
 
+  async setDefaultPet(petId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/defaultPet',
+      body: {
+        id: petId,
+      }
+    })
+  }
+
+
   async getPet(params) {
     return this._fetch({
       method: 'GET',

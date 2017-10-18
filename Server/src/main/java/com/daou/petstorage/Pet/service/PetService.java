@@ -23,6 +23,7 @@ public interface PetService {
 	public boolean isHavingPermission(User user, Pet pet , AccessControl ac );
 	
 	public Pet setProfilePhoto(CommonRequestModel model);
+	public Pet setDefaultPet(CommonRequestModel model);
 	
 	
 }

@@ -2,6 +2,7 @@ package com.daou.petstorage.Pet.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,6 +44,8 @@ public class PetServiceImpl implements PetService {
 	
 	@Autowired 
 	private StorageRepository storageRepository ; 
+	
+	
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(PetServiceImpl.class);
@@ -149,7 +152,18 @@ public class PetServiceImpl implements PetService {
 		if ( user == null  ) { user = this.securityContext.getUser(); }
 		if ( user == null) return null ; 
 		
-		return this.petRepository.findByUser(user);
+		List<Pet> petlist = new ArrayList<>();
+		
+		List<PetUserMap> maplist = this.petUserMapRepository.findByUser(user);
+		
+		for ( PetUserMap map : maplist){
+			if ( !AccessControl.READ.isAccess( map.getAccessControl())) continue ; 
+			if ( !AccessControl.WRITE.isAccess( map.getAccessControl())) continue ; 
+			
+			petlist.add(map.getPet());
+		}
+		
+		return petlist ; 
 	}
 
 	/* (non-Javadoc)
@@ -175,6 +189,36 @@ public class PetServiceImpl implements PetService {
 		this.petRepository.save(pet);
 		
 		return pet ;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#setDefaultPet(com.daou.petstorage.common.model.CommonRequestModel)
+	 */
+	@Override
+	public Pet setDefaultPet(CommonRequestModel model) {
+		// TODO Auto-generated method stub
+		log.info("default Pet : " + model.getId());
+		
+		User user = this.userService.getUser(this.securityContext.getUser().getId());
+		user.setDefaultPetId(model.getId());
+		Pet pet = this.petRepository.findOne(model.getId());
+		
+		PetUserMap map = this.petUserMapRepository.findByPetAndUser(pet, user);
+		if ( map == null) {
+			log.info("invalid pet : " + pet.toString());
+			return null;
+		}
+		else{
+			if(!AccessControl.WRITE.isAccess(map.getAccessControl())){
+				log.info("user haven't write access permission ");
+				return null;
+			}
+		}
+		
+		this.userService.save(user);
+		
+		return pet ; 
+		
 	}
 
 

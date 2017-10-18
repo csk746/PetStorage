@@ -46,4 +46,7 @@ public class User extends BaseEntity {
 	@ManyToOne
 	Storage profile; 
 	
+	@Column
+	Long defaultPetId ; 
+	
 }

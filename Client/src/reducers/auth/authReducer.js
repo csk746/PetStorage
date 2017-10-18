@@ -103,8 +103,9 @@ export default function authReducer(state = initialState, action) {
       let info = action.userInfo;
       info.profileUrl = getHost() + info.profileUrl;
       console.log(" user profile : " + info.profileUrl)
+      console.log(" default Pet : " + info.defaultPetId)
 
-      return state.setIn(['myInfo'], action.userInfo).setIn(['form', 'isFetching'], true)
+      return state.setIn(['myInfo'], info).setIn(['form', 'isFetching'], true)
     }
 
     case LOGOUT_SUCCESS:

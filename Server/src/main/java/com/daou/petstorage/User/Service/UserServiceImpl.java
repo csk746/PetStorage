@@ -115,7 +115,6 @@ public class UserServiceImpl implements UserService{
 		assertNotNull(user);
 		assertNotNull(user.getLoginId());
 		
-		if ( this.isExistUser(user.getLoginId() )) return null;
 		return this.userRepository.save(user);
 	}
 

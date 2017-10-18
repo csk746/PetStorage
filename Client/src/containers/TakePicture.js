@@ -22,6 +22,7 @@ import {Actions} from 'react-native-router-flux'
  */
 function mapStateToProps (state) {
   return {
+    myInfo:state.auth.myInfo,
     photo: {
       petId:state.photo.petId,
       photoList:state.photo.photoList
@@ -96,7 +97,8 @@ export class TakePicture extends Component {
 
     this.state = {
       photoList:props.photo.photoList,
-      petId:props.photo.petId,
+      myInfo:props.myInfo,
+      petId:props.myInfo.defaultPetId,
 
       camera: {
         aspect: Camera.constants.Aspect.fill,
