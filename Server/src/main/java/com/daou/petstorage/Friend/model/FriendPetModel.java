@@ -42,11 +42,6 @@ public class FriendPetModel {
 		if ( map == null) return ; 
 		assertNotNull(this.user);
 		
-		if ( map.getUser().getId() != this.user.getId()){
-			log.info("map user is not equal map user");
-			return ; 
-		}
-		
 		if ( pets != null && map.getPet() != null){
 			for ( PetModel pet : pets){
 				if ( pet.getId() == map.getPet().getId()){

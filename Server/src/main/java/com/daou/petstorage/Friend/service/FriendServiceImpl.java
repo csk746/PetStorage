@@ -111,9 +111,12 @@ public class FriendServiceImpl implements FriendService {
 		List<Pet> petlist = this.petRepository.findByUser(user);
 		model.setUser(user);
 		model.addPets(petlist);
+		
+		
+		User myInfo = this.userRepository.findOne(this.springSecurityContext.getUser().getId());
 
 		for ( Pet pet :  petlist){
-			FriendMap map = this.friendRepository.findByUserAndPet(user, pet);
+			FriendMap map = this.friendRepository.findByUserAndPet(myInfo, pet);
 			model.setFriendMap(map);
 		}
 
