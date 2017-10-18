@@ -83,6 +83,7 @@ function mapStateToProps(state) {
     platform: state.device.platform,
     petList: state.pet.myPetList,
     refresh: state.pet.refresh,
+    refreshAuth: state.auth.refreshIdx
   }
 }
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
@@ -105,18 +106,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
   componentWillMount() {
     this.props.actions.getMyPetList()
-    console.log("defaultPetid : " + this.state.defaultPetId)
+    console.log("defaultPetid : " + this.props.defaultPetId)
   },
   plusPet() {
 
   },
-  setDefaultPet(pet) {
-    console.log(" set default Pet : " + pet.id)
+  setDefaultPetId(pet) {
+    console.log ( " set default Pet : " + pet.id)
 
-    BackendFactory().setDefaultPet(pet.id).then((res) => {
-      this.setState({ defaultPetId: pet.id })
-
-    })
+    console.log ( "action call ~ "  )
+    this.props.actions.setDefaultPet(pet.id);
 
     DialogManager.dismissAll(() => {
       console.log('callback - dismiss all');
@@ -158,7 +157,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               <Text style={styles.petName}> {pet.name}</Text>
             </View>
             <Button
-              onPress={() => this.setDefaultPet(pet)}
+              onPress={() => this.setDefaultPetId(pet)}
               title="기본 펫으로 지정"
               color="darkviolet"
             />
@@ -190,7 +189,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     var defaultCheck = (<Text></Text>)
 
-    if (pet.id == this.state.defaultPetId) {
+    if (pet.id == this.props.defaultPetId) {
       console.log(" default pet is : " + pet.name)
       defaultCheck = (
         <Image style={{
