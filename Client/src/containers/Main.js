@@ -9,6 +9,7 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
 
+import DialogManager, { ScaleAnimation, DialogContent } from 'react-native-dialog-component';
 
 
 import { Actions } from 'react-native-router-flux'
@@ -220,9 +221,6 @@ function mapDispatchToProps(dispatch) {
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
 
-
-import PopupDialog from 'react-native-popup-dialog';
-
 export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
@@ -392,25 +390,52 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   selectUser(pet ){
     this.setState({selectPet :pet});
     this.setState({user:pet.user});
-    this.popupDialog.show();
-  },
-  goToUserStory(){
+    //this.popupDialog.show();
 
-    this.setState({storyPet: this.state.selectPet})
+    DialogManager.show({
+      title: pet.name,
+      titleAlign: 'center',
+      animationDuration: 200,
+      height:150,
+      width:200,
+      ScaleAnimation: new ScaleAnimation(),
+      children: (
+        <DialogContent>
+          <View>
+            <Button 
+                onPress={this.goToUserStory}
+                title="사용자 스토리"
+                color="darkviolet"
+              />
+           <Button 
+                onPress={this.goToUserPets}
+                title="사용자 펫 목록"
+                color="dodgerblue"
+              />
+          </View>
+        </DialogContent>
+      ),
+    }, () => {
+      console.log('callback - show');
+    });
+  },
+  goToUserStory() {
+
+    this.setState({ storyPet: this.state.selectPet })
     this._onRefresh()
 
-    if (this.popupDialog)
-      this.popupDialog.dismiss();
-
+    DialogManager.dismissAll(() => {
+      console.log('callback - dismiss all');
+    });
   },
-  goToUserPets(){
+  goToUserPets() {
     Actions.FriendPets({
       user_id: this.state.user.id
     })
 
-
-    if ( this.popupDialog)
-    this.popupDialog.dismiss();
+    DialogManager.dismissAll(() => {
+      console.log('callback - dismiss all');
+    });
   },
 
 
@@ -443,23 +468,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       >
 
       </ListView>
-
-          <PopupDialog 
-            ref={(popupDialog) => { this.popupDialog = popupDialog;  }}
-            width={200}
-            height={70}
-             >
-            <Button 
-                onPress={this.goToUserStory}
-                title="사용자 스토리"
-                color="darkviolet"
-              />
-           <Button 
-                onPress={this.goToUserPets}
-                title="사용자 펫 목록"
-                color="dodgerblue"
-              />
-          </PopupDialog>
 
       </View>
 
