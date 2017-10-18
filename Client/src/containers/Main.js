@@ -255,10 +255,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return true;
   },
 
-  getStoryList(page) {
+  getStoryList(page, pet) {
     let petId = null;
     if (this.state.storyPet) {
       petId = this.state.storyPet.id;
+      console.log ( " storyPet: " + this.state.storyPet.name)
+    }
+    else if ( pet){
+      petId = pet.id;
     }
 
     this.props.actions.getStory(petId, page, 10, 'createdAt', 'desc');
@@ -285,12 +289,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     this.props.actions.iLikeStory(story.id);
   },
 
-  _onRefresh() {
+  _onRefresh(pet) {
     this.state.storys.splice(0, this.state.storys.length)
 
     this.setState({ refresh: true });
     this.setState({ page: 0 });
-    this.getStoryList(0);
+    this.getStoryList(0, pet);
   },
 
   renderComment(comment) {
@@ -412,7 +416,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             <Text style={styles.petName}> {pet.name}</Text>
           </View>
           <Button
-            onPress={this.goToUserStory}
+            onPress={()=>this.goToUserStory(pet)}
             title="강아지 스토리"
             color="darkviolet"
           />
@@ -430,7 +434,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   goToUserStory() {
 
     this.setState({ storyPet: this.state.selectPet })
-    this._onRefresh()
+    this._onRefresh(this.state.selectPet)
 
     DialogManager.dismissAll(() => {
       console.log('callback - dismiss all');
@@ -466,7 +470,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               colors={['transparent']}
               style={{ backgroundColor: 'transparent' }}
               refreshing={this.state.refresh}
-              onRefresh={this._onRefresh}
+              onRefresh={()=>this._onRefresh()}
             >
             </RefreshControl>
           }
