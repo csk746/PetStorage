@@ -8,6 +8,7 @@ const {
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
 
+  SET_DEFAULT_PET,
   LOGOUT,
   REGISTER,
   LOGIN,
@@ -47,6 +48,16 @@ export function loginFailure(error) {
   }
 }
 
+export function setDefaultPet(petId ) {
+  console.log ( "action setDefaultPet  petId : " + petId )
+
+  return dispatch => {
+    BackendFactory().setDefaultPet(petId).then(res => {
+      console.log(res)
+      dispatch({ type: SET_DEFAULT_PET, data: res });
+    })
+  }
+}
 export function saveSessionToken(json) {
   return appAuthToken.storeSessionToken(json)
 }

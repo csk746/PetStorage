@@ -50,6 +50,7 @@ const Form = Record({
  * The form is set
  */
 var InitialState = Record({
+  refreshIdx:0,
   myInfo:null,
   form: new Form()
 })

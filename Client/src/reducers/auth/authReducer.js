@@ -22,6 +22,8 @@ const {
   SESSION_TOKEN_SUCCESS,
   SESSION_TOKEN_FAILURE,
 
+  SET_DEFAULT_PET,
+
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
 
@@ -91,6 +93,15 @@ export default function authReducer(state = initialState, action) {
         state.setIn(['form', 'state'], action.type)
           .setIn(['form', 'error'], null)
       )
+
+      case SET_DEFAULT_PET :{
+        let pet = action.data; 
+        console.log ( " authReducer  defualt pet id : " + pet.id)
+        let myInfo = state.myInfo ; 
+        myInfo.defaultPetId = pet.id;
+        return state.setIn(['myInfo'], myInfo).setIn(['refreshIdx'], state.refreshIdx+1)
+      }
+
 
     case SESSION_TOKEN_SUCCESS:
 

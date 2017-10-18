@@ -75,6 +75,7 @@ var styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     myInfo: state.auth.myInfo,
+    myInfoRefresh:state.auth.myInfoRefresh,
     platform: state.device.platform,
     petList: state.pet.myPetList,
     refresh: state.pet.refresh,
@@ -108,10 +109,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   setDefaultPet(pet){
     console.log ( " set default Pet : " + pet.id)
 
-    BackendFactory().setDefaultPet(pet.id).then((res) => {
-      this.setState({ defaultPetId: pet.id })
-
-    })
+    this.props.actions.setDefaultPet(pet.id)
+    this.setState({defaultPetId:pet.id})
 
     DialogManager.dismissAll(() => {
       console.log('callback - dismiss all');

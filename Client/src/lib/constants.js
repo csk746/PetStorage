@@ -68,6 +68,7 @@ export default keyMirror({
   GET_ANOTHER_USER_INFO: null,
   ALREAY_REQUEST_ANOTHER_USER_INFO:null,
 
+  SET_DEFAULT_PET:null,
   SET_PET_PROFILE_PHOTO:null,
 
   GET_ANOTHER_PET_INFO: null,

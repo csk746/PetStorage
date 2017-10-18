@@ -11,17 +11,23 @@ import com.daou.petstorage.Friend.domain.FriendMap;
 import com.daou.petstorage.Friend.model.FriendPetModel;
 import com.daou.petstorage.Friend.model.PetModel;
 import com.daou.petstorage.Friend.repository.FriendRepository;
+import com.daou.petstorage.Map.repository.PetUserMapRepository;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.Pet.repository.PetRepository;
+import com.daou.petstorage.PetMap.domain.PetUserMap;
+import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.Security.SpringSecurityContext;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.User.domain.User;
 import com.daou.petstorage.User.repository.UserRepository;
 
+import lombok.extern.log4j.Log4j;
+
 /**
  * Created by geonheelee on 2017. 10. 17..
  */
 @Service
+@Log4j
 public class FriendServiceImpl implements FriendService {
 
 	@Autowired
@@ -38,6 +44,9 @@ public class FriendServiceImpl implements FriendService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	PetUserMapRepository petUserMapRepository ; 
 
     @Override
     public List<PetModel> findFollowPets() {
@@ -88,11 +97,20 @@ public class FriendServiceImpl implements FriendService {
 
 	@Override
 	public FriendMap approveFirend(long petId, long userId) {
+		log.info("petId : " + petId  + " userId : " + userId);
 		Pet pet = petRepository.findOne(petId);
 		User user = userRepository.findOne(userId);
 
 		FriendMap friendMap = friendRepository.findByUserAndPet(user, pet);
 		friendMap.setStatus(FriendMap.Status.SUCCESS);
+		
+		
+		PetUserMap puMap = new PetUserMap();
+		puMap.setAccessControl(AccessControl.READ.getBitValue() | AccessControl.WRITE.getBitValue());
+		puMap.setPet(pet);
+		puMap.setUser(user);
+		puMap = this.petUserMapRepository.save(puMap);
+		
 		return friendRepository.save(friendMap);
 	}
 
