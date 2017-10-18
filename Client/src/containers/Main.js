@@ -112,9 +112,9 @@ var styles = StyleSheet.create({
   storyBottomView: {
     alignItems: 'flex-start',
   },
-  commentList:{
-    flex:1,
-    height:100,
+  commentList: {
+    flex: 1,
+    height: 100,
   },
   // commentText: {
   //   fontSize: 12,
@@ -183,7 +183,7 @@ function mapStateToProps(state) {
       form: {
         isFetching: state.auth.form.isFetching
       },
-      myInfo:state.auth.myInfo
+      myInfo: state.auth.myInfo
     },
     global: {
       currentState: state.global.currentState,
@@ -229,9 +229,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
-      selectUser:null,
-      selectPet:null,
-      storyPet:null,
+      selectUser: null,
+      selectPet: null,
+      storyPet: null,
       comment: ''
     }
   },
@@ -256,8 +256,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   getStoryList(page) {
-    let petId = null ; 
-    if ( this.state.storyPet){
+    let petId = null;
+    if (this.state.storyPet) {
       petId = this.state.storyPet.id;
     }
 
@@ -277,7 +277,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   },
   addComment(story, comment) {
-    story.comments.push({ userName: this.props.auth.myInfo.name , content: comment });
+    story.comments.push({ userName: this.props.auth.myInfo.name, content: comment });
     this.props.actions.addComment(story, comment);
   },
   likeStory(story) {
@@ -318,7 +318,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     let pet = story.pet;
     let comment = '';
-    console.log ( " ilike : " + story.ilike)
+    console.log(" ilike : " + story.ilike)
     console.log(" storyUrl :  " + story.urlList[0])
 
     return (
@@ -328,11 +328,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           <View style={styles.storyHeaderView}>
             <View style={styles.row}>
               <TouchableOpacity onPress={() => this.selectUser(pet)} >
-              <Image style={{
-                width: 40,
-                height: 40,
-                borderRadius: this.props.platform === 'ios' ? 20 : 25,
-              }} source={{ uri: pet.profileUrl }} ></Image>
+                <Image style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: this.props.platform === 'ios' ? 20 : 25,
+                }} source={{ uri: pet.profileUrl }} ></Image>
               </TouchableOpacity>
               <View style={styles.wPadding} />
               <View >
@@ -364,7 +364,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             <View style={styles.row}>
 
               <TouchableOpacity onPress={() => this.likeStory(story)} >
-                <Image style={styles.icon} source={story.ilike ? require( '../images/heart_fill.png' ) : require( '../images/heart_notfill.png' )} />
+                <Image style={styles.icon} source={story.ilike ? require('../images/heart_fill.png') : require('../images/heart_notfill.png')} />
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{
@@ -387,20 +387,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     );
   },
 
-  selectUser(pet ){
-    this.setState({selectPet :pet});
-    this.setState({user:pet.user});
+  selectUser(pet) {
+    this.setState({ selectPet: pet });
+    this.setState({ user: pet.user });
     //this.popupDialog.show();
 
     DialogManager.show({
-      height:280,
-      width:200,
+      height: 280,
+      width: 200,
       ScaleAnimation: new ScaleAnimation(),
       children: (
         <DialogContent>
           <View style={{
             alignItems: 'center',
-            marginBottom: 15 }}>
+            marginBottom: 15
+          }}>
             <Image style={{
               width: 120,
               height: 120,
@@ -408,18 +409,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               textAlign: 'center',
               borderRadius: this.props.platform === 'ios' ? 20 : 25,
             }} source={{ uri: pet.profileUrl }} ></Image>
-          <Text style={styles.petName}> {pet.name}</Text>
+            <Text style={styles.petName}> {pet.name}</Text>
           </View>
-            <Button 
-                onPress={this.goToUserStory}
-                title="강아지 스토리"
-                color="darkviolet"
-              />
-           <Button 
-                onPress={this.goToUserPets}
-                title="사용자의 펫 목록"
-                color="dodgerblue"
-              />
+          <Button
+            onPress={this.goToUserStory}
+            title="강아지 스토리"
+            color="darkviolet"
+          />
+          <Button
+            onPress={this.goToUserPets}
+            title="사용자의 펫 목록"
+            color="dodgerblue"
+          />
         </DialogContent>
       ),
     }, () => {
@@ -447,34 +448,34 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
 
   render() {
-    console.log ( this.props.auth.myInfo)
-    console.log ( " myInfo name : " + this.props.auth.myInfo.id)
+    console.log(this.props.auth.myInfo)
+    console.log(" myInfo name : " + this.props.auth.myInfo.id)
 
     var data = ds.cloneWithRows(this.state.storys);
     return (
       // <View style={styles.Bottom}>
 
       <View style={styles.container}>
-      <ListView
-        enableEmptySections={true}
-        dataSource={data}
-        renderRow={this.renderStoryItem}
-        refreshControl={
-          <RefreshControl
-            tintColor="transparent"
-            colors={['transparent']}
-            style={{ backgroundColor: 'transparent' }}
-            refreshing={this.state.refresh}
-            onRefresh={this._onRefresh}
-          >
-          </RefreshControl>
-        }
-        onEndReached={() => {
-          this.getNextStorys();
-        }}
-      >
+        <ListView
+          enableEmptySections={true}
+          dataSource={data}
+          renderRow={this.renderStoryItem}
+          refreshControl={
+            <RefreshControl
+              tintColor="transparent"
+              colors={['transparent']}
+              style={{ backgroundColor: 'transparent' }}
+              refreshing={this.state.refresh}
+              onRefresh={this._onRefresh}
+            >
+            </RefreshControl>
+          }
+          onEndReached={() => {
+            this.getNextStorys();
+          }}
+        >
 
-      </ListView>
+        </ListView>
 
       </View>
 
