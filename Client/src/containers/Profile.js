@@ -79,6 +79,7 @@ var styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     myInfo: state.auth.myInfo,
+    defaultPetId:state.auth.defaultPetId,
     platform: state.device.platform,
     petList: state.pet.myPetList,
     refresh: state.pet.refresh,
@@ -97,7 +98,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
       myInfo: this.props.myInfo,
-      defaultPetId: this.props.myInfo.defaultPetId,
+      defaultPetId: this.props.defaultPetId,
       page: 0,
       petList: null,
     }

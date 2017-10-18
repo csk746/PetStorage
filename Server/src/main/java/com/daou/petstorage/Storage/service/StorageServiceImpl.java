@@ -77,9 +77,8 @@ public class StorageServiceImpl implements StorageService{
 		Storage storage = new Storage();
 		Blob image = this.blobConverter.multiPartFileToBlob(file);
 		storage.setImage(image);
-		storage = this.save(pet, storage);
+		//storage = this.save(pet, storage);
 		
-		PetStorageMap storageMap = this.petStorageMapRepository.save(new PetStorageMap(storage, pet) );
 
 		String dir = "/tmp/imagenet/tmp.jpg";
 		File f = new File(dir);
@@ -102,7 +101,7 @@ public class StorageServiceImpl implements StorageService{
 		if ( result != null){
 			String speicesStr [] = result.split(",");
 			for ( String spe : speicesStr){
-				Species species = this.speciesRepository.findByName(spe);
+				Species species = this.speciesRepository.findByName(spe.trim());
 				if ( species != null){
 					storage.setSpecies(species);
 					break;
@@ -112,7 +111,10 @@ public class StorageServiceImpl implements StorageService{
 		//		String filePath = request.getServletContext().getRealPath(dir);
 		//		log.info(filePath);
 		
-		return this.save(pet, storage);
+		storage = this.save(pet, storage);
+		this.petStorageMapRepository.save(new PetStorageMap(storage, pet) );
+		
+		return storage ; 
 	}
 
 	/* (non-Javadoc)

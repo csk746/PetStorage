@@ -52,6 +52,7 @@ const Form = Record({
 var InitialState = Record({
   refreshIdx:0,
   myInfo:null,
+  defaultPetId:0,
   form: new Form()
 })
 export default InitialState

@@ -75,6 +75,7 @@ var styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     myInfo: state.auth.myInfo,
+    defaultPetId:state.auth.defaultPetId,
     myInfoRefresh:state.auth.myInfoRefresh,
     platform: state.device.platform,
     petList: state.pet.myPetList,
@@ -94,23 +95,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
       myInfo: this.props.myInfo,
-      defaultPetId:this.props.myInfo.defaultPetId,
       page: 0,
       petList: null,
     }
   },
   componentWillMount() {
     this.props.actions.getMyPetList()
-    console.log("defaultPetid : " + this.state.defaultPetId)
+    console.log("defaultPetid : " + this.props.defaultPetId)
   },
   plusPet() {
 
   },
-  setDefaultPet(pet){
+  setDefaultPetId(pet){
     console.log ( " set default Pet : " + pet.id)
 
-    this.props.actions.setDefaultPet(pet.id)
-    this.setState({defaultPetId:pet.id})
+    console.log ( "action call ~ "  )
+    this.props.actions.setDefaultPet(pet.id);
 
     DialogManager.dismissAll(() => {
       console.log('callback - dismiss all');
@@ -151,7 +151,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           <Text style={styles.petName}> {pet.name}</Text>
           </View>
             <Button 
-                onPress={()=>this.setDefaultPet(pet)}
+                onPress={()=>this.setDefaultPetId(pet)}
                 title="기본 펫으로 지정"
                 color="darkviolet"
               />
@@ -185,7 +185,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     var defaultCheck = (<Text></Text>)
 
-    if (pet.id == this.state.defaultPetId) {
+    if (pet.id == this.props.defaultPetId) {
       console.log(" default pet is : " + pet.name)
       defaultCheck = (
         <Image style={{

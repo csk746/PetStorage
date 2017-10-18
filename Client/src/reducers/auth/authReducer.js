@@ -99,7 +99,7 @@ export default function authReducer(state = initialState, action) {
         console.log ( " authReducer  defualt pet id : " + pet.id)
         let myInfo = state.myInfo ; 
         myInfo.defaultPetId = pet.id;
-        return state.setIn(['myInfo'], myInfo).setIn(['refreshIdx'], state.refreshIdx+1)
+        return state.setIn(['defaultPetId'], pet.id).setIn(['refreshIdx'], state.refreshIdx+1 )
       }
 
 
@@ -116,7 +116,7 @@ export default function authReducer(state = initialState, action) {
       console.log(" user profile : " + info.profileUrl)
       console.log(" default Pet : " + info.defaultPetId)
 
-      return state.setIn(['myInfo'], info).setIn(['form', 'isFetching'], true)
+      return state.setIn(['myInfo'], info).setIn(['defaultPetId'], info.defaultPetId).setIn(['form', 'isFetching'], true)
     }
 
     case LOGOUT_SUCCESS:
