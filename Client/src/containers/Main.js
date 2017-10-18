@@ -393,7 +393,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     //this.popupDialog.show();
 
     DialogManager.show({
-      height:200,
+      height:280,
       width:200,
       ScaleAnimation: new ScaleAnimation(),
       children: (
@@ -402,8 +402,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             alignItems: 'center',
             marginBottom: 15 }}>
             <Image style={{
-              width: 50,
-              height: 50,
+              width: 120,
+              height: 120,
               alignItems: 'center',
               textAlign: 'center',
               borderRadius: this.props.platform === 'ios' ? 20 : 25,
