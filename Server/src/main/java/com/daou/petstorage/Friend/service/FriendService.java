@@ -15,8 +15,8 @@ public interface FriendService {
     List<PetModel> findFollowPets();
     List<FriendMap> findRequests();
     List<User> findByPet(Pet pet);
-    void appriveFirend(User user, Pet pet);
-    void rejectFriend(long petId, long userId);
+    FriendMap approveFirend(long petId, long userId);
+    FriendMap rejectFriend(long petId, long userId);
     FriendPetModel getFriendPets(Long id);
     FriendMap requestFriend(long petId);
 }

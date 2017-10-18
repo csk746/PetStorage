@@ -87,20 +87,23 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	@Override
-	public void appriveFirend(User user, Pet pet) {
+	public FriendMap approveFirend(long petId, long userId) {
+		Pet pet = petRepository.findOne(petId);
+		User user = userRepository.findOne(userId);
+
 		FriendMap friendMap = friendRepository.findByUserAndPet(user, pet);
 		friendMap.setStatus(FriendMap.Status.SUCCESS);
-		friendRepository.save(friendMap);
+		return friendRepository.save(friendMap);
 	}
 
 	@Override
-	public void rejectFriend(long petId, long userId) {
+	public FriendMap rejectFriend(long petId, long userId) {
 		Pet pet = petRepository.findOne(petId);
 		User user = userRepository.findOne(userId);
 
 		FriendMap friendMap = friendRepository.findByUserAndPet(user, pet);
 		friendMap.setStatus(FriendMap.Status.REJECT);
-		friendRepository.save(friendMap);
+		return friendRepository.save(friendMap);
 	}
 	@Override
 	public FriendPetModel getFriendPets(Long id) {

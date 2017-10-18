@@ -51,8 +51,14 @@ public class FriendController {
     }
 
     @PostMapping(value ="/reject/{petId}/{userId}")
-    public void rejectFriend(@PathVariable long petId, @PathVariable long userId){
-        friendService.rejectFriend(petId, userId);
+    public FriendMap rejectFriend(@PathVariable long petId, @PathVariable long userId){
+        return friendService.rejectFriend(petId, userId);
+
+    }
+
+    @PostMapping(value ="/approve/{petId}/{userId}")
+    public FriendMap approveFriend(@PathVariable long petId, @PathVariable long userId){
+        return friendService.approveFirend(petId, userId);
 
     }
 }
