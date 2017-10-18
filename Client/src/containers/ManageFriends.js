@@ -31,13 +31,23 @@ import { getHost } from '../lib/utils';
 var styles = StyleSheet.create({
   image: {
     alignSelf: 'center',
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     margin: 10,
     borderRadius: 10
   },
   box: {
     borderRadius: 15, borderWidth: 1, borderColor: 'black', width: 300, height: 65, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 10
+  },
+  font: {
+    fontSize: 20,
+    marginLeft: 15,
+    marginRight: 15
+  },
+  button: {
+    marginLeft: 5,
+    marginRight: 15,
+    width: 30, height: 30
   }
 })
 function mapStateToProps(state) {
@@ -68,6 +78,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getRequestList() {
     BackendFactory().getReceiveRequests().then(rl => this.setState({ requests: rl }))
   },
+  approveRequest(data) {
+    BackendFactory().requestFriend(data.pet.id).then(() => {
+      var index = this.state.requests.indexOf(data)
+      var arr = this.state.requests
+      arr.splice(index, 1)
+      this.setState({ requests: arr })
+    })
+  },
+  rejectRequest(data) {
+    BackendFactory().rejectFriend(data.pet.id, data.user.id).then(() => {
+      var index = this.state.requests.indexOf(data)
+      var arr = this.state.requests
+      arr.splice(index, 1)
+      this.setState({ requests: arr })
+    })
+  },
   renderRowFollow(data) {
     console.log(data.url)
     return (
@@ -76,21 +102,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           style={styles.image}
           source={{ uri: host + data.url }}
         />
-        <Text>{data.name}</Text>
+        <Text style={styles.font}>{data.name}</Text>
       </View>
     )
   },
   renderRowRequests(data) {
     return (
       <View style={styles.box}>
-        <Text>aa</Text>
+        <Text style={styles.font}>{data.user.name}</Text>
         <Image style={{ width: 25, height: 25 }} source={require('../images/right-arrow.png')} />
-        <Text>bb</Text>
-        <TouchableOpacity>
-          <Image style={{ width: 30, height: 30 }} source={require('../images/done.png')} />
+        <Text style={styles.font}>{data.pet.name}</Text>
+        <TouchableOpacity onPress={() => this.approveRequest(data)}>
+          <Image style={styles.button} source={require('../images/done.png')} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Image style={{ width: 30, height: 30 }} source={require('../images/notaccess.png')} />
+        <TouchableOpacity onPress={() => this.rejectRequest(data)}>
+          <Image style={styles.button} source={require('../images/notaccess.png')} />
         </TouchableOpacity>
       </View>
     )
@@ -102,15 +128,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return (
       <View >
         <NavigationBar
+          title={{
+            title: '친구관리',
+            style: [{ fontSize: 22 }]
+          }}
           leftButton={<NavBarBack isNegative={true} />} />
         <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <ListView
+            style={{ height: 250, marginTop: 30 }}
             enableEmptySections={true}
             dataSource={followPetListData}
             renderRow={this.renderRowFollow}>
           </ListView>
-
+          <View style={{ height: 25, width: 300, borderBottomWidth: 2, borderBottomColor: 'gray' }} />
+          <View style={{ height: 25 }} />
           <ListView
+            style={{ height: 250 }}
             enableEmptySections={true}
             dataSource={requestsData}
             renderRow={this.renderRowRequests}
