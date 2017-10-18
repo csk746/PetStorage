@@ -49,7 +49,7 @@ import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
 import PetPhotos from './containers/PetPhotos'
-import ManagePets from './containers/ManagePets'
+import Profile from './containers/Profile'
 import FriendPets from './containers/FriendPets'
 import ManageFriends from './containers/ManageFriends'
 import Tabbar from './containers/Tabbar'
@@ -102,8 +102,8 @@ export default function (platform) {
       <Scene key='PetPhotos'
         component={PetPhotos}
       />
-      <Scene key='ManagePets'
-        component={ManagePets}
+      <Scene key='Profile'
+        component={Profile}
       />
 
       <Scene key='FriendPets'
