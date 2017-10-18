@@ -138,18 +138,7 @@ public class StorageServiceImpl implements StorageService{
 	public Storage getStorageByFileName(String fileName) {
 		// TODO Auto-generated method stub
 		Storage storage = this.storageRepository.findByFakeName(fileName);
-		if ( storage == null ){ return null ; }
-
-		List<PetStorageMap> mapList = this.petStorageMapRepository.findByStorage(storage);
-		
-		for ( PetStorageMap map : mapList){
-			boolean permission = this.petService.isHavingPermission(this.securityContext.getUser(), map.getPet(), AccessControl.READ);
-			if (permission ) return storage ; 
-		}
-		
-		//return storage ; 
-		return null ; 
-		
+		return storage;
 	}
 
 	/* (non-Javadoc)
@@ -165,6 +154,12 @@ public class StorageServiceImpl implements StorageService{
 		Pet pet = this.petService.getPet(petId);
 		if ( pet == null) {
 			log.error("petId is invalid : " + petId);
+			return model ; 
+		}
+		
+		boolean permission = this.petService.isHavingPermission(this.securityContext.getUser(), pet, AccessControl.READ);
+		if ( !permission){
+			log.info("pet storage access permission is not exist");
 			return model ; 
 		}
 		
