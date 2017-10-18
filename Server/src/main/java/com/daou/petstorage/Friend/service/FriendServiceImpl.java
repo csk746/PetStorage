@@ -88,10 +88,16 @@ public class FriendServiceImpl implements FriendService {
 	@Override
 	public FriendMap requestFriend(long petId) {
 		Pet pet = petRepository.findOne(petId);
-		FriendMap friendMap = new FriendMap();
+		
+		FriendMap friendMap = friendRepository.findByUserAndPet(springSecurityContext.getUser(), pet);
+		
+		if ( friendMap == null)
+			friendMap = new FriendMap();
+		
 		friendMap.setPet(pet);
 		friendMap.setUser(springSecurityContext.getUser());
 		friendMap.setStatus(FriendMap.Status.READY);
+		
 		return friendRepository.save(friendMap);
 	}
 
