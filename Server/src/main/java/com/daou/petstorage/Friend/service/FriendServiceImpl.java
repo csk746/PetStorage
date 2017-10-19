@@ -1,5 +1,7 @@
 package com.daou.petstorage.Friend.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daou.petstorage.Friend.domain.FriendMap;
+import com.daou.petstorage.Friend.domain.FriendMap.Status;
 import com.daou.petstorage.Friend.model.FriendPetModel;
-import com.daou.petstorage.Friend.model.PetModel;
 import com.daou.petstorage.Friend.repository.FriendRepository;
 import com.daou.petstorage.Map.repository.PetUserMapRepository;
 import com.daou.petstorage.Pet.domain.Pet;
+import com.daou.petstorage.Pet.model.PetModel;
 import com.daou.petstorage.Pet.repository.PetRepository;
 import com.daou.petstorage.PetMap.domain.PetUserMap;
 import com.daou.petstorage.PetMap.model.AccessControl;
@@ -49,8 +52,10 @@ public class FriendServiceImpl implements FriendService {
 	PetUserMapRepository petUserMapRepository ; 
 
     @Override
-    public List<PetModel> findFollowPets() {
-        return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
+    public List<FriendMap> findFollowPets() {
+        		
+/*        		
+        		return friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS)
                 .stream()
                 .map(friendMap -> friendMap.getPet())
                 .map(FriendServiceImpl::entityToModel)
@@ -58,12 +63,17 @@ public class FriendServiceImpl implements FriendService {
                     petModel.setUrl(petModel.getProfile().getUrl());
                     return petModel;
                 }).collect(Collectors.toList());
+ */       
+    	
+        List<FriendMap> list = friendRepository.findByUserAndStatus(springSecurityContext.getUser(), FriendMap.Status.SUCCESS);
+        List<Pet> myPets = this.petRepository.findByUser(this.springSecurityContext.getUser());
+        list.addAll(friendRepository.findByPetInAndStatus(myPets , FriendMap.Status.SUCCESS));
+        
+        return list ; 
     }
 
     private static PetModel entityToModel(Pet pet){
-        PetModel petModel = new PetModel();
-        petModel.setName(pet.getName());
-        petModel.setProfile(pet.getProfile());
+        PetModel petModel = new PetModel(pet);
         return petModel;
     }
 
@@ -117,6 +127,8 @@ public class FriendServiceImpl implements FriendService {
 		puMap.setUser(user);
 		puMap = this.petUserMapRepository.save(puMap);
 		
+		friendMap.setPetUserMap(puMap);
+		
 		return friendRepository.save(friendMap);
 	}
 
@@ -143,10 +155,33 @@ public class FriendServiceImpl implements FriendService {
 		User myInfo = this.userRepository.findOne(this.springSecurityContext.getUser().getId());
 
 		for ( Pet pet :  petlist){
-			FriendMap map = this.friendRepository.findByUserAndPet(myInfo, pet);
-			model.setFriendMap(map);
+			if ( user.getId() == this.springSecurityContext.getUser().getId()){
+				FriendMap map = new FriendMap();
+				map.setPet(pet);
+				map.setUser(user);
+				map.setStatus(Status.SUCCESS);
+				model.setFriendMap(map);
+			}
+			else{
+				FriendMap map = this.friendRepository.findByUserAndPet(myInfo, pet);
+				model.setFriendMap(map);
+			}
 		}
 
 		return model;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Friend.service.FriendService#setAccessControl(com.daou.petstorage.PetMap.domain.PetUserMap)
+	 */
+	@Override
+	public PetUserMap setAccessControl(PetUserMap pumap) {
+		// TODO Auto-generated method stub
+		int ac = pumap.getAccessControl();
+		pumap = this.petUserMapRepository.findOne(pumap.getId());
+		assertNotNull(pumap);
+		pumap.setAccessControl(ac);
+		
+		return this.petUserMapRepository.save(pumap);
 	}
 }

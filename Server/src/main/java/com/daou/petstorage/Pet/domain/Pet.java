@@ -39,4 +39,10 @@ public class Pet extends BaseEntity{
 	@ManyToOne
 	private User user; 
 	
+	
+	public String getUrl(){
+		if ( this.profile == null) return "";
+		else return this.profile.getUrl();
+	}
+	
 }

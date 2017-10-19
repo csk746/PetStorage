@@ -1,19 +1,26 @@
 
 package com.daou.petstorage.Friend.controller;
 
-import com.daou.petstorage.Friend.domain.FriendMap;
-import com.daou.petstorage.Friend.model.FriendPetModel;
-import com.daou.petstorage.Friend.model.PetModel;
-import com.daou.petstorage.Friend.service.FriendService;
-import com.daou.petstorage.Pet.controller.PetController;
-import com.daou.petstorage.Pet.domain.Pet;
-import com.daou.petstorage.Security.SpringSecurityContext;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.daou.petstorage.Friend.domain.FriendMap;
+import com.daou.petstorage.Friend.model.FriendPetModel;
+import com.daou.petstorage.Friend.service.FriendService;
+import com.daou.petstorage.Pet.controller.PetController;
+import com.daou.petstorage.Pet.model.PetModel;
+import com.daou.petstorage.PetMap.domain.PetUserMap;
+import com.daou.petstorage.Security.SpringSecurityContext;
 
 /**
  * Created by geonheelee on 2017. 10. 17..
@@ -36,7 +43,7 @@ public class FriendController {
     }
     
     @GetMapping(value ="/pet")
-    public @ResponseBody List<PetModel> getMyPetFirends(){
+    public @ResponseBody List<FriendMap> getMyPetFirends(){
         return friendService.findFollowPets();
     }
 
@@ -45,6 +52,11 @@ public class FriendController {
         return friendService.findRequests();
     }
 
+    @PostMapping(value ="/accessControl")
+    public @ResponseBody PetUserMap setAccessControl(@RequestBody PetUserMap puMap){
+        return friendService.setAccessControl(puMap);
+    }
+    
     @PostMapping(value ="/request/{petId}")
     public FriendMap requestFriend(@PathVariable long petId){
         return friendService.requestFriend(petId);

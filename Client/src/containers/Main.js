@@ -240,8 +240,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     if (this.state.refresh) return;
 
+    this.getStoryList(this.state.page + 1);
     this.setState({ page: this.state.page + 1 });
-    this.getStoryList(this.state.page);
   },
 
   componentDidMount() {
@@ -410,7 +410,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               width: 120,
               height: 120,
               alignItems: 'center',
-              textAlign: 'center',
               borderRadius: this.props.platform === 'ios' ? 20 : 25,
             }} source={{ uri: pet.profileUrl }} ></Image>
             <Text style={styles.petName}> {pet.name}</Text>

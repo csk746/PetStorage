@@ -10,8 +10,12 @@ import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
 import NavigationBar from 'react-native-navbar'
 import NavBarBack from '../components/NavBarBack'
+
+import CheckBox from 'react-native-checkbox';
+
 const BackendFactory = require('../lib/BackendFactory').default
 import { Actions } from 'react-native-router-flux'
+
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -39,6 +43,16 @@ var styles = StyleSheet.create({
   box: {
     borderRadius: 15, borderWidth: 1, borderColor: 'black', width: 300, height: 65, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 10
   },
+  permission: {
+    flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
+  },
+  checkBoxLabel: {
+    fontSize: 10,
+  },
+  checkBox:{
+    width:10,
+    height:10
+  },
   font: {
     fontSize: 20,
     marginLeft: 15,
@@ -52,6 +66,7 @@ var styles = StyleSheet.create({
 })
 function mapStateToProps(state) {
   return {
+    myInfo:state.auth.myInfo,
   }
 }
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
@@ -65,7 +80,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
       followPetList: [],
-      requests: []
+      requests: [],
+      refreshIdx:0
     }
   },
   componentWillMount() {
@@ -94,28 +110,97 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       this.setState({ requests: arr })
     })
   },
+
+  permissionChange(isread, data, check) {
+    console.log("permission change isread : " + isread)
+    console.log(data)
+    console.log("boolean : " + check)
+    let toStatus = !check;
+
+    let bit = 4 ; 
+    if ( isread) bit = 2 ; 
+
+    if (toStatus) {
+      data.petUserMap.accessControl = data.petUserMap.accessControl | (bit);
+    }
+    else {
+      data.petUserMap.accessControl = data.petUserMap.accessControl & (~bit);
+    }
+
+    BackendFactory().setAccessControl(data.petUserMap.id,  data.petUserMap.accessControl).then((res)=>{
+      console.log ( res);
+    } )
+
+    console.log ( data.petUserMap.accessControl)
+    this.setState({refreshIdx:this.state.refreshIdx+1})
+  },
   renderRowFollow(data) {
-    console.log(data.url)
+    let pet = data.pet ; 
+    let user = data.user ; 
+
+    console.log(pet.url)
+    if ( pet.user.id == this.props.myInfo.id){
+      let accessControl = data.petUserMap.accessControl;
+      console.log ( " accessControl : " + accessControl);
+
+      let read = (accessControl & 2) > 0 ;
+      console.log ( "read permission :  " + read)
+
+      let write= (accessControl & 4) > 0 ;
+      console.log ( "write permission :  " + write)
+
+      return (
+        <View style={styles.box}>
+          <Image
+            style={styles.image}
+            source={{ uri: host + user.url }}
+          />
+        <Text style={styles.font}>{user.name}</Text>
+        <Image style={{ width: 25, height: 25 }} source={require('../images/right-arrow.png')} />
+          <Text style={styles.font}>{pet.name}</Text>
+          <View style={styles.permission}>
+          <CheckBox
+            label='READ'
+            labelStyle={styles.checkBoxLabel}
+            checkboxStyle={styles.checkBox}
+            checked={read}
+            onChange={(checked) => this.permissionChange(true, data, checked)}
+          ></CheckBox>
+
+          <CheckBox
+            label='WRITE'
+            labelStyle={styles.checkBoxLabel}
+            checkboxStyle={styles.checkBox}
+            checked={write}
+            onChange={(checked) => this.permissionChange(false,data, checked)}
+          ></CheckBox>
+
+          </View>
+        </View>
+      )
+    }
     return (
       <View style={styles.box}>
         <Image
           style={styles.image}
-          source={{ uri: host + data.url }}
+          source={{ uri: host + pet.url }}
         />
-        <Text style={styles.font}>{data.name}</Text>
+        <Text style={styles.font}>{pet.name}</Text>
       </View>
     )
   },
   renderRowRequests(data) {
+    let pet = data.pet ; 
+
     return (
       <View style={styles.box}>
-        <Text style={styles.font}>{data.user.name}</Text>
+        <Text style={styles.font}>{pet.user.name}</Text>
         <Image style={{ width: 25, height: 25 }} source={require('../images/right-arrow.png')} />
-        <Text style={styles.font}>{data.pet.name}</Text>
-        <TouchableOpacity onPress={() => this.approveRequest(data)}>
+        <Text style={styles.font}>{pet.pet.name}</Text>
+        <TouchableOpacity onPress={() => this.approveRequest(pet)}>
           <Image style={styles.button} source={require('../images/done.png')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.rejectRequest(data)}>
+        <TouchableOpacity onPress={() => this.rejectRequest(pet)}>
           <Image style={styles.button} source={require('../images/notaccess.png')} />
         </TouchableOpacity>
       </View>

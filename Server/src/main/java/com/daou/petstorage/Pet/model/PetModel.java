@@ -33,6 +33,7 @@ public class PetModel extends BaseModel {
 	private String kind; 
 	private String birthDay ; 
 	private Storage profile;
+	private String url ; 
 	private User user; 
 	
 	private FriendMap.Status status ; 

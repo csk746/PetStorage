@@ -19,6 +19,7 @@ public interface FriendRepository extends JpaRepository<FriendMap, Long> {
     List<FriendMap> findByUserAndStatus(User user, FriendMap.Status status);
 
     List<FriendMap> findByPetAndStatus(Pet pet, FriendMap.Status status);
+    List<FriendMap> findByPetInAndStatus(List<Pet> pet, FriendMap.Status status);
 
     FriendMap findByUserAndPet(User user, Pet pet);
 

@@ -49,4 +49,9 @@ public class User extends BaseEntity {
 	@Column
 	Long defaultPetId ; 
 	
+	public String getUrl(){
+		if ( this.profile == null) return "";
+		return this.profile.getUrl();
+	}
+	
 }

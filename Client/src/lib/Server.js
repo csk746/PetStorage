@@ -94,12 +94,28 @@ export class Server {
     })
   }
 
+  /**
+   * friend api
+   **/
   async findFollowPets() {
     return this._fetch({
       method: 'GET',
       url: '/friend/pet',
     })
   }
+
+  async setAccessControl(id, ac) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/accessControl',
+      body: {
+        id: id ,
+        accessControl: ac
+      }
+    })
+  }
+
+
 
   async getReceiveRequests() {
     return this._fetch({
