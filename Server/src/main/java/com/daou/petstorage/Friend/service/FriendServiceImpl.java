@@ -182,6 +182,20 @@ public class FriendServiceImpl implements FriendService {
 		assertNotNull(pumap);
 		pumap.setAccessControl(ac);
 		
+		if ( !AccessControl.WRITE.isAccess(ac)){
+			if ( pumap.getUser().getDefaultPetId() == pumap.getPet().getId()){
+				List<PetUserMap> pumapList = this.petUserMapRepository.findByUser(pumap.getUser());
+				pumap.getUser().setDefaultPetId(null);
+				for ( PetUserMap map : pumapList){
+					if ( AccessControl.WRITE.isAccess(map.getAccessControl())){
+						pumap.getUser().setDefaultPetId(map.getPet().getId());
+						break;
+					}
+				}
+				this.userRepository.save(pumap.getUser());
+			}
+		}
+		
 		return this.petUserMapRepository.save(pumap);
 	}
 }
