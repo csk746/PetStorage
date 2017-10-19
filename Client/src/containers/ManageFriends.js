@@ -53,6 +53,11 @@ var styles = StyleSheet.create({
     width:10,
     height:10
   },
+  smallFont: {
+    fontSize: 10,
+    marginLeft: 15,
+    marginRight: 15
+  },
   font: {
     fontSize: 20,
     marginLeft: 15,
@@ -136,18 +141,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
   renderRowFollow(data) {
     let pet = data.pet ; 
-    let user = data.user ; 
+    let user = data.user;
+
+    let accessControl = data.petUserMap.accessControl;
+    console.log(" accessControl : " + accessControl);
+
+    let read = (accessControl & 2) > 0;
+    console.log("read permission :  " + read)
+
+    let write = (accessControl & 4) > 0;
+    console.log("write permission :  " + write)
 
     console.log(pet.url)
     if ( pet.user.id == this.props.myInfo.id){
-      let accessControl = data.petUserMap.accessControl;
-      console.log ( " accessControl : " + accessControl);
 
-      let read = (accessControl & 2) > 0 ;
-      console.log ( "read permission :  " + read)
-
-      let write= (accessControl & 4) > 0 ;
-      console.log ( "write permission :  " + write)
 
       return (
         <View style={styles.box}>
@@ -185,7 +192,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           style={styles.image}
           source={{ uri: host + pet.url }}
         />
+        <View style={styles.permission}>
         <Text style={styles.font}>{pet.name}</Text>
+        <Text style={styles.smallFont}>({pet.user.name})</Text>
+        </View>
+
+        <View style={styles.permission}>
+          <CheckBox
+            label='READ'
+            labelStyle={styles.checkBoxLabel}
+            checkboxStyle={styles.checkBox}
+            checked={read}
+            disabled={true}
+          ></CheckBox>
+
+          <CheckBox
+            label='WRITE'
+            labelStyle={styles.checkBoxLabel}
+            checkboxStyle={styles.checkBox}
+            checked={write}
+          ></CheckBox>
+
+        </View>
+
       </View>
     )
   },
