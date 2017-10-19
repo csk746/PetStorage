@@ -221,6 +221,15 @@ public class PetServiceImpl implements PetService {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.daou.petstorage.Pet.service.PetService#addPet(com.daou.petstorage.Pet.domain.Pet)
+	 */
+	@Override
+	public Pet addPet(Pet pet) {
+		// TODO Auto-generated method stub
+		return this.save(pet);
+	}
+
 
 }
 

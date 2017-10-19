@@ -67,6 +67,19 @@ export class Server {
   }
 
 
+  async addPet(name, kind) {
+    console.log ( " addPet server call : " + name + " , " + kind)
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/addPet',
+      body: {
+        name: name,
+        kind: kind,
+      }
+    })
+  }
+
+
   async getPet(params) {
     return this._fetch({
       method: 'GET',

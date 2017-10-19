@@ -33,7 +33,14 @@ public class PetController {
 	private PetService petService ;
 	
 	private static final Logger log = LoggerFactory.getLogger(PetController.class);
-	
+		
+		
+	@PostMapping(value ="/addPet")
+	public @ResponseBody Pet addPet(@RequestBody Pet pet ){
+		log.info("reqModel : " + pet.toString());
+		return this.petService.addPet(pet);
+	}
+
 		
 	@PostMapping(value ="/defaultPet")
 	public @ResponseBody Pet setDefaultPet(@RequestBody CommonRequestModel reqModel){

@@ -68,6 +68,9 @@ export default function petReducer(state = initialState, action) {
       console.log('list : ' + action.data)
       let pets = action.data;
 
+      let freshPet = { id:-1};
+      freshPet.name = '펫 추가'
+
       if (pets) {
         for (let i = 0; i > pets.length; i++) {
           if (pets[i].profile) {
@@ -76,6 +79,12 @@ export default function petReducer(state = initialState, action) {
           }
         }
       }
+      else{
+        pets = [];
+      }
+
+      pets.push(freshPet);
+
       return state.setIn(['myPetList'], pets) .setIn(['refresh'], false)
     }
   }

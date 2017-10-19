@@ -24,6 +24,7 @@ public interface PetService {
 	
 	public Pet setProfilePhoto(CommonRequestModel model);
 	public Pet setDefaultPet(CommonRequestModel model);
+	public Pet addPet(Pet pet);
 	
 	
 }

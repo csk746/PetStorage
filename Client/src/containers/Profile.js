@@ -71,6 +71,9 @@ var styles = StyleSheet.create({
     fontSize: 25,
     marginLeft: 25
   },
+  petNameCenter: {
+    fontSize: 25,
+  },
   box: {
     borderRadius: 15, borderWidth: 1, borderColor: 'black', width: 300, height: 80, marginBottom: 10
   },
@@ -108,7 +111,68 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     this.props.actions.getMyPetList()
     console.log("defaultPetid : " + this.props.defaultPetId)
   },
+
+  plusPetSubmit(petName, petKind) {
+    console.log(" plusPet name : " + petName)
+    console.log(" plusPet kind : " + petKind)
+    BackendFactory().addPet(petName, petKind).then(() => {
+      this.props.actions.getMyPetList()
+      this.plusPetCancel();
+    })
+  },
+  plusPetCancel() {
+
+    DialogManager.dismissAll(() => {
+      console.log('callback - dismiss all');
+    });
+  },
   plusPet() {
+
+      let petName = ''; 
+      let petKind = ''; 
+      DialogManager.show({
+        height: 280,
+        width: 200,
+        ScaleAnimation: new ScaleAnimation(),
+        children: (
+          <DialogContent>
+            <View style={{
+              alignItems: 'center',
+              marginBottom: 15
+            }}>
+            <Text style={styles.petNameCenter}>신규 펫 추가</Text>
+            </View>
+            <TextInput style={{
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  height: 50
+                }}
+                  onChangeText={(text) => petName = text}
+                  placeholder="이름" />
+
+            <TextInput style={{
+              alignItems: 'center',
+              textAlign: 'center',
+              height: 50
+            }}
+              onChangeText={(text) => petKind = text}
+              placeholder="품종" />
+
+            <Button
+              onPress={() => this.plusPetSubmit(petName, petKind)}
+              title="확인"
+              color="darkviolet"
+            />
+            <Button
+              onPress={() => this.plusPetCancel()}
+              title="취소"
+              color="dodgerblue"
+            />
+          </DialogContent>
+        ),
+      }, () => {
+        console.log('callback - show');
+      });
 
   },
   setDefaultPetId(pet) {
@@ -211,14 +275,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     if (pet.id < 0) {
       petImage = (
         <Image style={{
-          width: 60,
-          height: 60,
+          width: 70,
+          height: 70,
+          marginLeft: 25,
           borderRadius: this.props.platform === 'ios' ? 20 : 25,
         }}
           source={require('../images/plus.png')} />
 
       )
     }
+    else if ( !pet.profileUrl ){
+
+      petImage =
+      
+        <Image style={{
+          width: 70,
+          height: 70,
+          marginLeft: 25,
+          borderRadius: this.props.platform === 'ios' ? 20 : 25,
+        }} source={require('../images/no_image.png')} />
+    }
+
     return (
       <View>
         <View style={[{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }, styles.box]}>
