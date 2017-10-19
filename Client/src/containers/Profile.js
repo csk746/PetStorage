@@ -202,6 +202,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     if (pet.id < 0) this.plusPet();
     else {
 
+      let profileImage = (<Image style={{
+        width: 120,
+        height: 120,
+        alignItems: 'center',
+        borderRadius: this.props.platform === 'ios' ? 20 : 25,
+      }} source={require('../images/no_image.png')} />)
+
+      if (pet.profileUrl) {
+        profileImage = (<Image style={{
+          width: 120,
+          height: 120,
+          alignItems: 'center',
+          borderRadius: this.props.platform === 'ios' ? 20 : 25,
+        }} source={{ uri: pet.profileUrl }} ></Image>)
+      }
+
       DialogManager.show({
         height: 280,
         width: 200,
@@ -212,13 +228,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
               alignItems: 'center',
               marginBottom: 15
             }}>
-              <Image style={{
-                width: 120,
-                height: 120,
-                alignItems: 'center',
-                borderRadius: this.props.platform === 'ios' ? 20 : 25,
-              }} source={{ uri: pet.profileUrl }} ></Image>
-              <Text style={styles.petName}> {pet.name}</Text>
+              {profileImage}
+              <Text style={styles.petNameCenter}> {pet.name}</Text>
             </View>
             <Button
               onPress={() => this.setDefaultPetId(pet)}
