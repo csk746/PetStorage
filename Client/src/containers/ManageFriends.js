@@ -49,9 +49,9 @@ var styles = StyleSheet.create({
   checkBoxLabel: {
     fontSize: 10,
   },
-  checkBox:{
-    width:10,
-    height:10
+  checkBox: {
+    width: 10,
+    height: 10
   },
   smallFont: {
     fontSize: 10,
@@ -71,7 +71,7 @@ var styles = StyleSheet.create({
 })
 function mapStateToProps(state) {
   return {
-    myInfo:state.auth.myInfo,
+    myInfo: state.auth.myInfo,
   }
 }
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
@@ -86,7 +86,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return {
       followPetList: [],
       requests: [],
-      refreshIdx:0
+      refreshIdx: 0
     }
   },
   componentWillMount() {
@@ -122,8 +122,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     console.log("boolean : " + check)
     let toStatus = !check;
 
-    let bit = 4 ; 
-    if ( isread) bit = 2 ; 
+    let bit = 4;
+    if (isread) bit = 2;
 
     if (toStatus) {
       data.petUserMap.accessControl = data.petUserMap.accessControl | (bit);
@@ -132,15 +132,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       data.petUserMap.accessControl = data.petUserMap.accessControl & (~bit);
     }
 
-    BackendFactory().setAccessControl(data.petUserMap.id,  data.petUserMap.accessControl).then((res)=>{
-      console.log ( res);
-    } )
+    BackendFactory().setAccessControl(data.petUserMap.id, data.petUserMap.accessControl).then((res) => {
+      console.log(res);
+    })
 
-    console.log ( data.petUserMap.accessControl)
-    this.setState({refreshIdx:this.state.refreshIdx+1})
+    console.log(data.petUserMap.accessControl)
+    this.setState({ refreshIdx: this.state.refreshIdx + 1 })
   },
   renderRowFollow(data) {
-    let pet = data.pet ; 
+    let pet = data.pet;
     let user = data.user;
 
     let accessControl = data.petUserMap.accessControl;
@@ -153,7 +153,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     console.log("write permission :  " + write)
 
     console.log(pet.url)
-    if ( pet.user.id == this.props.myInfo.id){
+    if (pet.user.id == this.props.myInfo.id) {
 
 
       return (
@@ -162,25 +162,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
             style={styles.image}
             source={{ uri: host + user.url }}
           />
-        <Text style={styles.font}>{user.name}</Text>
-        <Image style={{ width: 25, height: 25 }} source={require('../images/right-arrow.png')} />
+          <Text style={styles.font}>{user.name}</Text>
+          <Image style={{ width: 25, height: 25 }} source={require('../images/right-arrow.png')} />
           <Text style={styles.font}>{pet.name}</Text>
           <View style={styles.permission}>
-          <CheckBox
-            label='READ'
-            labelStyle={styles.checkBoxLabel}
-            checkboxStyle={styles.checkBox}
-            checked={read}
-            onChange={(checked) => this.permissionChange(true, data, checked)}
-          ></CheckBox>
+            <CheckBox
+              label='READ'
+              labelStyle={styles.checkBoxLabel}
+              checkboxStyle={styles.checkBox}
+              checked={read}
+              onChange={(checked) => this.permissionChange(true, data, checked)}
+            ></CheckBox>
 
-          <CheckBox
-            label='WRITE'
-            labelStyle={styles.checkBoxLabel}
-            checkboxStyle={styles.checkBox}
-            checked={write}
-            onChange={(checked) => this.permissionChange(false,data, checked)}
-          ></CheckBox>
+            <CheckBox
+              label='WRITE'
+              labelStyle={styles.checkBoxLabel}
+              checkboxStyle={styles.checkBox}
+              checked={write}
+              onChange={(checked) => this.permissionChange(false, data, checked)}
+            ></CheckBox>
 
           </View>
         </View>
@@ -193,8 +193,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           source={{ uri: host + pet.url }}
         />
         <View style={styles.permission}>
-        <Text style={styles.font}>{pet.name}</Text>
-        <Text style={styles.smallFont}>({pet.user.name})</Text>
+          <Text style={styles.font}>{pet.name}</Text>
+          <Text style={styles.smallFont}>({pet.user.name})</Text>
         </View>
 
         <View style={styles.permission}>
@@ -219,7 +219,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     )
   },
   renderRowRequests(data) {
-    let pet = data.pet ; 
+    let pet = data;
 
     return (
       <View style={styles.box}>
