@@ -47,16 +47,7 @@ public class StorageController {
 	}
 	
 	@RequestMapping(value="/list/{petId}", method=RequestMethod.GET) 
-	public @ResponseBody StorageListModel getImageList( @PathVariable long petId, HttpServletResponse res,
-			@RequestParam(defaultValue = "0",   value = "page") int page,
-			@RequestParam(defaultValue = "100",   value = "size") int size,
-			@RequestParam(defaultValue = "id",  value = "field") String field,
-			@RequestParam(defaultValue = "asc", value = "order") String order){
-		
-		log.info("request image list petId : " + petId + " page : " + page + " size : " + size + " field : " + field + " order : " + order);
-		
-		Sort sort = SortUtil.direction(order, field);
-		Pageable pageRequest = new PageRequest(page, size, sort);
+	public @ResponseBody StorageListModel getImageList( @PathVariable long petId, Pageable pageRequest, HttpServletResponse res){
 		
 		StorageListModel resultModel =  this.storageService.getFileList(petId, pageRequest);
 		
