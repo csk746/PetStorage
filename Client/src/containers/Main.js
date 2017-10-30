@@ -225,7 +225,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
     return {
-      // refresh: this.props.story.refresh,
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
@@ -249,7 +248,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   componentWillMount() {
-    this.getStoryList(this.state.page);
+    this._onRefresh();
   },
   shouldComponentUpdate(nextProps, nextState) {
     return true;
