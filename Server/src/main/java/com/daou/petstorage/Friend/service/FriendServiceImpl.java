@@ -89,8 +89,7 @@ public class FriendServiceImpl implements FriendService {
 
 	@Override
 	public List<User> findByPet(Pet pet) {
-		return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY).
-				stream()
+		return friendRepository.findByPetAndStatus(pet, FriendMap.Status.READY).stream()
 				.map(friendMap -> friendMap.getUser())
 				.collect(Collectors.toList());
 	}

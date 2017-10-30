@@ -23,5 +23,5 @@ public class StorageListModel {
 
 	private static final Logger log = LoggerFactory.getLogger(StorageListModel.class);
 	
-	private List<String> urlList ;
+	private List<StorageModel> storageModels ;
 }

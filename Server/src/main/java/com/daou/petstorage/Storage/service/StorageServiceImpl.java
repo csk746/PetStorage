@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.daou.petstorage.Storage.model.StorageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +153,7 @@ public class StorageServiceImpl implements StorageService{
 		
 		StorageListModel model = new StorageListModel();
 		
-		List<String> urlList = new ArrayList<>();
+		List<StorageModel> storageModels = new ArrayList<>();
 		Pet pet = this.petService.getPet(petId);
 		if ( pet == null) {
 			log.error("petId is invalid : " + petId);
@@ -169,10 +170,18 @@ public class StorageServiceImpl implements StorageService{
 		
 		if ( mapList!= null && !mapList.isEmpty()){
 			for ( PetStorageMap map : mapList){
-				urlList.add(map.getStorage().getUrl());
+
+				StorageModel s = new StorageModel();
+				s.setUrl(map.getStorage().getUrl());
+				if (map.getStorage().getSpecies() != null){
+					s.setPet(true);
+				} else {
+					s.setPet(false);
+				}
+				storageModels.add(s);
 			}
 		}
-		model.setUrlList(urlList);
+		model.setStorageModels(storageModels);
 		
 		return model ; 
 	}
