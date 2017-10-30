@@ -16,6 +16,7 @@ public interface StorageService {
 	public Storage save(Pet pet, Storage storage );
 	public Storage getStorageByFileName(String fileName);
 	public StorageListModel getFileList(Long petId, Pageable pageable);
+	public void uploadPetPhoto();
 }
 
 
