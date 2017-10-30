@@ -31,10 +31,11 @@ import {
 import _ from 'underscore'
 
 var styles = StyleSheet.create({
-  iconRow:{
-      flexDirection: 'row',
-      justifyContent: 'center', 
-      alignItems: 'center'
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 180
   },
   row: {
     flex: 0.5,
@@ -70,12 +71,17 @@ var styles = StyleSheet.create({
     flex: 0.8
   },
   petName: {
-    fontSize: 15,
+    fontSize: 25,
+    marginLeft: 20
   },
-  icon:{
-    height:15,
-    width:15
-  }
+  icon: {
+    height: 30,
+    width: 30,
+    marginRight: 35
+  },
+  box: {
+    borderRadius: 15, borderWidth: 1, borderColor: 'black', width: 300, height: 80, marginBottom: 10
+  },
 })
 function mapStateToProps(state) {
   return {
@@ -97,18 +103,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
     return {
-      user:null,
-      petList:[],
+      user: null,
+      petList: [],
     }
   },
   componentWillMount() {
-    BackendFactory().getFriendPets(this.props.user_id).then((res) => { 
-      console.log (res);
+    BackendFactory().getFriendPets(this.props.user_id).then((res) => {
+      console.log(res);
       if (!this.state.user && res.user) {
         this.setState({ user: res.user })
         this.setState({ petList: res.pets })
       }
-     })
+    })
   },
   plusPet() {
 
@@ -122,17 +128,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     }
     else if (pet.status == 'READY') {
     }
-    else{
-      BackendFactory().requestFriendPet(pet.id).then((res) => { 
-        console.log ( res)
+    else {
+      BackendFactory().requestFriendPet(pet.id).then((res) => {
+        console.log(res)
         pet.status = 'READY';
         this.props.actions.refresh();
-     })
+      })
     }
   },
-  renderPet(pet) {
+  renderMyPets(pet) {
     console.log("petId : " + pet.id)
-    console.log ("petStatus : " + pet.status)
+    console.log("petStatus : " + pet.status)
     if (pet.profile) {
       pet.profileUrl = getHost() + pet.profile.url;
     }
@@ -141,40 +147,40 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     }
 
     console.log(" profileUrl : " + pet.profileUrl)
-      return (
-        <View>
+    return (
+      <View>
+        <View style={[{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50 }, styles.box]}>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 50, marginLeft: pet.id % 2 == 0 ? 40 : 0, marginRight: pet.id % 2 == 1 ? 40 : 0 }}>
+          <TouchableOpacity
+            key={pet.id}
+            style={[{ borderRadius: 50, width: 280, height: 100, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', }]}
+            onPress={() => this.selectPet(pet)}
+          >
+            <Image style={{
+              width: 70,
+              height: 70,
+              marginLeft: 15,
+              borderRadius: this.props.platform === 'ios' ? 20 : 25,
+            }} source={{ uri: pet.profileUrl }} ></Image>
 
-            <TouchableOpacity
-              key={pet.id}
-              style={[{ borderRadius: 50, width: 100, height: 100, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', }]}
-              onPress={() => this.selectPet(pet)}
-            >
+            <View style={styles.iconRow}>
+              <Text style={styles.petName}> {pet.name} </Text>
+              <Image style={styles.icon} source={pet.status == 'SUCCESS' ? require('../images/done.png') :
+                pet.status == 'READY' ? require('../images/wait.png') : require('../images/notaccess.png')} />
+            </View>
 
-              <Image style={{
-                width: 80,
-                height: 80,
-                borderRadius: this.props.platform === 'ios' ? 20 : 25,
-              }} source={{ uri: pet.profileUrl }} ></Image>
-
-              <View style={styles.iconRow}>
-                <Text style={styles.petName}> {pet.name} </Text>
-
-                <Image style={styles.icon} source={pet.status == 'SUCCESS' ? require('../images/done.png') :
-                  pet.status == 'READY' ? require('../images/wait.png') : require('../images/notaccess.png')} />
-              </View>
-
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
-      )
+      </View >
+
+
+
+    )
   },
 
   render() {
-    var petListOdd = []
-    var petListEven = []
-    if ( !this.state.user) return  ( <View></View>); 
+    var petList = []
+    if (!this.state.user) return (<View></View>);
 
     if (this.state.user.profile) {
       this.state.user.profileUrl = getHost() + this.state.user.profile.url;
@@ -182,15 +188,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     if (this.state.petList) {
       this.state.petList.forEach((element) => {
-        if (element.id % 2 == 0) {
-          petListEven.push(element)
-        } else {
-          petListOdd.push(element)
-        }
+        petList.push(element)
       });
-  }
-    var odd = ds.cloneWithRows(petListOdd);
-    var even = ds.cloneWithRows(petListEven);
+    }
+    var data = ds.cloneWithRows(petList);
 
     console.log(" user profile : " + this.state.user.profileUrl)
     return (
@@ -204,17 +205,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
           </View>
           <Text style={styles.petName}> {this.state.user.name} </Text>
         </View>
-        <View style={{ flexDirection: 'row', flex: 1 }}>
+        <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
           <ListView
             enableEmptySections={true}
-            dataSource={even}
-            renderRow={this.renderPet}
-          >
-          </ListView>
-          <ListView
-            enableEmptySections={true}
-            dataSource={odd}
-            renderRow={this.renderPet}
+            dataSource={data}
+            renderRow={this.renderMyPets}
           >
           </ListView>
         </View>
