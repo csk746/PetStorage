@@ -114,7 +114,7 @@ var styles = StyleSheet.create({
   },
   commentList: {
     flex: 1,
-    height: 100,
+    height: 50,
   },
   // commentText: {
   //   fontSize: 12,
