@@ -287,7 +287,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     this.props.actions.addComment(story, comment);
   },
   likeStory(story) {
+    if ( story.ilike){
+      story.likeCount--;
+    }
+    else{
+      story.likeCount++;
+    }
     story.ilike = !story.ilike;
+
     this.props.actions.iLikeStory(story.id);
   },
 
