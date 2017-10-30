@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import com.daou.petstorage.Storage.domain.Storage;
+import com.daou.petstorage.Story.domain.Story;
 import com.daou.petstorage.Story.model.StoryModel;
 import com.daou.petstorage.common.model.CommonRequestModel;
 
@@ -15,7 +17,9 @@ import com.daou.petstorage.common.model.CommonRequestModel;
  */
 public interface StoryService {
 
-	public List<StoryModel> getStoryList(Pageable page);
-	public StoryModel plusLikeCount(Long id);
+	public List<Storage> getStorageList(Story story);
+	public List<StoryModel> getStoryList(CommonRequestModel model, Pageable page);
+	public StoryModel changeLikeStatus(Long id);
 	public StoryModel addComment(CommonRequestModel model);
+	public StoryModel createStory(CommonRequestModel model);
 }

@@ -17,7 +17,9 @@ import { getHost } from '../../lib/utils';
  * Device actions to test
  */
 const {
+  ALREAY_REQUEST_ANOTHER_PET_INFO,
  GET_ANOTHER_PET_INFO,
+ SET_PET_PROFILE_PHOTO,
   REQUESTED_GET_MY_PET_LIST,
   RESPONSE_GET_MY_PET_LIST
 } = require('../../lib/constants').default
@@ -32,22 +34,30 @@ import DataStore from '../../lib/DataStore'
 export default function petReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.merge(state)
 
-  let host = getHost() + '/storage/image/';
+  let host = getHost() ;
 
   switch (action.type) {
     /**
      * ### set the platform in the state
      */
+    case ALREAY_REQUEST_ANOTHER_PET_INFO: {
+      console.log ( " alreay request pet - reducer");
+      return state ; 
+    }
+    case   SET_PET_PROFILE_PHOTO:{
+      console.log ( " pet profile photo reducer ")
+    }
+    
     case GET_ANOTHER_PET_INFO: {
       console.log("reducer data : " + action.data);
-      let resPet = action.data;
-      let pet = {};
-      pet.id = resPet.id;
-      pet.name = resPet.name;
-      pet.kind = resPet.kind;
-      pet.birthDay = resPet.birthDay;
-      pet.profileUrl = host + resPet.profileUrl;
-      pet.userId = resPet.userId;
+      let pet = action.data;
+
+      if ( pet.profile){
+        console.log("pet-profile : " + pet.profile)
+        pet.profileUrl = host + pet.profile.url;
+        console.log("pet-profileUrl : " + pet.profile.url)
+      }
+
       state.pets.push(pet);
       console.log("petReducer end");
       return state.setIn(['syncIdx'], state.syncIdx + 1)
@@ -56,8 +66,26 @@ export default function petReducer(state = initialState, action) {
       return state.setIn(['refresh'], true)
     case RESPONSE_GET_MY_PET_LIST: {
       console.log('list : ' + action.data)
-      return state.setIn(['myPetList'], action.data)
-        .setIn(['refresh'], false)
+      let pets = action.data;
+
+      let freshPet = { id:-1};
+      freshPet.name = '펫 추가'
+
+      if (pets) {
+        for (let i = 0; i > pets.length; i++) {
+          if (pets[i].profile) {
+            pets[i].profileUrl = host + pets[i].profile.url;
+            console.log( " profile : " +  pets[i].profileUrl)
+          }
+        }
+      }
+      else{
+        pets = [];
+      }
+
+      pets.push(freshPet);
+
+      return state.setIn(['myPetList'], pets) .setIn(['refresh'], false)
     }
   }
   return state;

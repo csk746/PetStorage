@@ -14,18 +14,10 @@
  */
 import { Record } from 'immutable'
 
-const Pets = Record({
-  id: 0,
-  name: '',
-  kind: '',
-  birthDay: '',
-  profileUrl: '',
-  userId: 0
-})
-
 var InitialState = Record({
   syncIdx: 0,
   pets: [],
+  selectPet:{},
   myPetList: [],
   refresh: false,
 })

@@ -56,6 +56,10 @@ public class AccountUserDetails implements UserDetails {
 	public String getName() {
 		return this.user.getName();
 	}
+	
+	public Long getDefaultPetId(){
+		return this.user.getDefaultPetId();
+	}
 
 	public String getToken() {
 		return token;
@@ -63,6 +67,16 @@ public class AccountUserDetails implements UserDetails {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	public String getProfileUrl(){
+		if ( this.user.getProfile() != null){
+			log.info("profile url :" + this.user.getProfile().getUrl());
+			return this.user.getProfile().getUrl();
+		}
+		else{
+			return "";
+		}
 	}
 
 	/* (non-Javadoc)

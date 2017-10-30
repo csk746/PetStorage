@@ -23,6 +23,8 @@ import NavBarBack from '../components/NavBarBack'
  */
 import NavigationBar from 'react-native-navbar'
 
+import { getHost } from '../lib/utils';
+
 /**
  * The necessary components from React
  */
@@ -30,12 +32,15 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
+  TouchableOpacity,
   Text,
+  Button,
   ListView,
   Image
 }
   from 'react-native'
 
+import _ from 'underscore'
 /**
  * Use device options so we can reference the Version
  *
@@ -46,6 +51,7 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as petActions from '../reducers/pet/petActions'
 import * as deviceActions from '../reducers/device/deviceActions'
 
+import PopupDialog from 'react-native-popup-dialog';
 /**
 * ## Redux boilerplate
 */
@@ -57,7 +63,8 @@ import * as deviceActions from '../reducers/device/deviceActions'
  */
 function mapStateToProps(state) {
   return {
-    deviceVersion: state.device.version
+    deviceVersion: state.device.version,
+    selectPet: state.pet.selectPet
   }
 }
 
@@ -71,55 +78,97 @@ function mapDispatchToProps(dispatch) {
 }
 
 var styles = StyleSheet.create({
+
   list: {
-    // justifyContent: 'center',
-    flexDirection: 'row',
+    //justifyContent: 'center',
+    //flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+  popupButton: {
+    height: 100,
+    width: 100,
+  },
+  container: {
+    flex: 1
   },
   item: {
     backgroundColor: 'red',
     margin: 10,
     width: 100,
     height: 100
+  },
+  image: {
+    alignSelf: 'center',
+    width: 250,
+    height: 250,
+    margin: 10
   }
 });
 /**
  * ## Subview class
  */
 var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-class PetPhotos extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      petList: []
+export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
+  getInitialState() {
+    return {
+      // refresh: this.props.story.refresh,
+      petList: [],
+      selectUrl: ''
     }
-  }
+  },
 
   componentWillMount() {
     console.log(this.props.pet_id)
-    BackendFactory().getUrlList(this.props.pet_id).then((res) => { this.setState({ petList: res.urlList }) })
+    console.log(this.props.selectPet)
+    BackendFactory().getUrlList(this.props.pet_id).then((res) => { this.setState({ petList: res.storageModels }) })
 
-    // this.setState({ petList: BackendFactory().getUrlList(this.props.pet_id) })
-    // console.log(this.state.petList.length)
+  },
+  renderRow(model) {
 
-  }
-  renderRow(url) {
+    console.log(" url :  " + model.url);
+    console.log(" isPet :  " + model.pet);
+    let host = getHost();
     return (
-      <Image
-        style={{
-          alignSelf: 'center',
-          width: 90,
-          height: 90,
-          margin: 5
-        }}
-        source={{ uri: 'http://192.168.1.112:9000' + url }}
-      />
+      <TouchableOpacity onPress={() => {
+        this.setState({ selectUrl: model.url });
+        if (model.pet) {
+          this.popupDialog.show()
+        } else {
+          this.isPetPopup.show()
+        }
+      }} >
+        <Image
+          style={styles.image}
+          source={{ uri: host + model.url }}
+        />
+      </TouchableOpacity>
     )
-  }
+  },
+  setProfilePhoto() {
+    console.log("selectUrl : " + this.state.selectUrl)
+
+    BackendFactory().setPetProfile(this.props.pet_id, this.state.selectUrl).then((res) => { })
+    if (this.popupDialog)
+      this.popupDialog.dismiss();
+
+  },
+  postingPhoto(opt) {
+    console.log("selectUrl : " + this.state.selectUrl)
+    console.log("petId : " + this.props.pet_id)
+
+    Actions.PostingPhoto({
+      pet_id: this.props.pet_id,
+      url: this.state.selectUrl
+    })
+
+    if (this.popupDialog)
+      this.popupDialog.dismiss();
+
+  },
   render() {
     var data = ds.cloneWithRows(this.state.petList)
     return (
-      <View>
+      <View style={styles.container}>
         <NavigationBar
           leftButton={<NavBarBack isNegative={true} />} />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -128,14 +177,36 @@ class PetPhotos extends Component {
             enableEmptySections={true}
             renderRow={this.renderRow}
           />
+          <PopupDialog
+            ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+            width={200}
+            height={70}
+          >
+            <Button
+              onPress={this.setProfilePhoto}
+              title="프로필로 지정하기"
+              color="darkviolet"
+            />
+            <Button
+              onPress={this.postingPhoto}
+              color="dodgerblue"
+              title="포스팅"
+            />
+          </PopupDialog>
+          <PopupDialog
+            ref={(isPetPopup) => { this.isPetPopup = isPetPopup; }}
+            width={200}
+            height={33}
+          >
+            <Button
+              onPress={() => this.isPetPopup.dismiss}
+              title="반려동물이 아닙니다."
+              color="darkviolet"
+            />
+          </PopupDialog>
         </View>
       </View>
     );
 
   }
-}
-
-/**
- * Connect the properties
- */
-export default connect(mapStateToProps, mapDispatchToProps)(PetPhotos)
+}))

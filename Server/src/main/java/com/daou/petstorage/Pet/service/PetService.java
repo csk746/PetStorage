@@ -5,14 +5,12 @@ import java.util.List;
 import com.daou.petstorage.Pet.domain.Pet;
 import com.daou.petstorage.PetMap.model.AccessControl;
 import com.daou.petstorage.User.domain.User;
+import com.daou.petstorage.common.model.CommonRequestModel;
 
 /**
  * Created by hsim on 2017. 8. 13...
  */
 public interface PetService {
-	
-	public Pet setProfilePhoto(Pet pet );
-	public List<Pet> setProfilePhoto(List<Pet> pet );
 	
 	public boolean petExistCheck(Pet pet, User user);
 	public Pet save(Pet pet, User user);
@@ -23,6 +21,10 @@ public interface PetService {
 	public List<Pet> getMyPets(User user );
 	
 	public boolean isHavingPermission(User user, Pet pet , AccessControl ac );
+	
+	public Pet setProfilePhoto(CommonRequestModel model);
+	public Pet setDefaultPet(CommonRequestModel model);
+	public Pet addPet(Pet pet);
 	
 	
 }

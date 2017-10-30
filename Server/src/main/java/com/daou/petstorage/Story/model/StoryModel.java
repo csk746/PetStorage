@@ -27,7 +27,6 @@ public class StoryModel extends BaseModel{
 	
 	public StoryModel(Story story){
 		super(story);
-		
 		this.user =  story.getUser() ;
 		this.pet = story.getPet();
 		this.likeCount = story.getLikeCount();
@@ -40,6 +39,8 @@ public class StoryModel extends BaseModel{
 	private Pet pet ; 
 	
 	private long likeCount ; 
+	
+	private boolean ilike;
 	
 	private String title ; 
 	
@@ -54,7 +55,7 @@ public class StoryModel extends BaseModel{
 		
 		this.urlList = new ArrayList<>();
 		for ( Storage s : list){
-			this.urlList.add(s.getFakeName());
+			this.urlList.add(s.getUrl());
 		}
 	}
 	

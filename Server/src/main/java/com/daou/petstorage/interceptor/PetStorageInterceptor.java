@@ -3,8 +3,6 @@
  */
 package com.daou.petstorage.interceptor;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -95,7 +93,7 @@ public class PetStorageInterceptor implements HandlerInterceptor{
 			throws Exception {
 		// TODO Auto-generated method stub
 		
-		log.info(this.getHttpFullStr(request));
+		//log.info(this.getHttpFullStr(request));
 		return true;
 	}
 

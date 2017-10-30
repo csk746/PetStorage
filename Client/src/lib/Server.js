@@ -10,9 +10,76 @@ export class Server {
         CONFIG.useDev ? CONFIG.dev.url :
           CONFIG.prod.url
   }
+
+  /**
+   * user api
+   **/
+  async getUser(params) {
+
+    return this._fetch({
+      method: 'GET',
+      url: '/user/detail/' + params.userId,
+    })
+  }
+
+
+  /**
+   * friend api
+   **/
+
+  async getFriendPets(userId) {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/user/' + userId,
+    })
+  }
+
+  async requestFriendPet(petId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/request/' + petId,
+    })
+  }
+
   /**
    * pet api
    **/
+
+  async setPetProfile(petId, url) {
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/profile',
+      body: {
+        id: petId,
+        url: url
+      }
+    })
+  }
+
+  async setDefaultPet(petId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/defaultPet',
+      body: {
+        id: petId,
+      }
+    })
+  }
+
+
+  async addPet(name, kind) {
+    console.log ( " addPet server call : " + name + " , " + kind)
+    return this._fetch({
+      method: 'POST',
+      url: '/pet/addPet',
+      body: {
+        name: name,
+        kind: kind,
+      }
+    })
+  }
+
+
   async getPet(params) {
     return this._fetch({
       method: 'GET',
@@ -26,13 +93,65 @@ export class Server {
       url: '/pet/list',
     })
   }
+
+  /**
+   * friend api
+   **/
+  async findFollowPets() {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/pet',
+    })
+  }
+
+  async setAccessControl(id, ac) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/accessControl',
+      body: {
+        id: id ,
+        accessControl: ac
+      }
+    })
+  }
+
+
+
+  async getReceiveRequests() {
+    return this._fetch({
+      method: 'GET',
+      url: '/friend/request/receive',
+    })
+  }
+
+  async requestFriend(petId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/request/' + petId,
+    })
+  }
+
+  async approveFriend(petId, userId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/approve/' + petId + '/' + userId,
+    })
+  }
+
+  async rejectFriend(petId, userId) {
+    return this._fetch({
+      method: 'POST',
+      url: '/friend/reject/' + petId + '/' + userId,
+    })
+  }
+
   /**
    * storage api
    **/
-  async getUrlList(params) {
+  async getUrlList(petId) {
     return this._fetch({
       method: 'GET',
-      url: '/storage/list/' + params.petId + '?' + params.param,
+      url: '/storage/list/' + petId,
     })
   }
 
@@ -61,6 +180,7 @@ export class Server {
       url: '/story/' + params.storyId
     })
   }
+
   async addComment(params) {
     return this._fetch({
       method: 'POST',
@@ -71,15 +191,29 @@ export class Server {
       }
     })
   }
+
   async getStoryList(params) {
     return this._fetch({
       method: 'POST',
       url: '/story/list',
       body: {
+        petId: params.petId,
         page: params.page,
         offset: params.offset,
         order: params.order,
         field: params.field,
+      }
+    })
+  }
+
+  async createPosting(petId, url, content) {
+    return this._fetch({
+      method: 'POST',
+      url: '/story',
+      body: {
+        id: petId,
+        url: url,
+        content: content
       }
     })
   }

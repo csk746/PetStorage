@@ -22,6 +22,8 @@ const {
   SESSION_TOKEN_SUCCESS,
   SESSION_TOKEN_FAILURE,
 
+  SET_DEFAULT_PET,
+
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
 
@@ -56,6 +58,8 @@ const initialState = new InitialState()
  * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
+import { getHost } from '../../lib/utils';
+
 export default function authReducer(state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state)
 
@@ -90,6 +94,15 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form', 'error'], null)
       )
 
+      case SET_DEFAULT_PET :{
+        let pet = action.data; 
+        console.log ( " authReducer  defualt pet id : " + pet.id)
+        let myInfo = state.myInfo ; 
+        myInfo.defaultPetId = pet.id;
+        return state.setIn(['defaultPetId'], pet.id).setIn(['refreshIdx'], state.refreshIdx+1 )
+      }
+
+
     case SESSION_TOKEN_SUCCESS:
 
     case SESSION_TOKEN_FAILURE:
@@ -97,8 +110,13 @@ export default function authReducer(state = initialState, action) {
     case SIGNUP_SUCCESS:
 
     case LOGIN_SUCCESS: {
-      return state.setIn(['form', 'isFetching'], true)
-                 // .setIn(['form', 'fields','userInfo'],action.userInfo);
+      console.log ( state.myInfo)
+      let info = action.userInfo;
+      info.profileUrl = getHost() + info.profileUrl;
+      console.log(" user profile : " + info.profileUrl)
+      console.log(" default Pet : " + info.defaultPetId)
+
+      return state.setIn(['myInfo'], info).setIn(['defaultPetId'], info.defaultPetId).setIn(['form', 'isFetching'], true)
     }
 
     case LOGOUT_SUCCESS:

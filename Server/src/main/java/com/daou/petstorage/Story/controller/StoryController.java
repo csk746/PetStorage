@@ -36,13 +36,19 @@ public class StoryController {
 	@Autowired private SpringSecurityContext securityContext ; 
 	@Autowired private StoryService storyService ; 
 	
+	@RequestMapping(value="", method=RequestMethod.POST) 
+	public @ResponseBody StoryModel createStory( @RequestBody CommonRequestModel model,  HttpServletResponse res ) {
+		log.info("request : " + model.toString());
+		return this.storyService.createStory(model);
+
+	}
+	
 	@RequestMapping(value="/{storyId}", method=RequestMethod.PUT) 
 	public @ResponseBody StoryModel addlikeCount( @PathVariable long storyId,  HttpServletResponse res ) {
 		log.info("story like update story id : " + storyId + " and user = " + this.securityContext.getUser().getLoginId());
-		return this.storyService.plusLikeCount(storyId);
+		return this.storyService.changeLikeStatus(storyId);
 		
 	}
-	
 		
 	@RequestMapping(value="/comment", method=RequestMethod.POST) 
 	public @ResponseBody StoryModel addComment( @RequestBody CommonRequestModel model , HttpServletResponse res ) {
@@ -58,7 +64,7 @@ public class StoryController {
 		Sort sort = SortUtil.direction(model.getOrder(), model.getField());
 		Pageable pageRequest = new PageRequest(model.getPage(), model.getOffset(), sort);
 		
-		return this.storyService.getStoryList(pageRequest);
+		return this.storyService.getStoryList(model,pageRequest);
 		
 	}
 

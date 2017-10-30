@@ -50,6 +50,8 @@ export default keyMirror({
   GET_STATE: null,
   SET_STORE: null,
 
+  REFRESH:null,
+
   FORGOT_PASSWORD: null,
   LOGIN: null,
   REGISTER: null,
@@ -64,7 +66,13 @@ export default keyMirror({
   GET_STORY: null,
 
   GET_ANOTHER_USER_INFO: null,
+  ALREAY_REQUEST_ANOTHER_USER_INFO:null,
+
+  SET_DEFAULT_PET:null,
+  SET_PET_PROFILE_PHOTO:null,
+
   GET_ANOTHER_PET_INFO: null,
+  ALREAY_REQUEST_ANOTHER_PET_INFO:null,
 
   REQUESTED_GET_MY_PET_LIST: null,
   RESPONSE_GET_MY_PET_LIST: null

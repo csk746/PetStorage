@@ -14,17 +14,11 @@
  */
   import {Record} from 'immutable'
 
-const Users = Record({
-  id:0,
-  name:'',
-  loginId:'',
-  grade:'',
-  phone:'',
-  email:''
-})
 
 var InitialState = Record({
-  users:Users=[]
+  users:[],
+  syncIdx: 0,
+  myInfo:{}
 })
 
 export default InitialState

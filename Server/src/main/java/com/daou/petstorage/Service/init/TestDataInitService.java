@@ -58,13 +58,13 @@ public class TestDataInitService {
 		
 		List<User> saveUserList = new ArrayList<>();
 		
-		saveUserList.add(this.getDefaultUser("admin", "愿�由ъ옄", "admin"));
-		saveUserList.add(this.getDefaultUser("hsim", "�엫�씗�꽠", "1234"));
+		saveUserList.add(this.getDefaultUser("admin", "admin", "admin"));
+		saveUserList.add(this.getDefaultUser("hsim", "임희섭", "1234"));
 		
 		this.userService.saveUser(saveUserList, true);
 		
 		User hsim = this.userService.getUser("hsim");
-		Pet miho = getDefaultPet("誘명샇", "2014-09-14", "�뒪�뵾痢�");
+		Pet miho = getDefaultPet("미호", "2013-10-16", "스피츠");
 		
 		this.petService.save(miho, hsim);
 		

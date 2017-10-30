@@ -22,16 +22,16 @@ const {
 
 import { getHost } from '../../lib/utils';
 
-export function addComment(storyId, comment) {
+export function addComment(story, comment) {
 
   return dispatch => {
 
-    console.log ("storyId  : " + storyId + " comment : " + comment)
+    console.log ("storyId  : " + story.id+ " comment : " + comment)
     BackendFactory().addComment({
-      storyId:storyId,
+      storyId:story.id,
       comment:comment
     }).then(response => {
-      dispatch({ type: ADD_COMMENT, storyId:storyId , comment:comment });
+      dispatch({ type: ADD_COMMENT, story:story, comment:comment });
     });
 
   }
@@ -42,15 +42,18 @@ export function iLikeStory(storyId) {
     console.log("like request id : " + storyId)
     BackendFactory().iLikeStroy({
       storyId: storyId
-    })
+    }).then(response => {
+      dispatch({ type : ILIKE_STORY   });
+    });
 
   }
 }
 
-export function getStory(page, offset, field, order) {
+export function getStory(petId, page, offset, field, order) {
 
   return dispatch => {
     BackendFactory().getStoryList({
+      petId:petId,
       page:page , 
       offset:offset,
       field:field,

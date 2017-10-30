@@ -10,7 +10,7 @@ import * as storyActions from '../reducers/story/storyActions'
 import petActions from '../reducers/pet/petActions'
 import Dimensions from 'Dimensions';
 import Main from './Main'
-import ManagePets from './ManagePets'
+import Profile from './Profile'
 
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
@@ -177,16 +177,16 @@ class Tabbar extends Component {
       notTab: 'Main'
     };
     this.main = this.main.bind(this);
-    this.managePets = this.managePets.bind(this);
+    this.Profile = this.Profile.bind(this);
   }
   componentWillMount() {
-    this.setState({ nowTab: 'ManagePets' })
+    this.setState({ nowTab: 'Profile' })
   }
   main() {
     this.setState({ nowTab: 'Main' })
   }
-  managePets() {
-    this.setState({ nowTab: 'ManagePets' })
+  Profile() {
+    this.setState({ nowTab: 'Profile' })
   }
   takePicture() {
     Actions.TakePicture({
@@ -197,8 +197,8 @@ class Tabbar extends Component {
     console.log(this.state.nowTab)
     if (this.state.nowTab == 'Main') {
       content = (<Main />)
-    } else if (this.state.nowTab == 'ManagePets') {
-      content = (<ManagePets />)
+    } else if (this.state.nowTab == 'Profile') {
+      content = (<Profile />)
     }
 
     return (
@@ -215,7 +215,7 @@ class Tabbar extends Component {
             <Image style={{ width: 60, height: 60 }} source={require('../images/picture_button.png')} />
             <Text>카메라</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.managePets} style={{ flex: 1, marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity onPress={this.Profile} style={{ flex: 1, marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
             <Image style={{ width: 60, height: 60 }} source={require('../images/profile_button.png')} />
             <Text>프로필</Text>
           </TouchableOpacity>

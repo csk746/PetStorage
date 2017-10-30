@@ -15,10 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.daou.petstorage.Core.domain.BaseEntity;
 import com.daou.petstorage.Pet.domain.Pet;
+import com.daou.petstorage.Species.domain.Species;
 import com.daou.petstorage.Storage.util.BlobConverter;
 import com.daou.petstorage.Story.domain.Story;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -28,19 +30,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(indexes = {@Index(columnList="fakeName")})
 public class Storage extends BaseEntity{
 	
-	public Storage(){
-		super();
-	}
-	public Storage(Pet pet){
-		super();
-		this.pet = pet ; 
-	}
-
-	@ManyToOne
-	private Pet pet ;
 	
 	@Column
 	private Blob image ; 
@@ -48,14 +41,12 @@ public class Storage extends BaseEntity{
 	@Column
 	private String fakeName; 
 
-	@Column
-	private String species;
-
 	@ManyToOne
-	private Story story ; 
+	private Species species;
 	
-	@Column
-	private boolean isProfile;
+	public String getUrl(){
+		return "/storage/image/" + this.fakeName;
+	}
 	
 	public InputStream getImageStream(){
 		if ( this.image == null ) return null ; 
@@ -86,6 +77,5 @@ public class Storage extends BaseEntity{
 		if ( converter == null || is == null || length < 1 ) return ; 
 		this.image = converter.inputStreamToBlob(is, length);
 	}
-
 	
 }

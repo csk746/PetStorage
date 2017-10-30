@@ -49,10 +49,14 @@ import TakePicture from './containers/TakePicture'
 import Main from './containers/Main'
 import Login from './containers/Login'
 import PetPhotos from './containers/PetPhotos'
-import ManagePets from './containers/ManagePets'
+import Profile from './containers/Profile'
+import FriendPets from './containers/FriendPets'
+import ManageFriends from './containers/ManageFriends'
 import Tabbar from './containers/Tabbar'
 import Subview from './containers/Subview'
 import PetPhotoBrowser from './containers/PetPhotoBrowser'
+import PostingPhoto from './containers/PostingPhoto'
+
 import Reducers from './reducers'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { setPlatform, setVersion } from './reducers/device/deviceActions'
@@ -91,23 +95,22 @@ export default function (platform) {
       />
       <Scene key='Tabbar'
         component={Tabbar}
-        type={ActionConst.RESET}
-
       />
       <Scene key='Main'
         component={Main}
-        type={ActionConst.RESET}
-
       />
-
       <Scene key='PetPhotos'
         component={PetPhotos}
-
       />
-      <Scene key='ManagePets'
-        component={ManagePets}
-        type={ActionConst.RESET}
+      <Scene key='Profile'
+        component={Profile}
+      />
 
+      <Scene key='FriendPets'
+        component={FriendPets}
+      />
+      <Scene key='ManageFriends'
+        component={ManageFriends}
       />
 
       <Scene key='Subview'
@@ -117,10 +120,13 @@ export default function (platform) {
         title={'TakePicture'}
         component={TakePicture} />
 
-
       <Scene key='PetPhotoBrowser'
         title={'PetPhotoBrowser'}
         component={PetPhotoBrowser} />
+
+
+      <Scene key='PostingPhoto'
+        component={PostingPhoto} />
 
     </Scene>
   )

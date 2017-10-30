@@ -1,4 +1,4 @@
-package com.daou.petstorage.PetMap.repository;
+package com.daou.petstorage.Map.repository;
 
 import java.util.List;
 

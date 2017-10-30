@@ -9,6 +9,8 @@ module.exports = {
     //url: 'http://localhost:9000'
     //url: 'http://192.168.55.197:9000'
     url: 'http://172.21.26.48:9000'
+    //url: 'http://ghdoc.com:9000'
+
   },
   dev: {
     // url: 'https://dev.polipankorea.com'

@@ -9,6 +9,9 @@ import * as photoActions from '../reducers/photo/photoActions'
 import * as storyActions from '../reducers/story/storyActions'
 import * as petActions from '../reducers/pet/petActions'
 
+import DialogManager, { ScaleAnimation, DialogContent } from 'react-native-dialog-component';
+
+
 import { Actions } from 'react-native-router-flux'
 import React, { Component } from 'react'
 import {
@@ -20,6 +23,7 @@ import {
   ScrollView,
   ListView,
   RefreshControl,
+  Button,
   Image
 }
   from 'react-native'
@@ -27,8 +31,6 @@ import {
 import NavBar from './common/NavBar'
 import BottomBar from './common/BottomBar'
 
-
-const Button = require('apsl-react-native-button')
 
 var styles = StyleSheet.create({
   container: {
@@ -110,6 +112,10 @@ var styles = StyleSheet.create({
   storyBottomView: {
     alignItems: 'flex-start',
   },
+  commentList: {
+    flex: 1,
+    height: 100,
+  },
   // commentText: {
   //   fontSize: 12,
   // },
@@ -176,14 +182,16 @@ function mapStateToProps(state) {
     auth: {
       form: {
         isFetching: state.auth.form.isFetching
-      }
+      },
+      myInfo: state.auth.myInfo
     },
     global: {
       currentState: state.global.currentState,
       showState: state.global.showState
     },
     pet: {
-      pets: state.pet.pets
+      pets: state.pet.pets,
+      requestPets: state.pet.requestPets
     },
     user: {
       users: state.user.users
@@ -211,20 +219,19 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id })
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
     return {
       // refresh: this.props.story.refresh,
-      initStorys: this.props.story.initStorys,
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
+      selectUser: null,
+      selectPet: null,
+      storyPet: null,
       comment: ''
     }
   },
@@ -233,8 +240,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     if (this.state.refresh) return;
 
+    this.getStoryList(this.state.page + 1);
     this.setState({ page: this.state.page + 1 });
-    this.getStoryList(this.state.page);
   },
 
   componentDidMount() {
@@ -248,8 +255,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return true;
   },
 
-  getStoryList(page) {
-    this.props.actions.getStory(page, 10, 'createdAt', 'desc');
+  getStoryList(page, pet) {
+    let petId = null;
+    if (this.state.storyPet) {
+      petId = this.state.storyPet.id;
+      console.log ( " storyPet: " + this.state.storyPet.name)
+    }
+    else if ( pet){
+      petId = pet.id;
+    }
+
+    this.props.actions.getStory(petId, page, 10, 'createdAt', 'desc');
   },
   gallary() {
     //Actions.PetPhotoBrowser({
@@ -264,35 +280,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     })
 
   },
-  addComment(story, id, comment) {
-    story.comments.push({ userName: '나', content: comment });
-    this.props.actions.addComment(id, comment);
+  addComment(story, comment) {
+    story.comments.push({ userName: this.props.auth.myInfo.name, content: comment });
+    this.props.actions.addComment(story, comment);
   },
-  likeStory(id) {
-    this.props.actions.iLikeStory(id);
-  },
-
-  getPet(id) {
-    let pets = this.props.pet.pets;
-    if (pets != null) {
-      for (let i = 0; i < pets.length; i++) {
-        if (pets[i].id == id) return pets[i];
-      }
-    }
-    this.props.actions.getAnotherPetInfo(id);
-    return null;
+  likeStory(story) {
+    story.ilike = !story.ilike;
+    this.props.actions.iLikeStory(story.id);
   },
 
-  _onRefresh() {
+  _onRefresh(pet) {
     this.state.storys.splice(0, this.state.storys.length)
 
     this.setState({ refresh: true });
     this.setState({ page: 0 });
-    this.getStoryList(0);
+    this.getStoryList(0, pet);
   },
 
   renderComment(comment) {
-    if (comment == null) return null;
+    if (!comment) return null;
     return (
       <View style={styles.row}>
         <Text style={styles.commentUser} >{comment.userName} : </Text>
@@ -304,7 +310,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   renderStoryItem(story) {
 
-    if (story == null) return null;
+    console.log(" story : " + story)
+    if (!story) return null;
 
     if (!story.comments) {
       story.comments = [];
@@ -313,13 +320,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     var commentSource = ds.cloneWithRows(story.comments);
 
-    let pet = null;
+    let pet = story.pet;
     let comment = '';
-    if (story.petId != null) {
-      pet = this.getPet(story.petId);
-    }
-
-    if (pet == null) return null;
+    console.log(" ilike : " + story.ilike)
+    console.log(" storyUrl :  " + story.urlList[0])
 
     return (
       <View style={styles.container}>
@@ -327,11 +331,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
           <View style={styles.storyHeaderView}>
             <View style={styles.row}>
-              <Image style={{
-                width: 40,
-                height: 40,
-                borderRadius: this.props.platform === 'ios' ? 20 : 25,
-              }} source={{ uri: pet.profileUrl }} ></Image>
+              <TouchableOpacity onPress={() => this.selectUser(pet)} >
+                <Image style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: this.props.platform === 'ios' ? 20 : 25,
+                }} source={{ uri: pet.profileUrl }} ></Image>
+              </TouchableOpacity>
               <View style={styles.wPadding} />
               <View >
                 <Text style={styles.petName} >{pet.name}</Text>
@@ -345,12 +351,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
         <View style={styles.hPadding} />
 
         <View style={styles.storyImage}>
-          <Image style={styles.image} source={{ uri: story.photoList[0] }} ></Image>
+          <Image style={styles.image} source={{ uri: story.urlList[0] }} ></Image>
 
           <View style={styles.hPadding} />
+          <Text style={styles.petIntroduce} >{story.text} </Text>
           <View style={styles.hPadding} />
 
-          <ListView
+          <ListView style={styles.commentList}
             enableEmptySections={true}
             dataSource={commentSource}
             renderRow={this.renderComment}
@@ -360,8 +367,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
             <View style={styles.row}>
 
-              <TouchableOpacity onPress={() => this.likeStory(story.id)} >
-                <Image style={styles.icon} source={require('../images/like_button.png')} />
+              <TouchableOpacity onPress={() => this.likeStory(story)} >
+                <Image style={styles.icon} source={story.ilike ? require('../images/heart_fill.png') : require('../images/heart_notfill.png')} />
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{
@@ -373,7 +380,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
                   onChangeText={(text) => comment = text}
                   placeholder="" />
               </View>
-              <TouchableOpacity onPress={() => this.addComment(story, story.id, comment)} >
+              <TouchableOpacity onPress={() => this.addComment(story, comment)} >
                 <Image style={styles.icon} source={require('../images/chat_send_button.png')} />
               </TouchableOpacity>
             </View>
@@ -384,33 +391,96 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     );
   },
 
+  selectUser(pet) {
+    this.setState({ selectPet: pet });
+    this.setState({ user: pet.user });
+    //this.popupDialog.show();
+
+    DialogManager.show({
+      height: 280,
+      width: 200,
+      ScaleAnimation: new ScaleAnimation(),
+      children: (
+        <DialogContent>
+          <View style={{
+            alignItems: 'center',
+            marginBottom: 15
+          }}>
+            <Image style={{
+              width: 120,
+              height: 120,
+              alignItems: 'center',
+              borderRadius: this.props.platform === 'ios' ? 20 : 25,
+            }} source={{ uri: pet.profileUrl }} ></Image>
+            <Text style={styles.petName}> {pet.name}</Text>
+          </View>
+          <Button
+            onPress={()=>this.goToUserStory(pet)}
+            title="강아지 스토리"
+            color="darkviolet"
+          />
+          <Button
+            onPress={this.goToUserPets}
+            title="사용자의 펫 목록"
+            color="dodgerblue"
+          />
+        </DialogContent>
+      ),
+    }, () => {
+      console.log('callback - show');
+    });
+  },
+  goToUserStory() {
+
+    this.setState({ storyPet: this.state.selectPet })
+    this._onRefresh(this.state.selectPet)
+
+    DialogManager.dismissAll(() => {
+      console.log('callback - dismiss all');
+    });
+  },
+  goToUserPets() {
+    Actions.FriendPets({
+      user_id: this.state.user.id
+    })
+
+    DialogManager.dismissAll(() => {
+      console.log('callback - dismiss all');
+    });
+  },
+
 
   render() {
+    console.log(this.props.auth.myInfo)
+    console.log(" myInfo name : " + this.props.auth.myInfo.id)
 
     var data = ds.cloneWithRows(this.state.storys);
     return (
       // <View style={styles.Bottom}>
 
-      <ListView
-        enableEmptySections={true}
-        dataSource={data}
-        renderRow={this.renderStoryItem}
-        refreshControl={
-          <RefreshControl
-            tintColor="transparent"
-            colors={['transparent']}
-            style={{ backgroundColor: 'transparent' }}
-            refreshing={this.state.refresh}
-            onRefresh={this._onRefresh}
-          >
-          </RefreshControl>
-        }
-        onEndReached={() => {
-          this.getNextStorys();
-        }}
-      >
+      <View style={styles.container}>
+        <ListView
+          enableEmptySections={true}
+          dataSource={data}
+          renderRow={this.renderStoryItem}
+          refreshControl={
+            <RefreshControl
+              tintColor="transparent"
+              colors={['transparent']}
+              style={{ backgroundColor: 'transparent' }}
+              refreshing={this.state.refresh}
+              onRefresh={()=>this._onRefresh()}
+            >
+            </RefreshControl>
+          }
+          onEndReached={() => {
+            this.getNextStorys();
+          }}
+        >
 
-      </ListView>
+        </ListView>
+
+      </View>
 
     );
   }
