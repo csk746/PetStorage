@@ -45,6 +45,10 @@ public class StorageController {
 		return this.storageService.saveImageFile(file, petId);
 		
 	}
+	@RequestMapping(value="/local/upload", method=RequestMethod.GET) 
+	public void getImageList(  HttpServletResponse res){
+		this.storageService.uploadPetPhoto();
+	}
 	
 	@RequestMapping(value="/list/{petId}", method=RequestMethod.GET) 
 	public @ResponseBody StorageListModel getImageList( @PathVariable long petId, Pageable pageRequest, HttpServletResponse res){

@@ -114,7 +114,7 @@ var styles = StyleSheet.create({
   },
   commentList: {
     flex: 1,
-    height: 100,
+    height: 50,
   },
   // commentText: {
   //   fontSize: 12,
@@ -144,6 +144,9 @@ var styles = StyleSheet.create({
     marginLeft: 30
   },
 
+  likeText: {
+    fontSize: 10,
+  },
   petIntroduce: {
     fontSize: 15,
   },
@@ -225,7 +228,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
   getInitialState() {
     return {
-      // refresh: this.props.story.refresh,
       storys: this.props.story.storys,
       refresh: this.props.story.refresh,
       page: this.props.story.page,
@@ -249,7 +251,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   },
 
   componentWillMount() {
-    this.getStoryList(this.state.page);
+    this._onRefresh();
   },
   shouldComponentUpdate(nextProps, nextState) {
     return true;
@@ -285,7 +287,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     this.props.actions.addComment(story, comment);
   },
   likeStory(story) {
+    if ( story.ilike){
+      story.likeCount--;
+    }
+    else{
+      story.likeCount++;
+    }
     story.ilike = !story.ilike;
+
     this.props.actions.iLikeStory(story.id);
   },
 
@@ -369,6 +378,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
               <TouchableOpacity onPress={() => this.likeStory(story)} >
                 <Image style={styles.icon} source={story.ilike ? require('../images/heart_fill.png') : require('../images/heart_notfill.png')} />
+                <Text style={styles.likeText} >{story.likeCount} like </Text>
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{

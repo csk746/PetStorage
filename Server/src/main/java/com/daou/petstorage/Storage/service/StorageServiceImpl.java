@@ -10,10 +10,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.daou.petstorage.Storage.model.StorageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +30,7 @@ import com.daou.petstorage.Species.domain.Species;
 import com.daou.petstorage.Species.repository.SpeciesRepository;
 import com.daou.petstorage.Storage.domain.Storage;
 import com.daou.petstorage.Storage.model.StorageListModel;
+import com.daou.petstorage.Storage.model.StorageModel;
 import com.daou.petstorage.Storage.repository.StorageRepository;
 import com.daou.petstorage.Storage.util.BlobConverter;
 
@@ -39,6 +40,9 @@ import com.daou.petstorage.Storage.util.BlobConverter;
 @Service
 public class StorageServiceImpl implements StorageService{
 
+	@Value("${storage.file.upload.dir}") String photoPath;  
+	@Value("${storage.file.upload.flag}") boolean uploadFlag;  
+	
 	private static final Logger log = LoggerFactory.getLogger(StorageServiceImpl.class);
 	
 	@Autowired
@@ -58,12 +62,52 @@ public class StorageServiceImpl implements StorageService{
 	
 	@Autowired
 	private SpeciesRepository speciesRepository ; 
+	
 
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Autowired
 	private PetStorageMapRepository petStorageMapRepository ; 
+	
+	private void saveImage(File dir, File file){
+		if ( file.isDirectory()){
+			return ;
+		}
+		
+		log.info("image file name : " + file.getName() + " dir name :  " + dir.getName());
+		Storage storage = new Storage();
+		storage.setImage(this.blobConverter.fileToBlob(file));
+		storage.setSpecies(speciesRepository.findByName(dir.getName()));
+
+		Pet pet = this.petService.getPet(1L);
+		storage = this.save(pet,  storage);
+		this.petStorageMapRepository.save(new PetStorageMap(storage, pet) );
+		
+	}
+	
+	private void uploadFolder(File dir){
+		log.info("folder name : " + dir.getName());
+		File[] files = dir.listFiles();
+		
+		for ( File f: files){
+			this.saveImage(dir, f);
+		}
+		
+	}
+	public void uploadPetPhoto(){
+		File file = new File(this.photoPath);
+		
+		if ( file.exists()){
+			if ( file.isDirectory()){
+				File[] folder= file.listFiles();
+				for ( File f : folder){
+					this.uploadFolder(f);
+				}
+			}
+		}
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.daou.petstorage.Storage.service.StorageService#saveImageFile(org.springframework.web.multipart.MultipartFile, java.lang.Long)
@@ -125,9 +169,9 @@ public class StorageServiceImpl implements StorageService{
 	public Storage save(Pet pet,Storage storage) {
 		// TODO Auto-generated method stub
 		assertNotNull(pet);
-		assertNotNull(securityContext.getUser());
+		//assertNotNull(securityContext.getUser());
 		
-		String fakePlanText = pet.getId() + ":" + securityContext.getUser().getLoginId() + System.currentTimeMillis();
+		String fakePlanText = pet.getId() + ":" + System.currentTimeMillis();
 		String fakeName = this.encoder.encodePassword(fakePlanText, null);
 		storage.setFakeName(fakeName);
 		

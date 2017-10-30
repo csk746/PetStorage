@@ -113,7 +113,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return {
       // refresh: this.props.story.refresh,
       petList: [],
-      selectUrl: ''
+      selectUrl: '',
+      selectPet:{}
     }
   },
 
@@ -131,6 +132,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
     return (
       <TouchableOpacity onPress={() => {
         this.setState({ selectUrl: model.url });
+        this.setState({ selectPet: model});
         if (model.pet) {
           this.popupDialog.show()
         } else {
@@ -152,12 +154,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       this.popupDialog.dismiss();
 
   },
-  postingPhoto(opt) {
+  postingPhoto() {
     console.log("selectUrl : " + this.state.selectUrl)
     console.log("petId : " + this.props.pet_id)
 
     Actions.PostingPhoto({
       pet_id: this.props.pet_id,
+      pet_obj: this.state.selectPet,
       url: this.state.selectUrl
     })
 

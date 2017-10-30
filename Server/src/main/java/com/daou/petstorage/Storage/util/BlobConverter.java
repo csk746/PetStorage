@@ -54,7 +54,7 @@ public class BlobConverter {
 		InputStream is;
 		try {
 			is = new FileInputStream(f);
-		return Hibernate.getLobCreator(this.getSession()).createBlob(is, f.length());
+			return this.inputStreamToBlob(is, f.length());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

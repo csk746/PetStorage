@@ -223,12 +223,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
   getInitialState() {
     return {
       title:'',
-      content:''
+      content:'',
+      pet : this.props.pet_obj
     }
   },
 
   componentWillMount() {
-    console.log ( " start ")
+    console.log(" start ")
+    BackendFactory().getPetFromId(this.props.pet_id).then((res) => {
+      let tmpPet = res;
+      if (tmpPet.profile) {
+        tmpPet.profileUrl = getHost() + tmpPet.profile.url;
+      }
+      this.setState({ pet: tmpPet})
+    })
+
   },
 
   posting(content){
@@ -259,14 +268,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
     let content = ''
 
-    let pet = this.getPet(this.props.pet_id);
     let url = getHost() + this.props.url;
     console.log ( " url : "+ url)
 
-    if ( !pet) return null
+    let pet = this.state.pet;
 
-    console.log (" rendering start")
+    console.log ( " pet: "+ pet)
+   
     console.log (pet)
+
+
     return (
       <View style={styles.container}>
 
