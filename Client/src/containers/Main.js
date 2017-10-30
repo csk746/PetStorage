@@ -144,6 +144,9 @@ var styles = StyleSheet.create({
     marginLeft: 30
   },
 
+  likeText: {
+    fontSize: 10,
+  },
   petIntroduce: {
     fontSize: 15,
   },
@@ -368,6 +371,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
               <TouchableOpacity onPress={() => this.likeStory(story)} >
                 <Image style={styles.icon} source={story.ilike ? require('../images/heart_fill.png') : require('../images/heart_notfill.png')} />
+                <Text style={styles.likeText} >{story.likeCount} like </Text>
               </TouchableOpacity>
               <View style={{ width: 250 }}>
                 <TextInput style={{
