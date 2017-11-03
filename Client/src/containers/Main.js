@@ -291,7 +291,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
       story.likeCount--;
     }
     else{
-      story.likeCount++;
+      story.likeCount ++
     }
     story.ilike = !story.ilike;
 

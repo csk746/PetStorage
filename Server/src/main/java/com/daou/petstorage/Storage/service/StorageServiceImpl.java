@@ -88,10 +88,16 @@ public class StorageServiceImpl implements StorageService{
 	
 	private void uploadFolder(File dir){
 		log.info("folder name : " + dir.getName());
-		File[] files = dir.listFiles();
 		
-		for ( File f: files){
-			this.saveImage(dir, f);
+		if ( dir.isFile()){
+			this.saveImage(dir.getParentFile(), dir);
+		}
+		else{
+			File[] files = dir.listFiles();
+
+			for ( File f: files){
+				this.saveImage(dir, f);
+			}
 		}
 		
 	}
